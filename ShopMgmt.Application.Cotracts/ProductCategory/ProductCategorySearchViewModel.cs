@@ -1,4 +1,4 @@
-﻿namespace ShopMgmt.Application.Cotracts.ProductCategory;
+﻿namespace ShopMgmt.Application.Contracts.ProductCategory;
 
 public class ProductCategorySearchViewModel
 {

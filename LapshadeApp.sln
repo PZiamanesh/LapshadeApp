@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ShopManagement", "ShopManag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopMgmt.Domain", "ShopMgmt.Domain\ShopMgmt.Domain.csproj", "{68A2BE7D-F7FF-4A69-B33E-7F4AA3ADBB14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopMgmt.Application.Cotracts", "ShopMgmt.Application.Cotracts\ShopMgmt.Application.Cotracts.csproj", "{58DFB74F-64F4-46AB-9D9F-327BF007DE16}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopMgmt.Application.Contracts", "ShopMgmt.Application.Cotracts\ShopMgmt.Application.Contracts.csproj", "{58DFB74F-64F4-46AB-9D9F-327BF007DE16}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopMgmt.Application", "ShopMgmt.Application\ShopMgmt.Application.csproj", "{5F276634-697F-453C-9C89-0F631DB2F431}"
 EndProject
