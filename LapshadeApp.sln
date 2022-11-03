@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopMgmt.Application.Cotrac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopMgmt.Application", "ShopMgmt.Application\ShopMgmt.Application.csproj", "{5F276634-697F-453C-9C89-0F631DB2F431}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_Framework", "_Framework\_Framework.csproj", "{B91AF56B-42B6-4C96-AC4A-C402CD9A5EE2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{5F276634-697F-453C-9C89-0F631DB2F431}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F276634-697F-453C-9C89-0F631DB2F431}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F276634-697F-453C-9C89-0F631DB2F431}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B91AF56B-42B6-4C96-AC4A-C402CD9A5EE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B91AF56B-42B6-4C96-AC4A-C402CD9A5EE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B91AF56B-42B6-4C96-AC4A-C402CD9A5EE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B91AF56B-42B6-4C96-AC4A-C402CD9A5EE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
