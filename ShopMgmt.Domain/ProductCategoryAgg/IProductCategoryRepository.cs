@@ -1,19 +1,10 @@
 ﻿using ShopMgmt.Application.Contracts.ProductCategory;
 using System.Linq.Expressions;
+using _Framework.Domain;
 
 namespace ShopMgmt.Domain.ProductCategoryAgg;
 
-public interface IProductCategoryRepository
+public interface IProductCategoryRepository : IRepository<long, ProductCategory>
 {
-    void Create(ProductCategory category);
-
-    ProductCategory? Get(long id);
-
-    IEnumerable<ProductCategory> GetAll();
-
-    bool Exists(Expression<Func<ProductCategory, bool>> expression);
-
-    IEnumerable<ProductCategoryViewModel> Search(ProductCategorySearchViewModel model);
-
-    void Save();
+    IEnumerable<ProductCategoryViewModel>? Search(ProductCategorySearchViewModel model);
 }

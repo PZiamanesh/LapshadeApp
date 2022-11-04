@@ -1,8 +1,8 @@
 ﻿namespace _Framework.Domain;
 
-public class EntityBase
+public class EntityBase<TKey>
 {
-    public long Id { get; private set; }
+    public TKey Id { get; private set; }
     public DateTime CreationDate { get; private set; }
 
     public EntityBase()
