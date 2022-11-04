@@ -1,12 +1,12 @@
 ﻿using _Framework.Application;
 
-namespace ShopMgmt.Application.Contracts.ProductCategory;
+namespace ShopMgmt.Application.Contract.ProductCategory;
 
 public interface IProductCategoryApplication
 {
     OperationResult Create(CreateProductCategory command);
 
-    IEnumerable<ProductCategoryViewModel> Search(ProductCategorySearchViewModel model);
+    IEnumerable<ProductCategoryViewModel>? Search(ProductCategorySearchViewModel model);
 
     OperationResult Edit(EditProductCategory command);
 

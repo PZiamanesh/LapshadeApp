@@ -1,6 +1,5 @@
-﻿using ShopMgmt.Application.Contracts.ProductCategory;
-using System.Linq.Expressions;
-using _Framework.Domain;
+﻿using _Framework.Domain;
+using ShopMgmt.Application.Contract.ProductCategory;
 
 namespace ShopMgmt.Domain.ProductCategoryAgg;
 

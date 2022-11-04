@@ -1,5 +1,5 @@
 ﻿using _Framework.Application;
-using ShopMgmt.Application.Contracts.ProductCategory;
+using ShopMgmt.Application.Contract.ProductCategory;
 using ShopMgmt.Domain.ProductCategoryAgg;
 
 namespace ShopMgmt.Application;
@@ -84,7 +84,7 @@ public class ProductCategoryApplication : IProductCategoryApplication
         };
     }
 
-    public IEnumerable<ProductCategoryViewModel> Search(ProductCategorySearchViewModel model)
+    public IEnumerable<ProductCategoryViewModel>? Search(ProductCategorySearchViewModel model)
     {
         return _productCategoryRepository.Search(model);
     }
