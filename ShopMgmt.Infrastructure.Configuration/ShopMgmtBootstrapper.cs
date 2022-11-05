@@ -15,7 +15,7 @@ public class ShopMgmtBootstrapper
         service.AddScoped<IProductCategoryApplication, ProductCategoryApplication>();
         service.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
 
-        service.AddDbContext<LapShadeDbContext>(opt =>
+        service.AddDbContext<LampShadeDbContext>(opt =>
         {
             opt.UseSqlServer(connectionString);
         });
