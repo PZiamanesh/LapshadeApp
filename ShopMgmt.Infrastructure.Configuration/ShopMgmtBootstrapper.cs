@@ -8,7 +8,7 @@ using ShopMgmt.Infrastructure.EFCore.Repository;
 
 namespace ShopMgmt.Infrastructure.Configuration;
 
-public class ProductCategoryBootstrapper
+public class ShopMgmtBootstrapper
 {
     public static void ConfigureService(IServiceCollection service, string connectionString)
     {

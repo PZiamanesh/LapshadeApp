@@ -1,6 +1,5 @@
-﻿using System.Linq.Expressions;
-using _Framework.Infrastructure;
-using ShopMgmt.Application.Contracts.ProductCategory;
+﻿using _Framework.Infrastructure;
+using ShopMgmt.Application.Contract.ProductCategory;
 using ShopMgmt.Domain.ProductCategoryAgg;
 
 namespace ShopMgmt.Infrastructure.EFCore.Repository;
