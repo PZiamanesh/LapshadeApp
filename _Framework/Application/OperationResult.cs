@@ -2,12 +2,12 @@
 
 public class OperationResult
 {
-    public bool IsSucceded { get; set; }
+    public bool IsSucceeded { get; set; }
     public string? Message { get; set; }
 
     public OperationResult Success(string message = "عملیات با موفقیت انجام شد.")
     {
-        IsSucceded = true;
+        IsSucceeded = true;
         Message = message;
         return this;
     }
@@ -15,7 +15,7 @@ public class OperationResult
     public OperationResult Failed(
         string message = "متاسفانه مشکلی در پروسه انجام عملیات رخ داد. لطفا مجدداً تلاش فرمایید.")
     {
-        IsSucceded = false;
+        IsSucceeded = false;
         Message = message;
         return this;
     }

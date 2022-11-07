@@ -16,8 +16,7 @@ public class ProductCategoryRepository : BaseRepository<long, ProductCategory>, 
 
     public IEnumerable<ProductCategoryViewModel>? Search(ProductCategorySearchViewModel model)
     {
-        var query =
-            _dbContext.ProductCategories?
+        var query = (_dbContext.ProductCategories ?? throw new InvalidOperationException("ProductCategories is null at source."))
                 .Select(x => new ProductCategoryViewModel()
                 {
                     Id = x.Id,
@@ -29,11 +28,11 @@ public class ProductCategoryRepository : BaseRepository<long, ProductCategory>, 
 
         if (!string.IsNullOrWhiteSpace(model.Name))
         {
-            query = query?.Where(x => x.Name!
+            query = query.Where(x => x.Name!
                 .Contains(model.Name));
             return query;
         }
 
-        return query?.OrderByDescending(x=>x.Id).ToList();
+        return query.OrderByDescending(x=>x.Id).ToList();
     }
 }

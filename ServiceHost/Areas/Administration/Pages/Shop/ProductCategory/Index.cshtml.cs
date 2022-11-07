@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ShopMgmt.Application.Contract.ProductCategory;
 
 namespace ServiceHost.Areas.Administration.Pages.Shop.ProductCategory;
@@ -17,5 +19,20 @@ public class IndexModel : PageModel
     public void OnGet(ProductCategorySearchViewModel searchModel)
     {
         ProductCategories = _productCategoryApplication.Search(searchModel);
+    }
+
+    public IActionResult OnGetCreate()
+    {
+        return Partial("./Create", new CreateProductCategory());
+    }
+
+    public JsonResult OnPostCreate(CreateProductCategory command)
+    {
+        var result = _productCategoryApplication.Create(command);
+        if (result.IsSucceeded)
+        {
+            TempData["ProductCategorySubmission"] = result.Message;
+        }
+        return new JsonResult(result);
     }
 }
