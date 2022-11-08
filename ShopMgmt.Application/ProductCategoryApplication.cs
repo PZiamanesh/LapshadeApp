@@ -64,7 +64,7 @@ public class ProductCategoryApplication : IProductCategoryApplication
             slug);
 
         _productCategoryRepository.Save();
-        return operationResult.Success();
+        return operationResult.Success("عملیات ویرایش با موفقیت انجام شد.");
     }
 
     public EditProductCategory GetDetails(long id)

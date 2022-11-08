@@ -139,11 +139,6 @@
                                     <i class="md md-crop-free"></i>
                                 </a>
                             </li>
-                            <li class="hidden-xs">
-                                <a href="#" class="right-bar-toggle waves-effect waves-light">
-                                    <i class="md md-chat"></i>
-                                </a>
-                            </li>
                             <li class="dropdown">
                                 <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true">
                                     <img src="~/AdminTheme/assets/images/avatar-1.jpg" alt="user-img" class="img-circle">
@@ -679,14 +674,14 @@
         <div class="modal-dialog">
             <div class="modal-content" id="ModalContent">
 
-                @*form partial views, logic will be handled by site.js*@
+                @*form views are loaded here. logic is handled by site.js*@
 
             </div>
         </div>
     </div>
-
+    
     <!-- jQuery  -->
-    <script src="~/AdminTheme/assets/js/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/AdminTheme/assets/js/bootstrap.min.js"></script>
     <script src="~/AdminTheme/assets/js/waves.js"></script>
     <script src="~/AdminTheme/assets/js/wow.min.js"></script>
@@ -698,10 +693,6 @@
     <script src="~/AdminTheme/assets/fastclick/fastclick.js"></script>
     <script src="~/AdminTheme/assets/jquery-slimscroll/jquery.slimscroll.js"></script>
     <script src="~/AdminTheme/assets/jquery-blockui/jquery.blockUI.js"></script>
-
-    <partial name="_ValidationScriptsPartial" />
-    @await RenderSectionAsync("Scripts", false)
-    <script src="~/AdminTheme/assets/js/site.js"></script>
 
     <!-- sweet alerts -->
     <script src="~/AdminTheme/assets/sweet-alert/sweet-alert.min.js"></script>
@@ -734,17 +725,10 @@
     <script src="~/AdminTheme/assets/js/jquery.todo.js"></script>
 
 
-    <!-- <script type="text/javascript"> -->
-    <!-- /* ============================================== -->
-    <!-- Counter Up -->
-    <!-- =============================================== */ -->
-    <!-- jQuery(document).ready(function($) { -->
-    <!-- $('.counter').counterUp({ -->
-    <!-- delay: 100, -->
-    <!-- time: 1200 -->
-    <!-- }); -->
-    <!-- }); -->
-    <!-- </script> -->
+
+    <partial name="_ValidationScriptsPartial"></partial>
+    @await RenderSectionAsync("Scripts", false)
+    <script src="~/AdminTheme/assets/js/site.js"></script>
 
 </body>
 </html>

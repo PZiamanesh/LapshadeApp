@@ -35,4 +35,20 @@ public class IndexModel : PageModel
         }
         return new JsonResult(result);
     }
+
+    public IActionResult OnGetEdit(long id)
+    {
+        var productCategory = _productCategoryApplication.GetDetails(id);
+        return Partial("./Edit", productCategory);
+    }
+
+    public IActionResult OnPostEdit(EditProductCategory command)
+    {
+        var result = _productCategoryApplication.Edit(command);
+        if (result.IsSucceeded)
+        {
+            TempData["ProductCategoryEdition"] = result.Message;
+        }
+        return new JsonResult(result);
+    }
 }

@@ -18,12 +18,11 @@ SinglePage.LoadModal = function () {
         "dataType": "html"
     })
         .done(function (htmlPage, statusText) {
-            console.log(`loading productCategoryForm: ${htmlPage}`)
-            $("#ModalContent").html(htmlPage);
+            const modal = $("#ModalContent").html(htmlPage);
             //const container = document.getElementById("ModalContent");
             //const forms = container.getElementsByTagName("form");
             //const newForm = forms[forms.length - 1];
-            //$.validator.unobtrusive.parse(newForm);
+            $.validator.unobtrusive.parse(modal);
             showModal();
         })
 
@@ -54,14 +53,14 @@ $(document).ready(function () {
             });
         });
 
-    $(document).on("submit",
+    $("#MainModal").on("submit",
         'form[data-ajax="true"]',
         function (e) {
             e.preventDefault();
-            let form = $(this);
+            const form = $(this);
             const method = form.attr("method").toLocaleLowerCase();
             const url = form.attr("action");
-            let action = form.attr("data-action");
+            const action = form.attr("data-action");
             const data = form.serializeArray();
 
             if (method === "get") {
@@ -171,9 +170,9 @@ function checkSlugDuplication(url, dist) {
     });
 }
 
-function fillField(source, dest) {
+function fillField(source, dist) {
     const value = $('#' + source).val();
-    $('#' + dest).val(value);
+    $('#' + dist).val(value);
 }
 
 $(document).on("click",
