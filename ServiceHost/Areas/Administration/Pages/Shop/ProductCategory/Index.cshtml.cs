@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ShopMgmt.Application.Contract.ProductCategory;
 
 namespace ServiceHost.Areas.Administration.Pages.Shop.ProductCategory;

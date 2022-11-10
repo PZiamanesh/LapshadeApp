@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using _Framework.Application;
 using _Framework.Infrastructure;
 using ShopMgmt.Application.Contract.ProductCategory;
 using ShopMgmt.Domain.ProductCategoryAgg;
@@ -14,9 +15,26 @@ public class ProductCategoryRepository : BaseRepository<long, ProductCategory>, 
         _dbContext = dbContext;
     }
 
+    public EditProductCategory GetDetails(long id)
+    {
+        var productCategory = _dbContext.ProductCategories?.FirstOrDefault(x=>x.Id == id);
+        return new EditProductCategory()
+        {
+            Description = productCategory!.Description,
+            Id = productCategory.Id,
+            Keywords = productCategory.Keywords,
+            MetaDescription = productCategory.MetaDescription,
+            Picture = productCategory.Picture,
+            PictureAlt = productCategory.PictureAlt,
+            PictureTitle = productCategory.PictureTitle,
+            Name = productCategory.Name,
+            Slug = productCategory.Slug
+        };
+    }
+
     public IEnumerable<ProductCategoryViewModel>? Search(ProductCategorySearchViewModel model)
     {
-        var query = (_dbContext.ProductCategories ?? throw new InvalidOperationException("ProductCategories is null at source."))
+        var query = (_dbContext.ProductCategories ?? throw new InvalidOperationException(ApplicationMessage.RecordNotFound))
                 .Select(x => new ProductCategoryViewModel()
                 {
                     Id = x.Id,

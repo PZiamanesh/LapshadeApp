@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace _Framework.Infrastructure;
 
-public class BaseRepository<TKey, TEntity> : IRepository<TKey, TEntity> where TEntity : EntityBase<TKey>
+public class BaseRepository<TKey, TEntity> : IRepository<TKey, TEntity> where TEntity : BaseEntity<TKey>
 {
     private readonly DbContext _context;
     private readonly DbSet<TEntity> _entities;
@@ -18,7 +18,6 @@ public class BaseRepository<TKey, TEntity> : IRepository<TKey, TEntity> where TE
     public void Create(TEntity item)
     {
         _entities.Add(item);
-        Save();
     }
 
     public TEntity? Get(TKey id)
@@ -34,10 +33,5 @@ public class BaseRepository<TKey, TEntity> : IRepository<TKey, TEntity> where TE
     public bool Exists(Expression<Func<TEntity, bool>> expression)
     {
         return _entities.Any(expression);
-    }
-
-    public void Save()
-    {
-        _context.SaveChanges();
     }
 }

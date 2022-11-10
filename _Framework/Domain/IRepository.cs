@@ -2,7 +2,7 @@
 
 namespace _Framework.Domain;
 
-public interface IRepository<in TKey, TEntity> where TEntity : EntityBase<TKey>
+public interface IRepository<in TKey, TEntity> where TEntity : BaseEntity<TKey>
 {
     void Create(TEntity item);
 
@@ -11,6 +11,4 @@ public interface IRepository<in TKey, TEntity> where TEntity : EntityBase<TKey>
     IEnumerable<TEntity> Get();
 
     bool Exists(Expression<Func<TEntity, bool>> expression);
-
-    void Save();
 }

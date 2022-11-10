@@ -8,72 +8,159 @@ using ShopMgmt.Infrastructure.EFCore;
 
 #nullable disable
 
-namespace ShopMgmt.Infrastructure.EFCore.Migrations
+namespace ShopMgmt.Infrastructure.EFCore.Migrations;
+
+[DbContext(typeof(LampShadeDbContext))]
+partial class LampShadeDbContextModelSnapshot : ModelSnapshot
 {
-    [DbContext(typeof(LampShadeDbContext))]
-    partial class LampShadeDbContextModelSnapshot : ModelSnapshot
+    protected override void BuildModel(ModelBuilder modelBuilder)
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
-        {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.10")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+        modelBuilder
+            .HasAnnotation("ProductVersion", "6.0.10")
+            .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+        SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("ShopMgmt.Domain.ProductCategoryAgg.ProductCategory", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+        modelBuilder.Entity("ShopMgmt.Domain.ProductAgg.Product", b =>
+            {
+                b.Property<long>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2");
+                b.Property<long>("CategoryId")
+                    .HasColumnType("bigint");
 
-                    b.Property<string>("Description")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                b.Property<string>("Code")
+                    .IsRequired()
+                    .HasMaxLength(15)
+                    .HasColumnType("nvarchar(15)");
 
-                    b.Property<string>("Keywords")
-                        .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("nvarchar(80)");
+                b.Property<DateTime>("CreationDate")
+                    .HasColumnType("datetime2");
 
-                    b.Property<string>("MetaDescription")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                b.Property<string>("Description")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                b.Property<bool>("InStock")
+                    .HasColumnType("bit");
 
-                    b.Property<string>("Picture")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                b.Property<string>("Keywords")
+                    .IsRequired()
+                    .HasMaxLength(80)
+                    .HasColumnType("nvarchar(80)");
 
-                    b.Property<string>("PictureAlt")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                b.Property<string>("MetaDescription")
+                    .IsRequired()
+                    .HasMaxLength(150)
+                    .HasColumnType("nvarchar(150)");
 
-                    b.Property<string>("PictureTitle")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .HasColumnType("nvarchar(255)");
 
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                b.Property<string>("Picture")
+                    .HasMaxLength(1000)
+                    .HasColumnType("nvarchar(1000)");
 
-                    b.HasKey("Id");
+                b.Property<string>("PictureAlt")
+                    .HasMaxLength(255)
+                    .HasColumnType("nvarchar(255)");
 
-                    b.ToTable("ProductCategories", (string)null);
-                });
+                b.Property<string>("PictureTitle")
+                    .HasMaxLength(500)
+                    .HasColumnType("nvarchar(500)");
+
+                b.Property<string>("ShortDescription")
+                    .IsRequired()
+                    .HasMaxLength(500)
+                    .HasColumnType("nvarchar(500)");
+
+                b.Property<string>("Slug")
+                    .IsRequired()
+                    .HasMaxLength(500)
+                    .HasColumnType("nvarchar(500)");
+
+                b.Property<double>("UnitPrice")
+                    .HasColumnType("float");
+
+                b.HasKey("Id");
+
+                b.HasIndex("CategoryId");
+
+                b.ToTable("Products", (string)null);
+            });
+
+        modelBuilder.Entity("ShopMgmt.Domain.ProductCategoryAgg.ProductCategory", b =>
+            {
+                b.Property<long>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("bigint");
+
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                b.Property<DateTime>("CreationDate")
+                    .HasColumnType("datetime2");
+
+                b.Property<string>("Description")
+                    .HasMaxLength(500)
+                    .HasColumnType("nvarchar(500)");
+
+                b.Property<string>("Keywords")
+                    .IsRequired()
+                    .HasMaxLength(80)
+                    .HasColumnType("nvarchar(80)");
+
+                b.Property<string>("MetaDescription")
+                    .IsRequired()
+                    .HasMaxLength(150)
+                    .HasColumnType("nvarchar(150)");
+
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .HasColumnType("nvarchar(255)");
+
+                b.Property<string>("Picture")
+                    .HasMaxLength(1000)
+                    .HasColumnType("nvarchar(1000)");
+
+                b.Property<string>("PictureAlt")
+                    .HasMaxLength(255)
+                    .HasColumnType("nvarchar(255)");
+
+                b.Property<string>("PictureTitle")
+                    .HasMaxLength(500)
+                    .HasColumnType("nvarchar(500)");
+
+                b.Property<string>("Slug")
+                    .IsRequired()
+                    .HasMaxLength(300)
+                    .HasColumnType("nvarchar(300)");
+
+                b.HasKey("Id");
+
+                b.ToTable("ProductCategories", (string)null);
+            });
+
+        modelBuilder.Entity("ShopMgmt.Domain.ProductAgg.Product", b =>
+            {
+                b.HasOne("ShopMgmt.Domain.ProductCategoryAgg.ProductCategory", "Category")
+                    .WithMany("Products")
+                    .HasForeignKey("CategoryId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.Navigation("Category");
+            });
+
+        modelBuilder.Entity("ShopMgmt.Domain.ProductCategoryAgg.ProductCategory", b =>
+            {
+                b.Navigation("Products");
+            });
 #pragma warning restore 612, 618
-        }
     }
 }

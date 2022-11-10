@@ -7,22 +7,27 @@ namespace ShopMgmt.Application;
 public class ProductCategoryApplication : IProductCategoryApplication
 {
     private readonly IProductCategoryRepository _productCategoryRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public ProductCategoryApplication(IProductCategoryRepository productCategoryRepository)
+    public ProductCategoryApplication(IProductCategoryRepository productCategoryRepository, 
+        IUnitOfWork unitOfWork)
     {
         _productCategoryRepository = productCategoryRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public OperationResult Create(CreateProductCategory command)
     {
+        _unitOfWork.BeginTrans();
         var operationResult = new OperationResult();
 
         if (_productCategoryRepository.Exists(x => x.Name == command.Name))
         {
-            return operationResult.Failed("نام وارد شده از قبل موجود می باشد، لطفا نام دیگری انتخاب کنید.");
+            _unitOfWork.RollBack();
+            return operationResult.Failed(ApplicationMessage.DuplicatedRecord);
         }
 
-        var slug = command.Slug?.Slugify() ?? "product_category_title_description";
+        var slug = command.Slug?.Slugify() ?? ApplicationMessage.NoSlug;
 
         var productCategory = new ProductCategory(command.Name,
             command.Description,
@@ -34,25 +39,29 @@ public class ProductCategoryApplication : IProductCategoryApplication
             slug);
 
         _productCategoryRepository.Create(productCategory);
-        return operationResult.Success();
+        _unitOfWork.Commit();
+        return operationResult.Succeeded();
     }
 
     public OperationResult Edit(EditProductCategory command)
     {
+        _unitOfWork.BeginTrans();
         var operationResult = new OperationResult();
         var oldCategory = _productCategoryRepository.Get(command.Id);
 
         if (oldCategory == null)
         {
-            return operationResult.Failed("رکوردی با این مشخصات پیدا نشد، لطفا مجدداً تلاش کنید.");
+            _unitOfWork.RollBack();
+            return operationResult.Failed(ApplicationMessage.RecordNotFound);
         }
 
         if (_productCategoryRepository.Exists(x => x.Name!.Equals(command.Name) && x.Id != command.Id))
         {
-            return operationResult.Failed("نام وارد شده از قبل موجود می باشد، لطفا نام دیگری انتخاب کنید.");
+            _unitOfWork.RollBack();
+            return operationResult.Failed(ApplicationMessage.DuplicatedRecord);
         }
 
-        var slug = command.Slug?.Slugify() ?? "product_category_title_description";
+        var slug = command.Slug?.Slugify() ?? ApplicationMessage.NoSlug;
 
         oldCategory.Edit(command.Name,
             command.Description,
@@ -63,25 +72,13 @@ public class ProductCategoryApplication : IProductCategoryApplication
             command.MetaDescription,
             slug);
 
-        _productCategoryRepository.Save();
-        return operationResult.Success("عملیات ویرایش با موفقیت انجام شد.");
+        _unitOfWork.Commit();
+        return operationResult.Succeeded(ApplicationMessage.RecordEdited);
     }
 
     public EditProductCategory GetDetails(long id)
     {
-        var productCategory = _productCategoryRepository.Get(id)!;
-        return new EditProductCategory()
-        {
-            Description = productCategory.Description,
-            Id = productCategory.Id,
-            Keywords = productCategory.Keywords,
-            MetaDescription = productCategory.MetaDescription,
-            Picture = productCategory.Picture,
-            PictureAlt = productCategory.PictureAlt,
-            PictureTitle = productCategory.PictureTitle,
-            Name = productCategory.Name,
-            Slug = productCategory.Slug
-        };
+        return _productCategoryRepository.GetDetails(id);
     }
 
     public IEnumerable<ProductCategoryViewModel>? Search(ProductCategorySearchViewModel model)

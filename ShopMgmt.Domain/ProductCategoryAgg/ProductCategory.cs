@@ -1,8 +1,9 @@
 ﻿using _Framework.Domain;
+using ShopMgmt.Domain.ProductAgg;
 
 namespace ShopMgmt.Domain.ProductCategoryAgg;
 
-public class ProductCategory : EntityBase<long>
+public class ProductCategory : BaseEntity<long>
 {
     public string? Name { get; private set; }
     public string? Description { get; private set; }
@@ -12,6 +13,14 @@ public class ProductCategory : EntityBase<long>
     public string? Keywords { get; private set; }
     public string? MetaDescription { get; private set; }
     public string? Slug { get; private set; }
+
+    // one productCategory has many products
+    public List<Product>? Products { get; private set; }
+
+    protected ProductCategory()
+    {
+        Products = new List<Product>();
+    }
 
     public ProductCategory(string? name, string? description, string? picture, string? pictureAlt, string? pictureTitle, string? keywords, string? metaDescription, string? slug)
     {
