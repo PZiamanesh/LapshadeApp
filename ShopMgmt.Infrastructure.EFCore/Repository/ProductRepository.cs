@@ -37,15 +37,6 @@ public class ProductRepository : BaseRepository<long, Product>, IProductReposito
         };
     }
 
-    public IEnumerable<ProductCategoryViewModel> GetProductCategories()
-    {
-        return _context.ProductCategories.Select(x => new ProductCategoryViewModel()
-        {
-            Id = x.Id,
-            Name = x.Name
-        });
-    }
-
     public IEnumerable<ProductViewModel> Search(ProductSearchViewModel searchModel)
     {
         var query = _context.Products?

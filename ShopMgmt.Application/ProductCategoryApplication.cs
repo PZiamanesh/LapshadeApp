@@ -85,4 +85,6 @@ public class ProductCategoryApplication : IProductCategoryApplication
     {
         return _productCategoryRepository.Search(model);
     }
+
+    public IEnumerable<ProductCategoryViewModel> GetProductCategories() => _productCategoryRepository.GetProductCategories();
 }

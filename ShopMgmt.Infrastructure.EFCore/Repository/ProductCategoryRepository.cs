@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using _Framework.Application;
 using _Framework.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using ShopMgmt.Application.Contract.ProductCategory;
 using ShopMgmt.Domain.ProductCategoryAgg;
 
@@ -8,16 +9,16 @@ namespace ShopMgmt.Infrastructure.EFCore.Repository;
 
 public class ProductCategoryRepository : BaseRepository<long, ProductCategory>, IProductCategoryRepository
 {
-    private readonly LampShadeDbContext _dbContext;
+    private readonly LampShadeDbContext _context;
 
     public ProductCategoryRepository(LampShadeDbContext dbContext) : base(dbContext)
     {
-        _dbContext = dbContext;
+        _context = dbContext;
     }
 
     public EditProductCategory GetDetails(long id)
     {
-        var productCategory = _dbContext.ProductCategories?.FirstOrDefault(x=>x.Id == id);
+        var productCategory = _context.ProductCategories?.FirstOrDefault(x=>x.Id == id);
         return new EditProductCategory()
         {
             Description = productCategory!.Description,
@@ -34,7 +35,7 @@ public class ProductCategoryRepository : BaseRepository<long, ProductCategory>, 
 
     public IEnumerable<ProductCategoryViewModel>? Search(ProductCategorySearchViewModel model)
     {
-        var query = (_dbContext.ProductCategories ?? throw new InvalidOperationException(ApplicationMessage.RecordNotFound))
+        var query = (_context.ProductCategories ?? throw new InvalidOperationException(ApplicationMessage.RecordNotFound))
                 .Select(x => new ProductCategoryViewModel()
                 {
                     Id = x.Id,
@@ -52,5 +53,14 @@ public class ProductCategoryRepository : BaseRepository<long, ProductCategory>, 
         }
 
         return query.OrderByDescending(x=>x.Id).ToList();
+    }
+
+    public IEnumerable<ProductCategoryViewModel> GetProductCategories()
+    {
+        return _context.ProductCategories!.Select(x => new ProductCategoryViewModel()
+        {
+            Id = x.Id,
+            Name = x.Name
+        });
     }
 }

@@ -8,6 +8,8 @@ public interface IProductCategoryApplication
 
     IEnumerable<ProductCategoryViewModel>? Search(ProductCategorySearchViewModel model);
 
+    IEnumerable<ProductCategoryViewModel> GetProductCategories();
+
     OperationResult Edit(EditProductCategory command);
 
     EditProductCategory GetDetails(long id);

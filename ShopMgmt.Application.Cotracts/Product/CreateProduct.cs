@@ -1,4 +1,6 @@
-﻿public record CreateProduct
+﻿using ShopMgmt.Application.Contract.ProductCategory;
+
+public record CreateProduct
 {
     public string? Name { get; set; }
     public string? Code { get; set; }
@@ -12,4 +14,5 @@
     public string? Keywords { get; set; }
     public string? MetaDescription { get; set; }
     public long CategoryId { get; set; }
+    public IEnumerable<ProductCategoryViewModel>? ProductCategories { get; set; }
 }

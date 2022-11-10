@@ -7,4 +7,5 @@ public interface IProductCategoryRepository : IRepository<long, ProductCategory>
 {
     EditProductCategory GetDetails(long id);
     IEnumerable<ProductCategoryViewModel>? Search(ProductCategorySearchViewModel model);
+    IEnumerable<ProductCategoryViewModel> GetProductCategories();
 }
