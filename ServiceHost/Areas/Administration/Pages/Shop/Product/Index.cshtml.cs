@@ -60,4 +60,16 @@ public class IndexModel : PageModel
         }
         return new JsonResult(result);
     }
+
+    public IActionResult OnGettInStock(long id)
+    {
+        _productApplication.AddStock(id);
+        return RedirectToPage("./Index");
+    }
+
+    public IActionResult OnGettOutOfStock(long id)
+    {
+        _productApplication.DeleteStock(id);
+        return RedirectToPage("./Index");
+    }
 }

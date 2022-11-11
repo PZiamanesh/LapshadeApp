@@ -50,7 +50,8 @@ public class ProductRepository : BaseRepository<long, Product>, IProductReposito
                 Picture = x.Picture,
                 Category = x.Category!.Name,
                 CategoryId = x.Category.Id,
-                CreationDate = x.CreationDate.ToString()
+                CreationDate = x.CreationDate.ToString(),
+                IsStocked = x.InStock
             }) ?? throw new InvalidOperationException(ApplicationMessage.RecordNotFound);
 
         if (!string.IsNullOrWhiteSpace(searchModel.Name))

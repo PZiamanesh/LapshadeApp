@@ -19,9 +19,6 @@ SinglePage.LoadModal = function () {
     })
         .done(function (htmlPage, statusText) {
             const modal = $("#ModalContent").html(htmlPage);
-            //const container = document.getElementById("ModalContent");
-            //const forms = container.getElementsByTagName("form");
-            //const newForm = forms[forms.length - 1];
             $.validator.unobtrusive.parse(modal);
             showModal();
         })
@@ -145,9 +142,9 @@ function get(url, refereshDiv) {
         });
 }
 
-function makeSlug(source, dest) {
+function makeSlug(source, dist) {
     const value = $('#' + source).val();
-    $('#' + dest).val(convertToSlug(value));
+    $('#' + dist).val(convertToSlug(value));
 }
 
 var convertToSlug = function (str) {
@@ -221,6 +218,7 @@ jQuery.validator.addMethod("maxFileSize",
             return true;
         }
     });
+
 jQuery.validator.unobtrusive.adapters.addBool("maxFileSize");
 
 //jQuery.validator.addMethod("maxFileSize",
