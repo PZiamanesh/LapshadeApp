@@ -14,7 +14,7 @@ public class ProductCategory : BaseEntity<long>
     public string? MetaDescription { get; private set; }
     public string? Slug { get; private set; }
 
-    // one productCategory has many products
+    // 1 productCategory has n products
     public List<Product>? Products { get; private set; }
 
     protected ProductCategory()

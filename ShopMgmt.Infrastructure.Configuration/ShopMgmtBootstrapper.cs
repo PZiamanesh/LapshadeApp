@@ -4,8 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 using ShopMgmt.Application;
 using ShopMgmt.Application.Contract.Product;
 using ShopMgmt.Application.Contract.ProductCategory;
+using ShopMgmt.Application.Contract.ProductPicture;
 using ShopMgmt.Domain.ProductAgg;
 using ShopMgmt.Domain.ProductCategoryAgg;
+using ShopMgmt.Domain.ProductPictureAggr;
 using ShopMgmt.Infrastructure.EFCore;
 using ShopMgmt.Infrastructure.EFCore.Repository;
 
@@ -20,6 +22,9 @@ public class ShopMgmtBootstrapper
 
         service.AddScoped<IProductApplication, ProductApplication>();
         service.AddScoped<IProductRepository, ProductRepository>();
+
+        service.AddScoped<IProductPictureApplication, ProductPictureApplication>();
+        service.AddScoped<IProductPictureRepository, ProductPictureRepository>();
 
         service.AddScoped<IUnitOfWork, UnitOfWork>();
 

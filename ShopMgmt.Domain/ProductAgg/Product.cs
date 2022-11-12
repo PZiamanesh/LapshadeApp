@@ -1,5 +1,6 @@
 ﻿using _Framework.Domain;
 using ShopMgmt.Domain.ProductCategoryAgg;
+using ShopMgmt.Domain.ProductPictureAggr;
 
 namespace ShopMgmt.Domain.ProductAgg;
 
@@ -18,11 +19,18 @@ public class Product : BaseEntity<long>
     public string? Keywords { get; private set; }
     public string? MetaDescription { get; private set; }
 
-    // one product has one productCategory
+    // 1 product has 1 productCategory
     public long CategoryId { get; private set; }
     public ProductCategory? Category { get; private set; }
 
-    protected Product() { }
+    // 1 product has n productPcture
+    public ICollection<ProductPicture>? Pictures { get; private set; }
+
+
+    protected Product() 
+    {
+        Pictures = new List<ProductPicture>();
+    }
 
     public Product(string? name, string? code, double unitPrice, string? shortDescription,
         string? description, string? picture, string? pictureAlt, string? pictureTitle,
