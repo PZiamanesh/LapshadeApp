@@ -1,5 +1,4 @@
 ﻿using _Framework.Application;
-using ShopMgmt.Application.Contract.ProductCategory;
 
 namespace ShopMgmt.Application.Contract.Product;
 
@@ -16,4 +15,6 @@ public interface IProductApplication
     OperationResult DeleteStock(long id);
 
     IEnumerable<ProductViewModel> Search(ProductSearchViewModel searchModel);
+
+    IEnumerable<ProductViewModel> GetProducts();
 }

@@ -1,7 +1,6 @@
 ﻿using _Framework.Application;
 using ShopMgmt.Application.Contract.ProductCategory;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 
 public record CreateProduct
 {
@@ -34,7 +33,7 @@ public record CreateProduct
     [Required(ErrorMessage = ValidationMessage.IsRequired)]
     public string? MetaDescription { get; set; }
 
-    [Range(1,100_000, ErrorMessage = ValidationMessage.IsRequired)]
+    [Range(1, 100_000, ErrorMessage = ValidationMessage.IsRequired)]
     public long CategoryId { get; set; }
 
     public IEnumerable<ProductCategoryViewModel>? ProductCategories { get; set; }

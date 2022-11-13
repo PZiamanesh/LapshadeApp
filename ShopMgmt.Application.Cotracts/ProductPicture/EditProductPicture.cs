@@ -1,4 +1,5 @@
 ﻿namespace ShopMgmt.Application.Contract.ProductPicture;
+#nullable disable
 
 public record EditProductPicture : CreateProductPicture
 {

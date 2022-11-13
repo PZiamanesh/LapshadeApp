@@ -2,15 +2,18 @@
 using ShopMgmt.Domain.ProductAgg;
 using ShopMgmt.Domain.ProductCategoryAgg;
 using ShopMgmt.Domain.ProductPictureAggr;
+using ShopMgmt.Domain.SlideAgg;
 using ShopMgmt.Infrastructure.EFCore.Mapping;
 
 namespace ShopMgmt.Infrastructure.EFCore;
+#nullable disable
 
 public class LampShadeDbContext:DbContext
 {
-    public DbSet<ProductCategory>? ProductCategories { get; set; }
-    public DbSet<Product>? Products { get; set; }
-    public DbSet<ProductPicture>? ProductPictures { get; set; }
+    public DbSet<ProductCategory> ProductCategories { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<ProductPicture> ProductPictures { get; set; }
+    public DbSet<Slide> Slides { get; set; }
 
     public LampShadeDbContext(DbContextOptions<LampShadeDbContext> options):base(options)
     {

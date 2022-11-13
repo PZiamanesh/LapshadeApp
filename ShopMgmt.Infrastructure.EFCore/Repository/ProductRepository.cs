@@ -1,7 +1,6 @@
 ﻿using _Framework.Application;
 using _Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using ShopMgmt.Application.Contract.ProductCategory;
 using ShopMgmt.Domain.ProductAgg;
 
 namespace ShopMgmt.Infrastructure.EFCore.Repository;
@@ -35,6 +34,15 @@ public class ProductRepository : BaseRepository<long, Product>, IProductReposito
             MetaDescription = product.MetaDescription,
             CategoryId = product.CategoryId
         };
+    }
+
+    public IEnumerable<ProductViewModel> GetProducts()
+    {
+        return _context.Products!.Select(x => new ProductViewModel()
+        {
+            Id = x.Id,
+            Name = x.Name
+        }).ToList();
     }
 
     public IEnumerable<ProductViewModel> Search(ProductSearchViewModel searchModel)

@@ -1,0 +1,10 @@
+﻿namespace ShopMgmt.Application.Contract.Slide;
+#nullable disable
+
+public record SlideViewModel
+{
+    public long Id { get; set; }
+    public string Picture { get; set; }
+    public string Heading { get; set; }
+    public string Title { get; set; }
+}

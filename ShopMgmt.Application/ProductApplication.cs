@@ -111,4 +111,9 @@ public class ProductApplication : IProductApplication
     {
         return _productRepository.Search(searchModel);
     }
+
+    public IEnumerable<ProductViewModel> GetProducts()
+    {
+        return _productRepository.GetProducts();
+    }
 }

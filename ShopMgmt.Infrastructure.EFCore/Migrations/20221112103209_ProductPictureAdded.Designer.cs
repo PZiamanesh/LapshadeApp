@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShopMgmt.Infrastructure.EFCore;
 
@@ -11,9 +12,10 @@ using ShopMgmt.Infrastructure.EFCore;
 namespace ShopMgmt.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(LampShadeDbContext))]
-    partial class LampShadeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221112103209_ProductPictureAdded")]
+    partial class ProductPictureAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -20,10 +20,11 @@ public class ProductPictureRepository : BaseRepository<long, ProductPicture>, IP
         return _context.ProductPictures
             .Select(x => new EditProductPicture()
             {
+                Id = x.Id,
                 ProductId = x.ProductId,
                 Picture = x.Picture,
                 PictureAlt = x.PictureAlt,
-                PictureTitle = x.PictureTitle,
+                PictureTitle = x.PictureTitle
             }).FirstOrDefault(x => x.Id == id);
     }
 
@@ -37,7 +38,8 @@ public class ProductPictureRepository : BaseRepository<long, ProductPicture>, IP
                 Product = x.Product.Name,
                 Picture = x.Picture,
                 CreationDate = x.CreationDate.ToShortDateString(),
-                ProductId = x.ProductId
+                ProductId = x.ProductId,
+                IsRemoved = x.IsRemoved
             });
 
         if (searchModel.ProductId != 0)

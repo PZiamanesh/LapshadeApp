@@ -5,9 +5,11 @@ using ShopMgmt.Application;
 using ShopMgmt.Application.Contract.Product;
 using ShopMgmt.Application.Contract.ProductCategory;
 using ShopMgmt.Application.Contract.ProductPicture;
+using ShopMgmt.Application.Contract.Slide;
 using ShopMgmt.Domain.ProductAgg;
 using ShopMgmt.Domain.ProductCategoryAgg;
 using ShopMgmt.Domain.ProductPictureAggr;
+using ShopMgmt.Domain.SlideAgg;
 using ShopMgmt.Infrastructure.EFCore;
 using ShopMgmt.Infrastructure.EFCore.Repository;
 
@@ -25,6 +27,9 @@ public class ShopMgmtBootstrapper
 
         service.AddScoped<IProductPictureApplication, ProductPictureApplication>();
         service.AddScoped<IProductPictureRepository, ProductPictureRepository>();
+
+        service.AddScoped<ISlideApplication, SlideApplication>();
+        service.AddScoped<ISlideRepository, SlideRepository>();
 
         service.AddScoped<IUnitOfWork, UnitOfWork>();
 
