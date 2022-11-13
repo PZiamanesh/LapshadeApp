@@ -58,7 +58,7 @@ public class ProductRepository : BaseRepository<long, Product>, IProductReposito
                 Picture = x.Picture,
                 Category = x.Category!.Name,
                 CategoryId = x.Category.Id,
-                CreationDate = x.CreationDate.ToString(),
+                CreationDate = x.CreationDate.ToString("yyyy-MM-dd , HH:mm:ss"),
                 IsStocked = x.InStock
             }) ?? throw new InvalidOperationException(ApplicationMessage.RecordNotFound);
 

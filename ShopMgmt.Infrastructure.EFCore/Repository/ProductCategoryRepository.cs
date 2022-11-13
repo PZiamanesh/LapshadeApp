@@ -41,7 +41,7 @@ public class ProductCategoryRepository : BaseRepository<long, ProductCategory>, 
                     Id = x.Id,
                     Name = x.Name,
                     Picture = x.Picture,
-                    CreationDate = x.CreationDate.ToString(CultureInfo.InvariantCulture),
+                    CreationDate = x.CreationDate.ToString("yyyy-MM-dd , HH:mm:ss"),
                     ProductsCount = 0
                 });
 

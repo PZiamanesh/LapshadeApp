@@ -16,7 +16,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "launchUrl": "https://localhost:7159/Administration/shop/productPicture"
+      "launchUrl": "https://localhost:7159/Administration/shop/Slide"
     },
     "IIS Express": {
       "commandName": "IISExpress",

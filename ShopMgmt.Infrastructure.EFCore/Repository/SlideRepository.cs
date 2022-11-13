@@ -22,7 +22,9 @@ public class SlideRepository : BaseRepository<long, Slide>, ISlideRepository
             Id = x.Id,
             Picture = x.Picture,
             Heading = x.Heading,
-            Title = x.Title
+            Title = x.Title,
+            IsRemoved = x.IsRemoved,
+            CreationDate = x.CreationDate.ToString("yyyy-MM-dd , HH:mm:ss")
         }).ToList();
     }
 
@@ -31,7 +33,6 @@ public class SlideRepository : BaseRepository<long, Slide>, ISlideRepository
         return _context.Slides.Select(x => new EditSlide()
         {
             Id = x.Id,
-
             Picture = x.Picture,
             PictureAlt = x.PictureAlt,
             PictureTitle = x.PictureTitle,

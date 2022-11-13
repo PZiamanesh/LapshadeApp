@@ -30,6 +30,7 @@ public class SlideApplication : ISlideApplication
             command.Text,
             command.BtnText);
 
+        _slideRepository.Create(slide);
         _unitOfWork.Commit();
         return result.Succeeded();
     }
@@ -55,7 +56,7 @@ public class SlideApplication : ISlideApplication
             command.BtnText);
 
         _unitOfWork.Commit();
-        return result.Succeeded();
+        return result.Succeeded(ApplicationMessage.RecordEdited);
     }
 
     public IEnumerable<SlideViewModel> GetAll()

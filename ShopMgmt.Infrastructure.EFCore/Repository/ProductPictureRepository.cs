@@ -37,7 +37,7 @@ public class ProductPictureRepository : BaseRepository<long, ProductPicture>, IP
                 Id = x.Id,
                 Product = x.Product.Name,
                 Picture = x.Picture,
-                CreationDate = x.CreationDate.ToShortDateString(),
+                CreationDate = x.CreationDate.ToString("yyyy-MM-dd , HH:mm:ss"),
                 ProductId = x.ProductId,
                 IsRemoved = x.IsRemoved
             });
