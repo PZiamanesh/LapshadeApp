@@ -1,7 +1,6 @@
 ﻿using _Framework.Application;
 using ShopMgmt.Application.Contract.Slide;
 using ShopMgmt.Domain.SlideAgg;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace ShopMgmt.Application;
 #nullable disable
@@ -28,7 +27,8 @@ public class SlideApplication : ISlideApplication
             command.Heading,
             command.Title,
             command.Text,
-            command.BtnText);
+            command.BtnText,
+            command.Link);
 
         _slideRepository.Create(slide);
         _unitOfWork.Commit();
@@ -53,7 +53,8 @@ public class SlideApplication : ISlideApplication
             command.Heading,
             command.Title,
             command.Text,
-            command.BtnText);
+            command.BtnText,
+            command.Link);
 
         _unitOfWork.Commit();
         return result.Succeeded(ApplicationMessage.RecordEdited);

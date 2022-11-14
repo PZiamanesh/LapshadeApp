@@ -1,5 +1,4 @@
 ﻿using _Framework.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 using ShopMgmt.Application.Contract.Slide;
 using ShopMgmt.Domain.SlideAgg;
 
@@ -39,7 +38,8 @@ public class SlideRepository : BaseRepository<long, Slide>, ISlideRepository
             Heading = x.Heading,
             Title = x.Title,
             Text = x.Text,
-            BtnText = x.BtnText
+            BtnText = x.BtnText,
+            Link = x.Link
         }).FirstOrDefault(x => x.Id == id);
     }
 }

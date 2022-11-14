@@ -1,4 +1,5 @@
 ﻿using _Framework.Application;
+using _LampshadeQuery.Contract.Slide;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ShopMgmt.Application;
@@ -30,6 +31,8 @@ public class ShopMgmtBootstrapper
 
         service.AddScoped<ISlideApplication, SlideApplication>();
         service.AddScoped<ISlideRepository, SlideRepository>();
+
+        service.AddScoped<ISlideQuery, SlideQuery>();
 
         service.AddScoped<IUnitOfWork, UnitOfWork>();
 
