@@ -9,7 +9,7 @@ public class BaseRepository<TKey, TEntity> : IRepository<TKey, TEntity> where TE
     private readonly DbContext _context;
     private readonly DbSet<TEntity> _entities;
 
-    public BaseRepository(DbContext context)
+    protected BaseRepository(DbContext context)
     {
         _context = context;
         _entities = _context.Set<TEntity>();
