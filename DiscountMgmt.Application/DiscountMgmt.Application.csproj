@@ -6,4 +6,9 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DiscountMgmt.Application.Contract\DiscountMgmt.Application.Contract.csproj" />
+    <ProjectReference Include="..\DiscountMgmt.Domain\DiscountMgmt.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
