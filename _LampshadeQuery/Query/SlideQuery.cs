@@ -4,9 +4,9 @@ namespace _LampshadeQuery.Contract.Slide;
 
 public class SlideQuery : ISlideQuery
 {
-    private readonly LampShadeDbContext _dbContext;
+    private readonly ShopContext _dbContext;
 
-    public SlideQuery(LampShadeDbContext dbContext)
+    public SlideQuery(ShopContext dbContext)
     {
         _dbContext = dbContext;
     }

@@ -3,7 +3,7 @@ using ShopMgmt.Domain.ProductAgg;
 
 namespace ShopMgmt.Domain.ProductPictureAggr;
 #nullable disable
-public class ProductPicture : BaseEntity<long>
+public class ProductPicture : EntityBase<long>
 {
     public string Picture { get; private set; }
     public string PictureAlt { get; private set; }

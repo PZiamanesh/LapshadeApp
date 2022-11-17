@@ -3,7 +3,7 @@
 namespace ShopMgmt.Domain.SlideAgg;
 #nullable disable
 
-public class Slide : BaseEntity<long>
+public class Slide : EntityBase<long>
 {
     public string Picture { get; private set; }
     public string PictureAlt { get; private set; }

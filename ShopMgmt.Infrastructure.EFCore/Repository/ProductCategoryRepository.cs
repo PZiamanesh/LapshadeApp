@@ -7,11 +7,11 @@ using ShopMgmt.Domain.ProductCategoryAgg;
 
 namespace ShopMgmt.Infrastructure.EFCore.Repository;
 
-public class ProductCategoryRepository : BaseRepository<long, ProductCategory>, IProductCategoryRepository
+public class ProductCategoryRepository : RepositoryBase<long, ProductCategory>, IProductCategoryRepository
 {
-    private readonly LampShadeDbContext _context;
+    private readonly ShopContext _context;
 
-    public ProductCategoryRepository(LampShadeDbContext dbContext) : base(dbContext)
+    public ProductCategoryRepository(ShopContext dbContext) : base(dbContext)
     {
         _context = dbContext;
     }
@@ -41,7 +41,7 @@ public class ProductCategoryRepository : BaseRepository<long, ProductCategory>, 
                     Id = x.Id,
                     Name = x.Name,
                     Picture = x.Picture,
-                    CreationDate = x.CreationDate.ToString("yyyy-MM-dd , HH:mm:ss"),
+                    CreationDate = x.CreationDate.ToFarsi(),
                     ProductsCount = 0
                 });
 

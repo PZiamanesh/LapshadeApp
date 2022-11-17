@@ -5,9 +5,9 @@ namespace _LampshadeQuery.Query;
 
 public class ProductCategoryQuery : IProductCategoryQuery
 {
-    private readonly LampShadeDbContext _context;
+    private readonly ShopContext _context;
 
-    public ProductCategoryQuery(LampShadeDbContext context)
+    public ProductCategoryQuery(ShopContext context)
     {
         _context = context;
     }

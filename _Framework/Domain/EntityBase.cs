@@ -2,12 +2,12 @@
 
 namespace _Framework.Domain;
 
-public class BaseEntity<TKey>
+public class EntityBase<TKey>
 {
     public TKey Id { get; private set; } = default!;
     public DateTime CreationDate { get; private set; }
 
-    public BaseEntity()
+    public EntityBase()
     {
         CreationDate = DateTime.Now;
     }

@@ -39,6 +39,6 @@ public class ShopMgmtBootstrapper
 
         service.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        service.AddDbContext<LampShadeDbContext>(opt => opt.UseSqlServer(connectionString));
+        service.AddDbContext<ShopContext>(opt => opt.UseSqlServer(connectionString));
     }
 }

@@ -11,7 +11,7 @@ using ShopMgmt.Infrastructure.EFCore;
 
 namespace ShopMgmt.Infrastructure.EFCore.Migrations
 {
-    [DbContext(typeof(LampShadeDbContext))]
+    [DbContext(typeof(ShopContext))]
     [Migration("20221113063213_SlideAdded")]
     partial class SlideAdded
     {

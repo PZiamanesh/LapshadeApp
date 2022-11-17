@@ -10,7 +10,7 @@ using ShopMgmt.Infrastructure.EFCore;
 
 namespace ShopMgmt.Infrastructure.EFCore.Migrations
 {
-    [DbContext(typeof(LampShadeDbContext))]
+    [DbContext(typeof(ShopContext))]
     partial class LampShadeDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace _Framework.Infrastructure;
 
-public class BaseRepository<TKey, TEntity> : IRepository<TKey, TEntity> where TEntity : BaseEntity<TKey>
+public class RepositoryBase<TKey, TEntity> : IRepository<TKey, TEntity> where TEntity : EntityBase<TKey>
 {
     private readonly DbContext _context;
     private readonly DbSet<TEntity> _entities;
 
-    protected BaseRepository(DbContext context)
+    protected RepositoryBase(DbContext context)
     {
         _context = context;
         _entities = _context.Set<TEntity>();

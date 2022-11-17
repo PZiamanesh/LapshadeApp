@@ -2,7 +2,7 @@
 
 namespace DiscountMgmt.Domain.CustomerDiscountAgg;
 
-public class CustomerDiscount : BaseEntity<long>
+public class CustomerDiscount : EntityBase<long>
 {
     public long ProductId { get; private set; }
     public int DiscountRate { get; private set; }

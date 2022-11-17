@@ -4,7 +4,7 @@ using ShopMgmt.Domain.ProductPictureAggr;
 
 namespace ShopMgmt.Domain.ProductAgg;
 
-public class Product : BaseEntity<long>
+public class Product : EntityBase<long>
 {
     public string? Name { get; private set; }
     public string? Code { get; private set; }

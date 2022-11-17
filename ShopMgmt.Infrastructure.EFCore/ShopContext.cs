@@ -8,14 +8,14 @@ using ShopMgmt.Infrastructure.EFCore.Mapping;
 namespace ShopMgmt.Infrastructure.EFCore;
 #nullable disable
 
-public class LampShadeDbContext:DbContext
+public class ShopContext:DbContext
 {
     public DbSet<ProductCategory> ProductCategories { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<ProductPicture> ProductPictures { get; set; }
     public DbSet<Slide> Slides { get; set; }
 
-    public LampShadeDbContext(DbContextOptions<LampShadeDbContext> options):base(options)
+    public ShopContext(DbContextOptions<ShopContext> options):base(options)
     {
     }
 

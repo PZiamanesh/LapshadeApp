@@ -5,11 +5,11 @@ using ShopMgmt.Domain.ProductAgg;
 
 namespace ShopMgmt.Infrastructure.EFCore.Repository;
 
-public class ProductRepository : BaseRepository<long, Product>, IProductRepository
+public class ProductRepository : RepositoryBase<long, Product>, IProductRepository
 {
-    private readonly LampShadeDbContext _context;
+    private readonly ShopContext _context;
 
-    public ProductRepository(LampShadeDbContext context) : base(context)
+    public ProductRepository(ShopContext context) : base(context)
     {
         _context = context;
     }
@@ -58,7 +58,7 @@ public class ProductRepository : BaseRepository<long, Product>, IProductReposito
                 Picture = x.Picture,
                 Category = x.Category!.Name,
                 CategoryId = x.Category.Id,
-                CreationDate = x.CreationDate.ToString("yyyy-MM-dd , HH:mm:ss"),
+                CreationDate = x.CreationDate.ToFarsi(),
                 IsStocked = x.InStock
             }) ?? throw new InvalidOperationException(ApplicationMessage.RecordNotFound);
 
@@ -72,7 +72,7 @@ public class ProductRepository : BaseRepository<long, Product>, IProductReposito
             query = query.Where(x => x.Code!.Contains(searchModel.Code));
         }
 
-        if (searchModel.CategoryId != 0)
+        if (searchModel.CategoryId > 0)
         {
             query = query.Where(x => x.CategoryId == searchModel.CategoryId);
         }

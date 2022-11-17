@@ -1,4 +1,5 @@
-﻿using _Framework.Infrastructure;
+﻿using _Framework.Application;
+using _Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using ShopMgmt.Application.Contract.ProductPicture;
 using ShopMgmt.Domain.ProductPictureAggr;
@@ -6,11 +7,11 @@ using ShopMgmt.Domain.ProductPictureAggr;
 namespace ShopMgmt.Infrastructure.EFCore.Repository;
 #nullable disable
 
-public class ProductPictureRepository : BaseRepository<long, ProductPicture>, IProductPictureRepository
+public class ProductPictureRepository : RepositoryBase<long, ProductPicture>, IProductPictureRepository
 {
-    private readonly LampShadeDbContext _context;
+    private readonly ShopContext _context;
 
-    public ProductPictureRepository(LampShadeDbContext context) : base(context)
+    public ProductPictureRepository(ShopContext context) : base(context)
     {
         _context = context;
     }
@@ -37,12 +38,12 @@ public class ProductPictureRepository : BaseRepository<long, ProductPicture>, IP
                 Id = x.Id,
                 Product = x.Product.Name,
                 Picture = x.Picture,
-                CreationDate = x.CreationDate.ToString("yyyy-MM-dd , HH:mm:ss"),
+                CreationDate = x.CreationDate.ToFarsi(),
                 ProductId = x.ProductId,
                 IsRemoved = x.IsRemoved
             });
 
-        if (searchModel.ProductId != 0)
+        if (searchModel.ProductId > 0)
         {
             query = query.Where(x => x.ProductId == searchModel.ProductId);
         }

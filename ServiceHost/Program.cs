@@ -2,7 +2,8 @@ using ShopMgmt.Infrastructure.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-ShopMgmtBootstrapper.ConfigureService(builder.Services, builder.Configuration.GetConnectionString("LampshadeDb"));
+var connectionString = builder.Configuration.GetConnectionString("LampshadeDb");
+ShopMgmtBootstrapper.ConfigureService(builder.Services, connectionString);
 
 builder.Services.AddRazorPages();
 
@@ -15,6 +16,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();

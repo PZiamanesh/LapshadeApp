@@ -1,12 +1,12 @@
 ﻿using _Framework.Application;
 
-namespace ShopMgmt.Infrastructure.EFCore;
+namespace DiscountMgmt.Infrastructure.EFCore;
 
 public class UnitOfWork : IUnitOfWork
 {
-    private readonly ShopContext _context;
+    private readonly DiscountContext _context;
 
-    public UnitOfWork(ShopContext context)
+    public UnitOfWork(DiscountContext context)
     {
         _context = context;
     }

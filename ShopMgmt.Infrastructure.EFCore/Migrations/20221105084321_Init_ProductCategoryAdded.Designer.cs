@@ -11,7 +11,7 @@ using ShopMgmt.Infrastructure.EFCore;
 
 namespace ShopMgmt.Infrastructure.EFCore.Migrations
 {
-    [DbContext(typeof(LampShadeDbContext))]
+    [DbContext(typeof(ShopContext))]
     [Migration("20221105084321_Init_ProductCategoryAdded")]
     partial class Init_ProductCategoryAdded
     {

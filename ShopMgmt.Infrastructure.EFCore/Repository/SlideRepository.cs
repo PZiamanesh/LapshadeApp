@@ -1,15 +1,16 @@
-﻿using _Framework.Infrastructure;
+﻿using _Framework.Application;
+using _Framework.Infrastructure;
 using ShopMgmt.Application.Contract.Slide;
 using ShopMgmt.Domain.SlideAgg;
 
 namespace ShopMgmt.Infrastructure.EFCore.Repository;
 #nullable disable
 
-public class SlideRepository : BaseRepository<long, Slide>, ISlideRepository
+public class SlideRepository : RepositoryBase<long, Slide>, ISlideRepository
 {
-    private readonly LampShadeDbContext _context;
+    private readonly ShopContext _context;
 
-    public SlideRepository(LampShadeDbContext context) : base(context)
+    public SlideRepository(ShopContext context) : base(context)
     {
         _context = context;
     }
@@ -23,7 +24,7 @@ public class SlideRepository : BaseRepository<long, Slide>, ISlideRepository
             Heading = x.Heading,
             Title = x.Title,
             IsRemoved = x.IsRemoved,
-            CreationDate = x.CreationDate.ToString("yyyy-MM-dd , HH:mm:ss")
+            CreationDate = x.CreationDate.ToFarsi()
         }).ToList();
     }
 
