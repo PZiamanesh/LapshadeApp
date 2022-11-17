@@ -1,9 +1,11 @@
+using DiscountMgmt.Infrastructure.Configuration;
 using ShopMgmt.Infrastructure.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("LampshadeDb");
 ShopMgmtBootstrapper.ConfigureService(builder.Services, connectionString);
+DiscountMgmtBootstrapper.ConfigureService(builder.Services, connectionString);
 
 builder.Services.AddRazorPages();
 
