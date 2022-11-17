@@ -30,7 +30,7 @@ public class BaseRepository<TKey, TEntity> : IRepository<TKey, TEntity> where TE
         return _entities.ToList();
     }
 
-    public bool Exists(Expression<Func<TEntity, bool>> expression)
+    public bool Exists(Func<TEntity, bool> expression)
     {
         return _entities.Any(expression);
     }

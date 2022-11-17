@@ -10,5 +10,5 @@ public interface IRepository<in TKey, TEntity> where TEntity : BaseEntity<TKey>
 
     IEnumerable<TEntity> Get();
 
-    bool Exists(Expression<Func<TEntity, bool>> expression);
+    bool Exists(Func<TEntity, bool> expression);
 }

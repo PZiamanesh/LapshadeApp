@@ -61,6 +61,6 @@ public class ProductCategoryRepository : BaseRepository<long, ProductCategory>, 
         {
             Id = x.Id,
             Name = x.Name
-        });
+        }).ToList();
     }
 }
