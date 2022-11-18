@@ -44,6 +44,7 @@ public class CustomerDiscountRepository : RepositoryBase<long, CustomerDiscount>
                 ProductId = x.ProductId,
                 DiscountRate = x.DiscountRate,
                 Reason = x.Reason,
+                CreationDate = x.CreationDate.ToFarsi(),
 
                 StartDate = x.StartDate.ToFarsi(), // to persian calender
                 EndDate = x.EndDate.ToFarsi(),

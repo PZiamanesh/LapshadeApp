@@ -31,10 +31,12 @@
     <!-- sweet alerts -->
     <link href="~/AdminTheme/assets/sweet-alert/sweet-alert.min.css" rel="stylesheet">
 
+    <!-- persian date -->
+    <link href="~/AdminTheme/assets/css/persian-datepicker.min.css" rel="stylesheet">
+
     <!-- Custom Files -->
     <link href="~/AdminTheme/assets/css/helper.css" rel="stylesheet" type="text/css" />
     <link href="~/AdminTheme/assets/css/styleRtl.css" rel="stylesheet" type="text/css" />
-    @*<link href="~/AdminTheme/assets/css/style.css" rel="stylesheet" type="text/css"/>*@
 
     <script src="~/AdminTheme/assets/js/modernizr.min.js"></script>
 
@@ -166,7 +168,7 @@
         </div>
         <!-- Top Bar End -->
         <!-- ========== Left Sidebar Start ========== -->
-        
+
         <partial name="_SideBar"></partial>
 
         <!-- Left Sidebar End -->
@@ -314,7 +316,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- jQuery  -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/AdminTheme/assets/js/bootstrap.min.js"></script>
@@ -364,10 +366,18 @@
 
     <partial name="_ValidationScriptsPartial"></partial>
     <script src="~/AdminTheme/assets/js/site.js"></script>
+    <script src="~/AdminTheme/assets/js/persian-date.min.js"></script>
+    <script src="~/AdminTheme/assets/js/persian-datepicker.min.js"></script>
 
 
     <script>
         $(".alert-dismissible").fadeOut(6000);
+
+        $('.persianObserveCal').persianDatepicker({
+            observer: true,
+            format: 'YYYY/MM/DD',
+            autoClose: true,
+        });
     </script>
 </body>
 </html>

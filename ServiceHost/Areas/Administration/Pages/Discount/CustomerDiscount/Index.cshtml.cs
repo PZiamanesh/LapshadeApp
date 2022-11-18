@@ -38,7 +38,7 @@ public class IndexModel : PageModel
         var result = _customerDiscountApplication.Define(command);
         if (result.IsSucceeded)
         {
-            TempData["DiscountSubmission"] = result.Message;
+            TempData["CustomerDiscountSubmission"] = result.Message;
         }
         return new JsonResult(result);
     }
@@ -55,7 +55,7 @@ public class IndexModel : PageModel
         var result = _customerDiscountApplication.Edit(command);
         if (result.IsSucceeded)
         {
-            TempData["DiscountEdition"] = result.Message;
+            TempData["CustomerDiscountEdition"] = result.Message;
         }
         return new JsonResult(result);
     }
