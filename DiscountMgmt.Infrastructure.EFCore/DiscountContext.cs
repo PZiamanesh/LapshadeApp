@@ -1,4 +1,5 @@
-﻿using DiscountMgmt.Domain.CustomerDiscountAgg;
+﻿using DiscountMgmt.Domain.ColleagueDiscountAgg;
+using DiscountMgmt.Domain.CustomerDiscountAgg;
 using DiscountMgmt.Infrastructure.EFCore.Mapping;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +8,7 @@ namespace DiscountMgmt.Infrastructure.EFCore;
 public class DiscountContext : DbContext
 {
     public DbSet<CustomerDiscount> CustomerDiscounts { get; set; }
+    public DbSet<ColleagueDiscount> ColleagueDiscounts { get; set; }
 
     public DiscountContext(DbContextOptions<DiscountContext> options) : base(options)
     {

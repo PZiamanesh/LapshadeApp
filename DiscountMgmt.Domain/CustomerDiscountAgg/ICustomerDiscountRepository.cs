@@ -1,4 +1,5 @@
 ﻿using _Framework.Domain;
+using DiscountMgmt.Application.Contract.ColleagueDiscount;
 using DiscountMgmt.Application.Contract.CustomerDiscount;
 
 namespace DiscountMgmt.Domain.CustomerDiscountAgg;

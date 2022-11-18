@@ -1,6 +1,7 @@
-﻿using ShopMgmt.Infrastructure.EFCore;
+﻿using _LampshadeQuery.Contract.Slide;
+using ShopMgmt.Infrastructure.EFCore;
 
-namespace _LampshadeQuery.Contract.Slide;
+namespace _LampshadeQuery.Query;
 
 public class SlideQuery : ISlideQuery
 {
