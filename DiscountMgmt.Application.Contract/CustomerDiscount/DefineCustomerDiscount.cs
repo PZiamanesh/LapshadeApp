@@ -7,4 +7,5 @@ public record DefineCustomerDiscount
     public string StartDate { get; set; }
     public string EndDate { get; set; }
     public string Reason { get; set; }
+    public IEnumerable<ProductViewModel> Products { get; set; }
 }
