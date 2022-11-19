@@ -7,5 +7,7 @@ public interface IColleagueDiscountApplication
     OperationResult Define(DefineColleagueDiscount command);
     OperationResult Edit(EditColleagueDiscount command);
     EditColleagueDiscount GetDetails(long id);
+    OperationResult Remove(long id);
+    OperationResult Restore(long id);
     IEnumerable<ColleagueDiscountViewModel> Search(ColleagueDiscountSearchViewModel search);
 }

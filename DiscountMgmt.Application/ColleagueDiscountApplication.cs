@@ -1,6 +1,7 @@
 ﻿using _Framework.Application;
 using DiscountMgmt.Application.Contract.ColleagueDiscount;
 using DiscountMgmt.Domain.ColleagueDiscountAgg;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace DiscountMgmt.Application;
 
@@ -72,6 +73,44 @@ public class ColleagueDiscountApplication : IColleagueDiscountApplication
     public EditColleagueDiscount GetDetails(long id)
     {
         return _colleagueDiscountRepository.GetDetails(id);
+    }
+
+    public OperationResult Remove(long id)
+    {
+        var result = new OperationResult();
+        _unitOfWork.BeginTrans();
+
+        var colleagueDiscount = _colleagueDiscountRepository.Get(id);
+
+        if (colleagueDiscount is null)
+        {
+            _unitOfWork.RollBack();
+            return result.Failed(ApplicationMessage.RecordNotFound);
+        }
+
+        colleagueDiscount.Remove();
+
+        _unitOfWork.Commit();
+        return result.Succeeded();
+    }
+
+    public OperationResult Restore(long id)
+    {
+        var result = new OperationResult();
+        _unitOfWork.BeginTrans();
+
+        var colleagueDiscount = _colleagueDiscountRepository.Get(id);
+
+        if (colleagueDiscount is null)
+        {
+            _unitOfWork.RollBack();
+            return result.Failed(ApplicationMessage.RecordNotFound);
+        }
+
+        colleagueDiscount.Restore();
+
+        _unitOfWork.Commit();
+        return result.Succeeded();
     }
 
     public IEnumerable<ColleagueDiscountViewModel> Search(ColleagueDiscountSearchViewModel search)

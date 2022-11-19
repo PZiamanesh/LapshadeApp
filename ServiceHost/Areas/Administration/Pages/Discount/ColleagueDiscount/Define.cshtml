@@ -1,11 +1,9 @@
-﻿@using DiscountMgmt.Application.Contract.CustomerDiscount
-@model DefineCustomerDiscount
-@{
-}
+﻿@using DiscountMgmt.Application.Contract.ColleagueDiscount
+@model DefineColleagueDiscount
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h4 class="modal-title">ایجاد تخفیف مشتری</h4>
+    <h4 class="modal-title">ایجاد تخفیف همکاری</h4>
 </div>
 
 <form asp-page="./Index" asp-page-handler="Define"
@@ -30,30 +28,6 @@
                     <label asp-for="DiscountRate" class="control-label">درصد تخفیف</label>
                     <input type="text" class="form-control" asp-for="DiscountRate">
                     <span asp-validation-for="DiscountRate" class="error"></span>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label asp-for="StartDate" class="control-label">تاریخ شروع</label>
-                    <input type="text" class="form-control persianObserveCalnder" asp-for="StartDate">
-                    <span asp-validation-for="StartDate" class="error"></span>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label asp-for="EndDate" class="control-label">تاریخ پایان</label>
-                    <input class="form-control persianObserveCalnder" asp-for="EndDate">
-                    <span asp-validation-for="EndDate" class="error"></span>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label asp-for="Reason" class="control-label">توضیحات</label>
-                    <textarea type="text" rows="3" class="form-control" asp-for="Reason"></textarea>
                 </div>
             </div>
         </div>

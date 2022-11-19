@@ -8,7 +8,7 @@ namespace ServiceHost.Areas.Administration.Pages.Discount.CustomerDiscount;
 
 public class IndexModel : PageModel
 {
-    private readonly ICustomerDiscountApplication _customerDiscountApplication;
+    private readonly ICustomerDiscountApplication _colleagueDiscountApplication;
     private readonly IProductApplication _productApplication;
 
     public IEnumerable<CustomerDiscountViewModel>? CustomerDiscounts { get; set; }
@@ -17,14 +17,14 @@ public class IndexModel : PageModel
 
     public IndexModel(ICustomerDiscountApplication customerDiscountApplication, IProductApplication productApplication)
     {
-        _customerDiscountApplication = customerDiscountApplication;
+        _colleagueDiscountApplication = customerDiscountApplication;
         _productApplication = productApplication;
     }
 
     public void OnGet(CustomerDiscountSearchViewModel searchModel)
     {
         Products = new SelectList(_productApplication.GetProducts(), "Id", "Name");
-        CustomerDiscounts = _customerDiscountApplication.Search(searchModel);
+        CustomerDiscounts = _colleagueDiscountApplication.Search(searchModel);
     }
 
     public IActionResult OnGetDefine()
@@ -35,7 +35,7 @@ public class IndexModel : PageModel
 
     public JsonResult OnPostDefine(DefineCustomerDiscount command)
     {
-        var result = _customerDiscountApplication.Define(command);
+        var result = _colleagueDiscountApplication.Define(command);
         if (result.IsSucceeded)
         {
             TempData["CustomerDiscountSubmission"] = result.Message;
@@ -45,14 +45,14 @@ public class IndexModel : PageModel
 
     public IActionResult OnGetEdit(long id)
     {
-        var discount = _customerDiscountApplication.GetDetails(id);
+        var discount = _colleagueDiscountApplication.GetDetails(id);
         discount.Products = _productApplication.GetProducts();
         return Partial("./Edit", discount);
     }
 
     public IActionResult OnPostEdit(EditCustomerDiscount command)
     {
-        var result = _customerDiscountApplication.Edit(command);
+        var result = _colleagueDiscountApplication.Edit(command);
         if (result.IsSucceeded)
         {
             TempData["CustomerDiscountEdition"] = result.Message;
