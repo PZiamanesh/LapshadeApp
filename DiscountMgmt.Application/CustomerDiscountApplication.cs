@@ -78,7 +78,7 @@ public class CustomerDiscountApplication : ICustomerDiscountApplication
             );
 
         _unitOfWork.Commit();
-        return result.Succeeded();
+        return result.Succeeded(ApplicationMessage.RecordEdited);
     }
 
     public EditCustomerDiscount GetDetails(long id)
