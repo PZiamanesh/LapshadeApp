@@ -7,21 +7,17 @@ namespace ShopMgmt.Application;
 public class ProductApplication : IProductApplication
 {
     private readonly IProductRepository _productRepository;
-    private readonly IUnitOfWork _unitOfWork;
 
-    public ProductApplication(IProductRepository productRepository, IUnitOfWork unitOfWork)
+    public ProductApplication(IProductRepository productRepository)
     {
         _productRepository = productRepository;
-        _unitOfWork = unitOfWork;
     }
 
     public OperationResult Create(CreateProduct command)
     {
-        _unitOfWork.BeginTrans();
         var result = new OperationResult();
         if (_productRepository.Exists(p => p.Name == command.Name))
         {
-            _unitOfWork.RollBack();
             return result.Failed(ApplicationMessage.DuplicatedRecord);
         }
 
@@ -34,60 +30,55 @@ public class ProductApplication : IProductApplication
             );
 
         _productRepository.Create(product);
-        _unitOfWork.Commit();
+        _productRepository.Save();
         return result.Succeeded();
     }
 
     public OperationResult DeleteStock(long id)
     {
-        _unitOfWork.BeginTrans();
+        
         var result = new OperationResult();
-
         var product = _productRepository.Get(id);
+
         if (product is null)
         {
-            _unitOfWork.RollBack();
             return result.Failed(ApplicationMessage.RecordNotFound);
         }
 
         product.OutOfStock();
-        _unitOfWork.Commit();
+        _productRepository.Save();
         return result.Succeeded();
     }
 
     public OperationResult AddStock(long id)
     {
-        _unitOfWork.BeginTrans();
+        
         var result = new OperationResult();
-
         var product = _productRepository.Get(id);
+
         if (product is null)
         {
-            _unitOfWork.RollBack();
             return result.Failed(ApplicationMessage.RecordNotFound);
         }
 
         product.HaveInStock();
-        _unitOfWork.Commit();
+        _productRepository.Save();
         return result.Succeeded();
     }
 
     public OperationResult Edit(EditProduct command)
     {
-        _unitOfWork.BeginTrans();
+        
         var result = new OperationResult();
-
         var product = _productRepository.Get(command.Id);
 
         if (product is null)
         {
-            _unitOfWork.RollBack();
             return result.Failed(ApplicationMessage.RecordNotFound);
         }
 
         if (_productRepository.Exists(p => p.Name == command.Name && p.Id != command.Id))
         {
-            _unitOfWork.RollBack();
             return result.Failed(ApplicationMessage.DuplicatedRecord);
         }
 
@@ -97,7 +88,7 @@ public class ProductApplication : IProductApplication
             command.Description, command.Picture, command.PictureAlt, command.PictureTitle,
             command.Slug, command.Keywords, command.MetaDescription);
 
-        _unitOfWork.Commit();
+        _productRepository.Save();
         return result.Succeeded(ApplicationMessage.RecordEdited);
     }
 

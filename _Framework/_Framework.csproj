@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="InventoryAgg\**" />
+    <EmbeddedResource Remove="InventoryAgg\**" />
+    <None Remove="InventoryAgg\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10" />
   </ItemGroup>
 

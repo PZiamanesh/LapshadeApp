@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DiscountMgmt.Infrastructure.Configuration\DiscountMgmt.Infrastructure.Configuration.csproj" />
+    <ProjectReference Include="..\InventoryMgmt.Infrastructure.Configuration\InventoryMgmt.Infrastructure.Configuration.csproj" />
     <ProjectReference Include="..\ShopMgmt.Infrastructure.Configuration\ShopMgmt.Infrastructure.Configuration.csproj" />
     <ProjectReference Include="..\_LampshadeQuery\_LampshadeQuery.csproj" />
   </ItemGroup>

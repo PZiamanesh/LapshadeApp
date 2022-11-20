@@ -1,4 +1,5 @@
 ﻿using _Framework.Application;
+using _Framework.Infrastructure;
 using _LampshadeQuery.Contract.ProductCategory;
 using _LampshadeQuery.Contract.Slide;
 using _LampshadeQuery.Query;
@@ -36,8 +37,6 @@ public class ShopMgmtBootstrapper
 
         service.AddScoped<ISlideQuery, SlideQuery>();
         service.AddScoped<IProductCategoryQuery, ProductCategoryQuery>();
-
-        service.AddScoped<IUnitOfWork, UnitOfWork>();
 
         service.AddDbContext<ShopContext>(opt => opt.UseSqlServer(connectionString));
     }

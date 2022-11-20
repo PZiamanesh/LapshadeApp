@@ -8,18 +8,15 @@ namespace ShopMgmt.Application;
 public class SlideApplication : ISlideApplication
 {
     private readonly ISlideRepository _slideRepository;
-    private readonly IUnitOfWork _unitOfWork;
 
-    public SlideApplication(ISlideRepository slideRepository, IUnitOfWork unitOfWork)
+    public SlideApplication(ISlideRepository slideRepository)
     {
         _slideRepository = slideRepository;
-        _unitOfWork = unitOfWork;
     }
 
     public OperationResult Create(CreateSlide command)
     {
         var result = new OperationResult();
-        _unitOfWork.BeginTrans();
 
         var slide = new Slide(command.Picture,
             command.PictureAlt,
@@ -31,19 +28,17 @@ public class SlideApplication : ISlideApplication
             command.Link);
 
         _slideRepository.Create(slide);
-        _unitOfWork.Commit();
+        _slideRepository.Save();
         return result.Succeeded();
     }
 
     public OperationResult Edit(EditSlide command)
     {
         var result = new OperationResult();
-        _unitOfWork.BeginTrans();
-
         var slide = _slideRepository.Get(command.Id);
+
         if (slide is null)
         {
-            _unitOfWork.RollBack();
             return result.Failed(ApplicationMessage.DuplicatedRecord);
         }
 
@@ -56,7 +51,7 @@ public class SlideApplication : ISlideApplication
             command.BtnText,
             command.Link);
 
-        _unitOfWork.Commit();
+        _slideRepository.Save();
         return result.Succeeded(ApplicationMessage.RecordEdited);
     }
 
@@ -73,34 +68,30 @@ public class SlideApplication : ISlideApplication
     public OperationResult Remove(long id)
     {
         var result = new OperationResult();
-        _unitOfWork.BeginTrans();
-
         var slide = _slideRepository.Get(id);
+
         if (slide is null)
         {
-            _unitOfWork.RollBack();
             return result.Failed(ApplicationMessage.DuplicatedRecord);
         }
 
         slide.Remove();
-        _unitOfWork.Commit();
+        _slideRepository.Save();
         return result.Succeeded();
     }
 
     public OperationResult Restore(long id)
     {
         var result = new OperationResult();
-        _unitOfWork.BeginTrans();
-
         var slide = _slideRepository.Get(id);
+
         if (slide is null)
         {
-            _unitOfWork.RollBack();
             return result.Failed(ApplicationMessage.DuplicatedRecord);
         }
 
         slide.Restore();
-        _unitOfWork.Commit();
+        _slideRepository.Save();
         return result.Succeeded();
     }
 }

@@ -21,8 +21,6 @@ public class DiscountMgmtBootstrapper
         service.AddScoped<IColleagueDiscountRepository, ColleagueDiscountRepository>();
         service.AddScoped<IColleagueDiscountApplication, ColleagueDiscountApplication>();
 
-        service.AddScoped<IUnitOfWork, UnitOfWork>();
-
         service.AddDbContext<DiscountContext>(opt => opt.UseSqlServer(connectionString));
     }
 }

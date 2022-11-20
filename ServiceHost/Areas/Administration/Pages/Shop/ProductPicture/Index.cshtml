@@ -87,17 +87,11 @@
                                         <td class="text-center">
                                             @if (!item.IsRemoved)
                                             {
-                                                <div class="checkedThere">
-
-                                                </div>
-                                                @*<i class="fa fa-check fa-3x text-success"></i>*@
+                                                <i class="fa fa-check fa-3x text-success"></i>
                                             }
                                             else
                                             {
-                                                <div class="removeThere">
-
-                                                </div>
-                                                @*<i class="fa fa-remove fa-3x text-danger"></i>*@
+                                                <i class="fa fa-remove fa-3x text-danger"></i>
                                             }
                                         </td>
                                         <td>
@@ -142,9 +136,6 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#datatable').dataTable();
-
-            $(".checkedThere").html('<i class="fa fa-check fa-3x text-success"></i>')
-            $(".removeThere").html('<i class="fa fa-remove fa-3x text-danger"></i>')
         });
     </script>
 }

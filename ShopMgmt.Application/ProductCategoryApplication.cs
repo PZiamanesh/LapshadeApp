@@ -7,23 +7,18 @@ namespace ShopMgmt.Application;
 public class ProductCategoryApplication : IProductCategoryApplication
 {
     private readonly IProductCategoryRepository _productCategoryRepository;
-    private readonly IUnitOfWork _unitOfWork;
 
-    public ProductCategoryApplication(IProductCategoryRepository productCategoryRepository, 
-        IUnitOfWork unitOfWork)
+    public ProductCategoryApplication(IProductCategoryRepository productCategoryRepository)
     {
         _productCategoryRepository = productCategoryRepository;
-        _unitOfWork = unitOfWork;
     }
 
     public OperationResult Create(CreateProductCategory command)
     {
-        _unitOfWork.BeginTrans();
         var operationResult = new OperationResult();
 
         if (_productCategoryRepository.Exists(x => x.Name == command.Name))
         {
-            _unitOfWork.RollBack();
             return operationResult.Failed(ApplicationMessage.DuplicatedRecord);
         }
 
@@ -39,25 +34,23 @@ public class ProductCategoryApplication : IProductCategoryApplication
             slug);
 
         _productCategoryRepository.Create(productCategory);
-        _unitOfWork.Commit();
+        _productCategoryRepository.Save();
         return operationResult.Succeeded();
     }
 
     public OperationResult Edit(EditProductCategory command)
     {
-        _unitOfWork.BeginTrans();
+        
         var operationResult = new OperationResult();
         var oldCategory = _productCategoryRepository.Get(command.Id);
 
         if (oldCategory == null)
         {
-            _unitOfWork.RollBack();
             return operationResult.Failed(ApplicationMessage.RecordNotFound);
         }
 
         if (_productCategoryRepository.Exists(x => x.Name!.Equals(command.Name) && x.Id != command.Id))
         {
-            _unitOfWork.RollBack();
             return operationResult.Failed(ApplicationMessage.DuplicatedRecord);
         }
 
@@ -72,7 +65,7 @@ public class ProductCategoryApplication : IProductCategoryApplication
             command.MetaDescription,
             slug);
 
-        _unitOfWork.Commit();
+        _productCategoryRepository.Save();
         return operationResult.Succeeded(ApplicationMessage.RecordEdited);
     }
 
@@ -86,5 +79,6 @@ public class ProductCategoryApplication : IProductCategoryApplication
         return _productCategoryRepository.Search(model);
     }
 
-    public IEnumerable<ProductCategoryViewModel> GetProductCategories() => _productCategoryRepository.GetProductCategories();
+    public IEnumerable<ProductCategoryViewModel> GetProductCategories() => 
+        _productCategoryRepository.GetProductCategories();
 }

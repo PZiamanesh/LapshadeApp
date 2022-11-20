@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using _Framework.Domain;
+﻿using _Framework.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace _Framework.Infrastructure;
@@ -33,5 +32,10 @@ public class RepositoryBase<TKey, TEntity> : IRepository<TKey, TEntity> where TE
     public bool Exists(Func<TEntity, bool> expression)
     {
         return _entities.Any(expression);
+    }
+
+    public void Save()
+    {
+        _context.SaveChanges();
     }
 }

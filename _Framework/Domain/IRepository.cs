@@ -11,4 +11,6 @@ public interface IRepository<in TKey, TEntity> where TEntity : EntityBase<TKey>
     IEnumerable<TEntity> Get();
 
     bool Exists(Func<TEntity, bool> expression);
+
+    void Save();
 }

@@ -2,4 +2,5 @@
 
 public record EditInventory : CreateInventory
 {
+    public long Id { get; set; }
 }

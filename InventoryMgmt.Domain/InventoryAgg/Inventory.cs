@@ -7,7 +7,8 @@ public class Inventory : EntityBase<long>
     public long ProductId { get; private set; }
     public double UnitPrice { get; private set; }
     public bool InStock { get; private set; }
-    // relations
+
+    // composition relation
     public IEnumerable<InventoryOperation> Operations { get; set; }
 
     public Inventory(long productId, double unitPrice)
@@ -17,7 +18,7 @@ public class Inventory : EntityBase<long>
         InStock = false;
     }
 
-    private int CalculateCurrentCount()
+    public int CalculateCurrentCount()
     {
         var plus = Operations.Where(x => x.Operation).Sum(x => x.Count);
         var minus = Operations.Where(x => !x.Operation).Sum(x => x.Count);
@@ -63,7 +64,8 @@ public class InventoryOperation
     public DateTime OperationDate { get; set; }
     public int CurrentCount { get; set; }
     public string Description { get; set; }
-    // relations
+
+    // composition relation
     public long InventoryId { get; set; }
     public Inventory Inventory { get; set; }
 
