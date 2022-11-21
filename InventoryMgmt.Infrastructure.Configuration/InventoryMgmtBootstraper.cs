@@ -1,4 +1,6 @@
 ﻿using _Framework.Application;
+using InventoryMgmt.Application;
+using InventoryMgmt.Application.Contract.Inventory;
 using InventoryMgmt.Domain.InventoryAgg;
 using InventoryMgmt.Infrastructure.EFCore;
 using InventoryMgmt.Infrastructure.EFCore.Repository;
@@ -12,6 +14,7 @@ public class InventoryMgmtBootstrapper
     public static void ConfigureService(IServiceCollection service, string connectionString)
     {
         service.AddScoped<IInventoryRepository, InventoryRepository>();
+        service.AddScoped<IInventoryApplication, InventoryApplication>();
 
         service.AddDbContext<InventoryContext>(opt => opt.UseSqlServer(connectionString));
     }
