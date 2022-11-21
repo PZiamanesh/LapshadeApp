@@ -21,7 +21,7 @@ public class InventoryApplication : IInventoryApplication
             return result.Failed(ApplicationMessage.DuplicatedRecord);
         }
 
-        var inventory = new Inventory(command.ProductId, command.ProductId);
+        var inventory = new Inventory(command.ProductId, command.UnitPrice);
         _inventoryRepository.Create(inventory);
         _inventoryRepository.Save();
         return result.Succeeded();

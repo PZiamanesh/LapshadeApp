@@ -6,6 +6,24 @@
 
 <div class="row">
     <div class="col-sm-12">
+        @if (TempData["SlideSubmission"] != null)
+        {
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                @TempData["SlideSubmission"]
+            </div>
+        }
+        @if (TempData["SlideEdition"] != null)
+        {
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                @TempData["SlideEdition"]
+            </div>
+        }
+        else
+        {
+            <div></div>
+        }
         <h4 class="page-title pull-right">@ViewData["Title"]</h4>
         <p class="pull-left">
             <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">ایجاد اسلاید جدید</a>
@@ -17,30 +35,13 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">لیست اسلایدها</h3>
+                <h3 class="panel-title">لیست اسلایدها (@Model.Slides.Count())</h3>
             </div>
             <div class="panel-body">
-                @if (TempData["SlideSubmission"] != null)
-                {
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        @TempData["SlideSubmission"]
-                    </div>
-                }
-                @if (TempData["SlideEdition"] != null)
-                {
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        @TempData["SlideEdition"]
-                    </div>
-                }
-                else
-                {
-                    <div></div>
-                }
+                
                 <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <table id="datatable" class="table table-striped table-bordered table-responsive">
+                    <div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
+                        <table id="datatable" class="table table-striped table-bordered ">
                             <thead>
                                 <tr>
                                     <th>#</th>
