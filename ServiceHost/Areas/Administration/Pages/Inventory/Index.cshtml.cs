@@ -61,5 +61,35 @@ public class IndexModel : PageModel
         return new JsonResult(result);
     }
 
-   
+    public IActionResult OnGetIncrease(long id)
+    {
+        var increase = new IncreaseInventory() { InventoryId = id};
+        return Partial("./Increase", increase);
+    }
+
+    public IActionResult OnPostIncrease(IncreaseInventory command)
+    {
+        var result = _inventoryApplication.Increase(command);
+        if (result.IsSucceeded)
+        {
+            TempData["InventoryEdition"] = result.Message;
+        }
+        return new JsonResult(result);
+    }
+
+    public IActionResult OnGetDecrease(long id)
+    {
+        var decrease = new DecreaseInventory() { InventoryId = id };
+        return Partial("./Decrease", decrease);
+    }
+
+    public IActionResult OnPostDecrease(DecreaseInventory command)
+    {
+        var result = _inventoryApplication.Decrease(command);
+        if (result.IsSucceeded)
+        {
+            TempData["InventoryEdition"] = result.Message;
+        }
+        return new JsonResult(result);
+    }
 }

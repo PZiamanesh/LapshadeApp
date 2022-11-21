@@ -9,7 +9,7 @@ public class Inventory : EntityBase<long>
     public bool InStock { get; private set; }
 
     // composition relation
-    public IEnumerable<InventoryOperation> Operations { get; set; }
+    public List<InventoryOperation> Operations { get; set; }
 
     public Inventory(long productId, double unitPrice)
     {
@@ -41,19 +41,21 @@ public class Inventory : EntityBase<long>
             description,
             0,
             Id);
+        Operations.Add(operation);
         InStock = currentCount > 0;
     }
 
     public void Decrease(int count, long operatorId, string description, long orderId)
     {
         var currentCount = CalculateCurrentCount() - count;
-        var operation = new InventoryOperation(true,
+        var operation = new InventoryOperation(false,
             count,
             operatorId,
             currentCount,
             description,
             orderId,
             Id);
+        Operations.Add(operation);
         InStock = currentCount > 0;
     }
 }
@@ -90,5 +92,6 @@ public class InventoryOperation
         Description = description;
         OrderId = orderId;
         InventoryId = inventoryId;
+        OperationDate = DateTime.Now;
     }
 }

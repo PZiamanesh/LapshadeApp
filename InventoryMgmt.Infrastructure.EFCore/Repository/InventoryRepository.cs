@@ -48,7 +48,7 @@ public class InventoryRepository : RepositoryBase<long, Inventory>, IInventoryRe
             query = query.Where(x => x.ProductId == search.ProductId);
         }
 
-        if (!search.InStock)
+        if (search.InStock)
         {
             query = query.Where(x => !x.InStock);
         }
