@@ -90,4 +90,9 @@ public class InventoryApplication : IInventoryApplication
     {
         return _inventoryRepository.Search(search);
     }
+
+    public IEnumerable<InventroyOperationViewModel> GetOperationLog(long id)
+    {
+        return _inventoryRepository.GetOperationLog(id);
+    }
 }

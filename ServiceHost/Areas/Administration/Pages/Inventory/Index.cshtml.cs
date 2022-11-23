@@ -92,4 +92,10 @@ public class IndexModel : PageModel
         }
         return new JsonResult(result);
     }
+
+    public IActionResult OnGetLog(long id)
+    {
+        var logs = _inventoryApplication.GetOperationLog(id);
+        return Partial("InventoryOperation", logs);
+    }
 }

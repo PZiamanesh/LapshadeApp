@@ -17,4 +17,6 @@ public interface IInventoryApplication
     OperationResult Decrease(DecreaseInventory command); // inventoryWorker
 
     OperationResult Decrease(List<DecreaseInventory> command); // client
+
+    IEnumerable<InventroyOperationViewModel> GetOperationLog(long id);
 }

@@ -1,0 +1,56 @@
+﻿@using InventoryMgmt.Application.Contract.Inventory
+@model IEnumerable<InventroyOperationViewModel>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="$('.modal-dialog').css('width', '600px')">×</button>
+    <h4 class="modal-title">ایجاد انبار جدید</h4>
+</div>
+<div class="modal-body">
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
+            <table id="datatable" class="table table-bordered ">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>تعداد</th>
+                        <th>تاریخ درج</th>
+                        <th>عملیات</th>
+                        <th>موجودی فعلی</th>
+                        <th>عملگر</th>
+                        <th>توضیحات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="@(item.Operation ? "bg-success" : "bg-danger")">
+
+                            <td>@item.Id</td>
+                            <td>@item.Count</td>
+                            <td>@item.OperationDate</td>
+                            <td>
+                                @if (item.Operation)
+                                {
+                                    <span>افزایش</span>
+                                }
+                                else{
+                                    <span>کاهش</span>
+                                }
+                            </td>
+                            <td>@item.CurrentCount</td>
+                            <td>@item.Operator</td>
+                            <td>@item.Description</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default waves-effect"
+    data-dismiss="modal" onclick="$('.modal-dialog').css('width', '600px')">بستن</button>
+</div>

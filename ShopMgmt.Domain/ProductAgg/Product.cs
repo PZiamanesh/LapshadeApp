@@ -32,9 +32,18 @@ public class Product : EntityBase<long>
         Pictures = new List<ProductPicture>();
     }
 
-    public Product(string? name, string? code, double unitPrice, string? shortDescription,
-        string? description, string? picture, string? pictureAlt, string? pictureTitle,
-        string? slug, string? keywords, string? metaDescription, long categoryId)
+    public Product(string? name,
+        string? code,
+        double unitPrice,
+        string? shortDescription,
+        string? description,
+        string? picture,
+        string? pictureAlt,
+        string? pictureTitle,
+        string? slug,
+        string? keywords,
+        string? metaDescription,
+        long categoryId)
     {
         Name = name;
         Code = code;
@@ -51,9 +60,17 @@ public class Product : EntityBase<long>
         InStock = true;
     }
 
-    public void Edit(string? name, string? code, double unitPrice, string? shortDescription,
-        string? description, string? picture, string? pictureAlt, string? pictureTitle,
-        string? slug, string? keywords, string? metaDescription)
+    public void Edit(string? name,
+        string? code,
+        double unitPrice,
+        string? shortDescription,
+        string? description,
+        string? picture,
+        string? pictureAlt,
+        string? pictureTitle,
+        string? slug,
+        string? keywords,
+        string? metaDescription)
     {
         Name = name;
         Code = code;

@@ -8,4 +8,5 @@ public record InventoryViewModel
     public double UnitPrice { get; set; }
     public bool InStock { get; set; }
     public int CurrentCount { get; set; }
+    public string CreationDate { get; set; }
 }
