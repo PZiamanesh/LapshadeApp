@@ -23,7 +23,6 @@ public class ProductRepository : RepositoryBase<long, Product>, IProductReposito
             Id = product!.Id,
             Name = product.Name,
             Code = product.Code,
-            UnitPrice = product.UnitPrice,
             ShortDescription = product.ShortDescription,
             Description = product.Description,
             Picture = product.Picture,
@@ -54,12 +53,10 @@ public class ProductRepository : RepositoryBase<long, Product>, IProductReposito
                 Id = x.Id,
                 Name = x.Name,
                 Code = x.Code,
-                UnitPrice = x.UnitPrice,
                 Picture = x.Picture,
                 Category = x.Category!.Name,
                 CategoryId = x.Category.Id,
-                CreationDate = x.CreationDate.ToFarsi(),
-                IsStocked = x.InStock
+                CreationDate = x.CreationDate.ToFarsi()
             }) ?? throw new InvalidOperationException(ApplicationMessage.RecordNotFound);
 
         if (!string.IsNullOrWhiteSpace(searchModel.Name))

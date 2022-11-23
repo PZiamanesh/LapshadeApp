@@ -10,9 +10,6 @@ public record CreateProduct
     [Required(ErrorMessage = ValidationMessage.IsRequired)]
     public string? Code { get; set; }
 
-    [Range(1, double.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
-    public double UnitPrice { get; set; }
-
     [Required(ErrorMessage = ValidationMessage.IsRequired)]
     public string? ShortDescription { get; set; }
 

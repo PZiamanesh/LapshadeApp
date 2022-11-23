@@ -10,10 +10,6 @@ public interface IProductApplication
 
     EditProduct GetDetails(long id);
 
-    OperationResult AddStock(long id);
-
-    OperationResult DeleteStock(long id);
-
     IEnumerable<ProductViewModel> Search(ProductSearchViewModel searchModel);
 
     IEnumerable<ProductViewModel> GetProducts();

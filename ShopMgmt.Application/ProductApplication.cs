@@ -24,44 +24,19 @@ public class ProductApplication : IProductApplication
         var slug = command.Slug?.Slugify() ?? ApplicationMessage.NoSlug;
 
         var product = new Product(
-            command.Name, command.Code, command.UnitPrice, command.ShortDescription,
-            command.Description, command.Picture, command.PictureAlt, command.PictureTitle,
-            slug, command.Keywords, command.MetaDescription, command.CategoryId
+            command.Name,
+            command.Code,
+            command.ShortDescription,
+            command.Description,
+            command.Picture,
+            command.PictureAlt,
+            command.PictureTitle,
+            slug, command.Keywords,
+            command.MetaDescription,
+            command.CategoryId
             );
 
         _productRepository.Create(product);
-        _productRepository.Save();
-        return result.Succeeded();
-    }
-
-    public OperationResult DeleteStock(long id)
-    {
-        
-        var result = new OperationResult();
-        var product = _productRepository.Get(id);
-
-        if (product is null)
-        {
-            return result.Failed(ApplicationMessage.RecordNotFound);
-        }
-
-        product.OutOfStock();
-        _productRepository.Save();
-        return result.Succeeded();
-    }
-
-    public OperationResult AddStock(long id)
-    {
-        
-        var result = new OperationResult();
-        var product = _productRepository.Get(id);
-
-        if (product is null)
-        {
-            return result.Failed(ApplicationMessage.RecordNotFound);
-        }
-
-        product.HaveInStock();
         _productRepository.Save();
         return result.Succeeded();
     }
@@ -84,9 +59,16 @@ public class ProductApplication : IProductApplication
 
         var slug = command.Slug?.Slugify() ?? ApplicationMessage.NoSlug;
         product.Edit(
-            command.Name, command.Code, command.UnitPrice, command.ShortDescription,
-            command.Description, command.Picture, command.PictureAlt, command.PictureTitle,
-            command.Slug, command.Keywords, command.MetaDescription);
+            command.Name,
+            command.Code,
+            command.ShortDescription,
+            command.Description,
+            command.Picture,
+            command.PictureAlt,
+            command.PictureTitle,
+            command.Slug,
+            command.Keywords,
+            command.MetaDescription);
 
         _productRepository.Save();
         return result.Succeeded(ApplicationMessage.RecordEdited);

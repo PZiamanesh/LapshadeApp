@@ -15,6 +15,7 @@ public class InventoryMapping : IEntityTypeConfiguration<Inventory>
         {
             OwnedBuilder.ToTable("InventoryOperations");
             OwnedBuilder.HasKey(x => x.Id);
+
             OwnedBuilder.Property(x => x.Description).HasMaxLength(500);
 
             OwnedBuilder.WithOwner(x => x.Inventory).HasForeignKey(x => x.InventoryId);

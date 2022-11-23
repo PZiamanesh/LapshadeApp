@@ -8,8 +8,6 @@ public class Product : EntityBase<long>
 {
     public string? Name { get; private set; }
     public string? Code { get; private set; }
-    public double UnitPrice { get; private set; }
-    public bool InStock { get; private set; }
     public string? ShortDescription { get; private set; }
     public string? Description { get; private set; }
     public string? Picture { get; private set; }
@@ -34,7 +32,6 @@ public class Product : EntityBase<long>
 
     public Product(string? name,
         string? code,
-        double unitPrice,
         string? shortDescription,
         string? description,
         string? picture,
@@ -47,7 +44,6 @@ public class Product : EntityBase<long>
     {
         Name = name;
         Code = code;
-        UnitPrice = unitPrice;
         ShortDescription = shortDescription;
         Description = description;
         Picture = picture;
@@ -57,12 +53,10 @@ public class Product : EntityBase<long>
         Keywords = keywords;
         MetaDescription = metaDescription;
         CategoryId = categoryId;
-        InStock = true;
     }
 
     public void Edit(string? name,
         string? code,
-        double unitPrice,
         string? shortDescription,
         string? description,
         string? picture,
@@ -74,7 +68,6 @@ public class Product : EntityBase<long>
     {
         Name = name;
         Code = code;
-        UnitPrice = unitPrice;
         ShortDescription = shortDescription;
         Description = description;
         Picture = picture;
@@ -83,15 +76,5 @@ public class Product : EntityBase<long>
         Slug = slug;
         Keywords = keywords;
         MetaDescription = metaDescription;
-    }
-
-    public void HaveInStock()
-    {
-        this.InStock = true;
-    }
-
-    public void OutOfStock()
-    {
-        this.InStock = false;
     }
 }
