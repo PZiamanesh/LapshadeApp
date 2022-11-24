@@ -1,18 +1,24 @@
-﻿using _LampshadeQuery.Contract.Product;
+﻿using _Framework.Application;
+using _LampshadeQuery.Contract.Product;
 using _LampshadeQuery.Contract.ProductCategory;
+using InventoryMgmt.Domain.InventoryAgg;
+using InventoryMgmt.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
 using ShopMgmt.Domain.ProductAgg;
 using ShopMgmt.Infrastructure.EFCore;
+using System.Globalization;
 
 namespace _LampshadeQuery.Query;
 
 public class ProductCategoryQuery : IProductCategoryQuery
 {
     private readonly ShopContext _context;
+    private readonly InventoryContext _inventoryContext;
 
-    public ProductCategoryQuery(ShopContext context)
+    public ProductCategoryQuery(ShopContext context, InventoryContext inventoryContext)
     {
         _context = context;
+        _inventoryContext = inventoryContext;
     }
 
     public IEnumerable<ProductCategoryQueryViewModel> GetProductCategories()
@@ -30,7 +36,9 @@ public class ProductCategoryQuery : IProductCategoryQuery
 
     public IEnumerable<ProductCategoryQueryViewModel> GetProductCategoriesWithProducts()
     {
-        var categoriesWithTheirProducts = _context.ProductCategories
+        var inventory = _inventoryContext.Inventory.Select(x => new {x.ProductId, x.UnitPrice });
+
+        var categories = _context.ProductCategories
             .Include(x => x.Products)
                 .ThenInclude(x=>x.Category)
             .Select(x => new ProductCategoryQueryViewModel()
@@ -40,7 +48,16 @@ public class ProductCategoryQuery : IProductCategoryQuery
                 Products = MapProducts(x.Products)
             }).ToList();
 
-        return categoriesWithTheirProducts;
+        foreach (var category in categories)
+        {
+            foreach (var product in category.Products)
+            {
+                product.Price = inventory
+                    .FirstOrDefault(x => x.ProductId == product.Id)?.UnitPrice.ToMoney() ?? "عدم تعریف در انبار";
+            }
+        }
+
+        return categories;
     }
 
     private static List<ProductQueryViewModel> MapProducts(List<Product> products)

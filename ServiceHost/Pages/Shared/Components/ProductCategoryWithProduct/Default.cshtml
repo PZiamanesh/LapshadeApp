@@ -40,7 +40,7 @@
 
                         @foreach (var category in Model)
                         {
-                            <div class="tab-pane fade show @(Model.First() == category ? "active" : "") " id="product-series-@category.Id" role="tabpanel"
+                            <div class="tab-pane fade @(Model.First() == category ? "show active" : "") " id="product-series-@category.Id" role="tabpanel"
                              aria-labelledby="product-tab-1">
                                 <!--=======  single row slider wrapper  =======-->
                                 <div class="single-row-slider-wrapper">
@@ -81,7 +81,7 @@
                                                     <div class="single-grid-product__content">
                                                         <div class="single-grid-product__category-rating">
                                                             <span class="category">
-                                                                <a href="shop-left-sidebar.html">@product.Name</a>
+                                                                <a href="shop-left-sidebar.html">@product.Category</a>
                                                             </span>
                                                             <span class="rating">
                                                                 <i class="ion-android-star active"></i>
@@ -98,8 +98,9 @@
                                                             </a>
                                                         </h3>
                                                         <p class="single-grid-product__price">
-                                                            <span class="discounted-price">$100.00</span>
-                                                            <span class="main-price discounted">$120.00</span>
+                                                            @*<span class="discounted-price">$100.00</span>
+                                                            <span class="main-price discounted">$120.00</span>*@
+                                                            <span class="main-price">@product.Price تومان</span>
                                                         </p>
                                                     </div>
                                                 </div>
