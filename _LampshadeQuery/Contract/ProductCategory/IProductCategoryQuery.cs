@@ -3,4 +3,5 @@
 public interface IProductCategoryQuery
 {
     IEnumerable<ProductCategoryQueryViewModel> GetProductCategories();
+    IEnumerable<ProductCategoryQueryViewModel> GetProductCategoriesWithProducts();
 }

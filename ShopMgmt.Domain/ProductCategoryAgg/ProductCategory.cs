@@ -14,7 +14,7 @@ public class ProductCategory : EntityBase<long>
     public string? MetaDescription { get; private set; }
     public string? Slug { get; private set; }
 
-    // 1 productCategory has n products
+    // relations
     public List<Product>? Products { get; private set; }
 
     protected ProductCategory()
