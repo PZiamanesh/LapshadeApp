@@ -1,12 +1,11 @@
 ﻿using _Framework.Application;
 using _LampshadeQuery.Contract.Product;
 using _LampshadeQuery.Contract.ProductCategory;
-using InventoryMgmt.Domain.InventoryAgg;
+using DiscountMgmt.Infrastructure.EFCore;
 using InventoryMgmt.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
 using ShopMgmt.Domain.ProductAgg;
 using ShopMgmt.Infrastructure.EFCore;
-using System.Globalization;
 
 namespace _LampshadeQuery.Query;
 
@@ -14,11 +13,15 @@ public class ProductCategoryQuery : IProductCategoryQuery
 {
     private readonly ShopContext _context;
     private readonly InventoryContext _inventoryContext;
+    private readonly DiscountContext _discountContext;
 
-    public ProductCategoryQuery(ShopContext context, InventoryContext inventoryContext)
+    public ProductCategoryQuery(ShopContext context,
+        InventoryContext inventoryContext,
+        DiscountContext discountContext)
     {
         _context = context;
         _inventoryContext = inventoryContext;
+        _discountContext = discountContext;
     }
 
     public IEnumerable<ProductCategoryQueryViewModel> GetProductCategories()
@@ -36,11 +39,19 @@ public class ProductCategoryQuery : IProductCategoryQuery
 
     public IEnumerable<ProductCategoryQueryViewModel> GetProductCategoriesWithProducts()
     {
-        var inventory = _inventoryContext.Inventory.Select(x => new {x.ProductId, x.UnitPrice });
+        // get inventory and customer discount list
+        var inventory = _inventoryContext.Inventory
+            .Select(x => new { x.ProductId, x.UnitPrice, currentCount = x.CalculateCurrentCount() });
 
+        var customerDiscounts = _discountContext.CustomerDiscounts
+            .Where(x => x.EndDate >= DateTime.Now)
+            .Select(x => new { x.ProductId, x.DiscountRate });
+
+
+        // create categories with their products
         var categories = _context.ProductCategories
             .Include(x => x.Products)
-                .ThenInclude(x=>x.Category)
+                .ThenInclude(x => x.Category)
             .Select(x => new ProductCategoryQueryViewModel()
             {
                 Id = x.Id,
@@ -48,12 +59,49 @@ public class ProductCategoryQuery : IProductCategoryQuery
                 Products = MapProducts(x.Products)
             }).ToList();
 
+
+        // filling price and discount for each product of a category
         foreach (var category in categories)
         {
             foreach (var product in category.Products)
             {
-                product.Price = inventory
-                    .FirstOrDefault(x => x.ProductId == product.Id)?.UnitPrice.ToMoney() ?? "عدم تعریف در انبار";
+                double price = 0.0;
+
+                // get price
+                var productInventory = inventory
+                    .FirstOrDefault(x => x.ProductId == product.Id);
+
+                if (productInventory is not null)
+                {
+                    if (productInventory.currentCount > 0)
+                    {
+                        price = productInventory.UnitPrice;
+                        product.Price = productInventory.UnitPrice.ToMoney() + " تومان";
+                    }
+                    else
+                    {
+                        product.Price = "ناموجود";
+                    }
+                }
+                else
+                {
+                    product.Price = "بزودی";
+                }
+
+                // get discount
+                var productWithDiscount = customerDiscounts
+                    .FirstOrDefault(x => x.ProductId == product.Id);
+
+                if (productWithDiscount is not null)
+                {
+                    int discountRate = productWithDiscount.DiscountRate;
+                    double discountAmount = discountRate * price / 100.0;
+                    double discountedPrice = price - discountAmount;
+
+                    product.DiscountRate = $"% {discountRate}-";
+                    product.PriceWithDisount = discountedPrice.ToMoney();
+                    product.HasDiscount = true;
+                }
             }
         }
 
@@ -68,12 +116,10 @@ public class ProductCategoryQuery : IProductCategoryQuery
             Category = x.Category.Name,
             Picture = x.Picture,
             PictureAlt = x.PictureAlt,
-            PictureTitle= x.PictureTitle,
+            PictureTitle = x.PictureTitle,
             Name = x.Name,
             ShortDescription = x.ShortDescription,
             Slug = x.Slug,
-            Keywords = x.Keywords,
-            MetaDescription = x.MetaDescription
         }).ToList();
     }
 }

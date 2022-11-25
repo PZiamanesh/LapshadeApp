@@ -70,9 +70,12 @@
                                                 <!--=======  single grid product  =======-->
                                                 <div class="single-grid-product">
                                                     <div class="single-grid-product__image">
-                                                        <div class="single-grid-product__label">
-                                                            <span class="sale">-20%</span>
-                                                        </div>
+                                                        @if (product.HasDiscount)
+                                                        {
+                                                            <div class="single-grid-product__label">
+                                                                <span class="sale">@product.DiscountRate</span>
+                                                            </div>
+                                                        }
                                                         <a href="single-product.html">
                                                             <img src="@product.Picture" class="img-fluid"
                                                          alt="@product.PictureAlt" title="@product.PictureTitle">
@@ -98,9 +101,17 @@
                                                             </a>
                                                         </h3>
                                                         <p class="single-grid-product__price">
-                                                            @*<span class="discounted-price">$100.00</span>
-                                                            <span class="main-price discounted">$120.00</span>*@
-                                                            <span class="main-price">@product.Price تومان</span>
+                                                            @if (product.HasDiscount)
+                                                            {
+                                                                <span class="discounted-price">@product.PriceWithDisount</span>
+                                                                <span class="main-price discounted">@product.Price</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="main-price">@product.Price</span>
+                                                            }
+
+
                                                         </p>
                                                     </div>
                                                 </div>

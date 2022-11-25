@@ -12,9 +12,8 @@ public class ProductQueryViewModel
     public string Name { get; set; }
     public string ShortDescription { get; set; }
     public string Slug { get; set; }
-    public string Keywords { get; set; }
-    public string MetaDescription { get; set; }
     public string Price { get; set; }
     public string PriceWithDisount { get; set; }
     public string DiscountRate { get; set; }
+    public bool HasDiscount { get; set; }
 }
