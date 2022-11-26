@@ -15,13 +15,13 @@
                             <div class="col-lg-4 col-sm-6 grid-item">
                                 <div class="single-category-item">
                                     <div class="single-category-item__image">
-                                        <a asp-page="/ProductCategory" asp-route-Slug="@category.Slug">
+                                        <a asp-page="/ProductCategory" asp-route-id="@category.Slug">
                                             <img src="@category.Picture" class="img-fluid" alt="@category.PictureAlt" , title="@category.PictureTitle">
                                         </a>
                                     </div>
                                     <div class="single-category-item__content">
                                         <h3 class="title">@category.Name</h3>
-                                        <a asp-page="/ProductCategory" asp-route-Slug="@category.Slug">
+                                        <a asp-page="/ProductCategory" asp-route-id="@category.Slug">
                                             <i class="ion-android-arrow-dropleft-circle"></i> خرید
                                         </a>
                                     </div>

@@ -26,7 +26,10 @@
         }
         <h4 class="page-title pull-right">@ViewData["Title"]</h4>
         <p class="pull-left">
-            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">ایجاد اسلاید جدید</a>
+            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">
+                <i class="fa fa-plus"></i>
+                ایجاد اسلاید جدید
+            </a>
         </p>
     </div>
 </div>
@@ -38,7 +41,7 @@
                 <h3 class="panel-title">لیست اسلایدها (@Model.Slides.Count())</h3>
             </div>
             <div class="panel-body">
-                
+
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
                         <table id="datatable" class="table table-striped table-bordered ">

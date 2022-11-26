@@ -53,7 +53,10 @@ public class InventoryRepository : RepositoryBase<long, Inventory>, IInventoryRe
 
     public IEnumerable<InventoryViewModel> Search(InventorySearchViewModel search)
     {
-        var products = _shopContext.Products.Select(x => new { x.Id, x.Name });
+        var products = _shopContext.Products
+            .Include(x=>x.Category)
+            .Select(x => new { x.Id, x.Name, x.Category});
+
         var query = _context.Inventory.Select(x => new InventoryViewModel()
         {
             Id = x.Id,
@@ -75,7 +78,13 @@ public class InventoryRepository : RepositoryBase<long, Inventory>, IInventoryRe
         }
 
         var inventory = query.ToList();
-        inventory.ForEach(x => x.Product = products.FirstOrDefault(p => p.Id == x.ProductId).Name);
+
+        inventory.ForEach(x =>
+        {
+            var product = products.FirstOrDefault(p => p.Id == x.ProductId);
+            x.Product = product.Name;
+            x.Category = product.Category.Name;
+        });
 
         return inventory;
     }

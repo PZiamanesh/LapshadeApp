@@ -95,11 +95,11 @@ public class ProductCategoryQuery : IProductCategoryQuery
                 if (productWithDiscount is not null)
                 {
                     int discountRate = productWithDiscount.DiscountRate;
-                    double discountAmount = discountRate * price / 100.0;
+                    double discountAmount = Math.Round(discountRate * price / 100.0);
                     double discountedPrice = price - discountAmount;
 
                     product.DiscountRate = $"% {discountRate}-";
-                    product.PriceWithDisount = discountedPrice.ToMoney();
+                    product.PriceWithDiscount = discountedPrice.ToMoney();
                     product.HasDiscount = true;
                 }
             }
@@ -121,5 +121,77 @@ public class ProductCategoryQuery : IProductCategoryQuery
             ShortDescription = x.ShortDescription,
             Slug = x.Slug,
         }).ToList();
+    }
+
+    public ProductCategoryQueryViewModel GetProductCategoryWithProducts(string id)
+    {
+        // get inventory and customer discount list
+        var inventory = _inventoryContext.Inventory
+            .Select(x => new { x.ProductId, x.UnitPrice, currentCount = x.CalculateCurrentCount() });
+
+        var customerDiscounts = _discountContext.CustomerDiscounts
+            .Where(x => x.EndDate >= DateTime.Now)
+            .Select(x => new { x.ProductId, x.DiscountRate, x.EndDate });
+
+
+        // create category with their products
+        var category = _context.ProductCategories
+            .Include(x => x.Products)
+                .ThenInclude(x => x.Category)
+            .Select(x => new ProductCategoryQueryViewModel()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Description = x.Description,
+                Products = MapProducts(x.Products),
+                Keywords = x.Keywords,
+                MetaDescription = x.MetaDescription,
+                Slug = x.Slug
+            }).FirstOrDefault(x => x.Slug == id);
+
+
+        // filling price and discount for each product of a category
+        foreach (var product in category.Products)
+        {
+            // get price
+            double price = 0.0;
+            var productInventory = inventory
+                .FirstOrDefault(x => x.ProductId == product.Id);
+
+            if (productInventory is not null)
+            {
+                if (productInventory.currentCount > 0)
+                {
+                    price = productInventory.UnitPrice;
+                    product.Price = productInventory.UnitPrice.ToMoney() + " تومان";
+                }
+                else
+                {
+                    product.Price = "ناموجود";
+                }
+            }
+            else
+            {
+                product.Price = "بزودی";
+            }
+
+            // get discount
+            var productWithDiscount = customerDiscounts
+                .FirstOrDefault(x => x.ProductId == product.Id);
+
+            if (productWithDiscount is not null)
+            {
+                int discountRate = productWithDiscount.DiscountRate;
+                double discountAmount = Math.Round(discountRate * price / 100.0);
+                double discountedPrice = price - discountAmount;
+
+                product.DiscountRate = $"% {discountRate}-";
+                product.PriceWithDiscount = discountedPrice.ToMoney();
+                product.HasDiscount = true;
+                product.DiscountExpirationDate = productWithDiscount.EndDate.ToString("YYYY/MM/DD");
+            }
+        }
+
+        return category;
     }
 }
