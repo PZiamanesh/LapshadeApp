@@ -188,7 +188,7 @@ public class ProductCategoryQuery : IProductCategoryQuery
                 product.DiscountRate = $"% {discountRate}-";
                 product.PriceWithDiscount = discountedPrice.ToMoney();
                 product.HasDiscount = true;
-                product.DiscountExpirationDate = productWithDiscount.EndDate.ToString("YYYY/MM/DD");
+                product.DiscountExpirationDate = productWithDiscount.EndDate.ToString("yyyy/MM/dd");
             }
         }
 
