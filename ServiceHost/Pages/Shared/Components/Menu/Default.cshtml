@@ -19,7 +19,7 @@
                         <nav>
                             <ul>
                                 <li>
-                                    <a href="index.html">صفحه اصلی</a>
+                                    <a asp-page="/Index">صفحه اصلی</a>
                                 </li>
 
                                 <li class="menu-item-has-children">
@@ -231,8 +231,8 @@
 
         <div class="offcanvas-inner-content">
             <div class="offcanvas-mobile-search-area">
-                <form action="#">
-                    <input type="search" placeholder="جستجو ...">
+                <form method="get" asp-page="/Search">
+                    <input type="search" name="searchKey" placeholder="جستجو ...">
                     <button type="submit">
                         <i class="fa fa-search"></i>
                     </button>
@@ -240,8 +240,8 @@
             </div>
             <nav class="offcanvas-navigation">
                 <ul>
-                    <li class="">
-                        <a href="#">صفحه اصلی</a>
+                    <li>
+                        <a asp-page="/Index">صفحه اصلی</a>
                     </li>
 
                     <li class="menu-item-has-children">

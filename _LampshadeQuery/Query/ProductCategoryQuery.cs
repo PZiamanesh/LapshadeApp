@@ -34,7 +34,7 @@ public class ProductCategoryQuery : IProductCategoryQuery
             PictureAlt = x.PictureAlt,
             PictureTitle = x.PictureTitle,
             Slug = x.Slug
-        }).ToList();
+        }).AsNoTracking().ToList();
     }
 
     public IEnumerable<ProductCategoryQueryViewModel> GetProductCategoriesWithProducts()
@@ -57,7 +57,7 @@ public class ProductCategoryQuery : IProductCategoryQuery
                 Id = x.Id,
                 Name = x.Name,
                 Products = MapProducts(x.Products)
-            }).ToList();
+            }).AsNoTracking().ToList();
 
 
         // filling price and discount for each product of a category
@@ -147,7 +147,7 @@ public class ProductCategoryQuery : IProductCategoryQuery
                 Keywords = x.Keywords,
                 MetaDescription = x.MetaDescription,
                 Slug = x.Slug
-            }).FirstOrDefault(x => x.Slug == id);
+            }).AsNoTracking().FirstOrDefault(x => x.Slug == id);
 
 
         // filling price and discount for each product of a category
