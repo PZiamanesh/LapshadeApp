@@ -13,6 +13,11 @@ public class FileUploader : IFileUploader
 
     public async Task<string> Upload(IFormFile file, string slugName)
     {
+        if (file is null)
+        {
+            return "";
+        }
+
         var filePath = Path.Combine(_webHostEnvironment.WebRootPath,
             "ProductPictures",
             slugName,

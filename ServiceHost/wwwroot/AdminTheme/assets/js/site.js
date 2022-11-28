@@ -193,8 +193,15 @@ function handleAjaxCall(method, url, data) {
 
 $.validator.addMethod("maxFileSize", function (value, element, params) {
     const size = element.files[0].size;
-    const maxSize = 30 * 1024;
+    const maxSize = 300 * 1024;
     return size <= maxSize;
 });
 
+$.validator.addMethod("fileType", function (value, element, params) {
+    const type = element.files[0].type;
+    const fileTypes = ["image/jpg", "image/jpeg", "image/png"]
+    return fileTypes.includes(type);
+});
+
 $.validator.unobtrusive.adapters.addBool("maxFileSize");
+$.validator.unobtrusive.adapters.addBool("fileType");

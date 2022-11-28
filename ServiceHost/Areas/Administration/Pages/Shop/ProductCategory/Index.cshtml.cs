@@ -44,6 +44,12 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnPostEdit(EditProductCategory command)
     {
+        // validation in case client side fail on picture
+        if (!ModelState.IsValid)
+        {
+            command.Picture = null;
+        }
+
         var result = await _productCategoryApplication.Edit(command);
         if (result.IsSucceeded)
         {
