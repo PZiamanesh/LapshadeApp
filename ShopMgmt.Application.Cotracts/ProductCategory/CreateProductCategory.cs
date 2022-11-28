@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 using _Framework.Application;
+using Microsoft.AspNetCore.Http;
 
 namespace ShopMgmt.Application.Contract.ProductCategory;
 
@@ -10,7 +12,12 @@ public class CreateProductCategory
     public string? Name { get; set; }
 
     public string? Description { get; set; }
-    public string? Picture { get; set; }
+
+    [Required(ErrorMessage = ValidationMessage.IsRequired)]
+    [MaxFileSize(30 * 1024, ErrorMessage = ValidationMessage.ProductPictureSizeLimit)]
+    //[AllowedFileFormat()]
+    public IFormFile? Picture { get; set; }
+
     public string? PictureAlt { get; set; }
     public string? PictureTitle { get; set; }
 

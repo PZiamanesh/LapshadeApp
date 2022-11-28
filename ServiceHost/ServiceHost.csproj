@@ -21,4 +21,8 @@
     <ProjectReference Include="..\_LampshadeQuery\_LampshadeQuery.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\ProductPictures\" />
+  </ItemGroup>
+
 </Project>

@@ -10,7 +10,7 @@ public interface IProductCategoryApplication
 
     IEnumerable<ProductCategoryViewModel> GetProductCategories();
 
-    OperationResult Edit(EditProductCategory command);
+    Task<OperationResult> Edit(EditProductCategory command);
 
     EditProductCategory GetDetails(long id);
 }

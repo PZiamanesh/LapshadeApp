@@ -1,8 +1,4 @@
-﻿/*
- Ajax calls are improved to use promise objects,
- edited by Pourya Ziamanesh, 2022-07-11
- */
-
+﻿
 let SinglePage = {};
 
 SinglePage.LoadModal = function () {
@@ -13,9 +9,9 @@ SinglePage.LoadModal = function () {
     url = url.split("showmodal=")[1];
 
     $.ajax({
-        "url": url,
-        "type": "get",
-        "dataType": "html"
+        url: url,
+        type: "get",
+        dataType: "html"
     })
         .done(function (htmlPage, statusText) {
             const modal = $("#ModalContent").html(htmlPage);
@@ -58,39 +54,26 @@ $(document).ready(function () {
             const method = form.attr("method").toLocaleLowerCase();
             const url = form.attr("action");
             const action = form.attr("data-action");
-            const data = form.serializeArray();
 
             if (method === "get") {
-                $.get(url,
+                const data = form.serializeArray();
+                $.get(
+                    url,
                     data,
                     function (data) {
                         CallBackHandler(data, action, form);
                     });
             }
             else {
-                //var formData = new FormData(this);
-                //$.ajax({
-                //    url: url,
-                //    type: "post",
-                //    data: formData,
-                //    enctype: "multipart/form-data",
-                //    dataType: "json",
-                //    processData: false,
-                //    contentType: false,
-                //    success: function (data) {
-                //        CallBackHandler(data, action, form);
-                //    },
-                //    error: function (data) {
-                //        alert("خطایی رخ داده است. لطفا با مدیر سیستم تماس بگیرید.");
-                //    }
-                //});
-
+                const formData = new FormData(this);
                 $.ajax({
-                    "url": url,
-                    "type": "post",
-                    "dataType": "json",
-                    "contentType": "application/x-www-form-urlencoded",
-                    "data": data
+                    url: url,
+                    type: "post",
+                    dataType: "json",
+                    enctype: "multipart/form-data",
+                    contentType: false,
+                    processData: false,
+                    data: formData
                 })
                     .done(function (operationResult) {
                         CallBackHandler(operationResult, action, form)
@@ -208,28 +191,10 @@ function handleAjaxCall(method, url, data) {
     }
 }
 
-jQuery.validator.addMethod("maxFileSize",
-    function (value, element, params) {
-        var size = element.files[0].size;
-        var maxSize = 3 * 1024 * 1024;
-        if (size > maxSize)
-            return false;
-        else {
-            return true;
-        }
-    });
+$.validator.addMethod("maxFileSize", function (value, element, params) {
+    const size = element.files[0].size;
+    const maxSize = 30 * 1024;
+    return size <= maxSize;
+});
 
-jQuery.validator.unobtrusive.adapters.addBool("maxFileSize");
-
-//jQuery.validator.addMethod("maxFileSize",
-//    function (value, element, params) {
-//        var size = element.files[0].size;
-//        var maxSize = 3 * 1024 * 1024;
-//        debugger;
-//        if (size > maxSize)
-//            return false;
-//        else {
-//            return true;
-//        }
-//    });
-//jQuery.validator.unobtrusive.adapters.addBool("maxFileSize");
+$.validator.unobtrusive.adapters.addBool("maxFileSize");

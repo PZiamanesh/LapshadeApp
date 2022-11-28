@@ -1,6 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ShopMgmt.Application.Contract.ProductCategory;
+using ShopMgmt.Domain.ProductCategoryAgg;
 
 namespace ServiceHost.Areas.Administration.Pages.Shop.ProductCategory;
 
@@ -41,9 +42,9 @@ public class IndexModel : PageModel
         return Partial("./Edit", productCategory);
     }
 
-    public IActionResult OnPostEdit(EditProductCategory command)
+    public async Task<IActionResult> OnPostEdit(EditProductCategory command)
     {
-        var result = _productCategoryApplication.Edit(command);
+        var result = await _productCategoryApplication.Edit(command);
         if (result.IsSucceeded)
         {
             TempData["ProductCategoryEdition"] = result.Message;

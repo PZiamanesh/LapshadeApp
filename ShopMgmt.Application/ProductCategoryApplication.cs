@@ -3,14 +3,18 @@ using ShopMgmt.Application.Contract.ProductCategory;
 using ShopMgmt.Domain.ProductCategoryAgg;
 
 namespace ShopMgmt.Application;
+#nullable disable
 
 public class ProductCategoryApplication : IProductCategoryApplication
 {
     private readonly IProductCategoryRepository _productCategoryRepository;
+    private readonly IFileUploader _fileUploader;
 
-    public ProductCategoryApplication(IProductCategoryRepository productCategoryRepository)
+    public ProductCategoryApplication(IProductCategoryRepository productCategoryRepository,
+        IFileUploader fileUploader)
     {
         _productCategoryRepository = productCategoryRepository;
+        _fileUploader = fileUploader;
     }
 
     public OperationResult Create(CreateProductCategory command)
@@ -26,7 +30,7 @@ public class ProductCategoryApplication : IProductCategoryApplication
 
         var productCategory = new ProductCategory(command.Name,
             command.Description,
-            command.Picture,
+            "",
             command.PictureAlt,
             command.PictureTitle,
             command.Keywords,
@@ -38,7 +42,7 @@ public class ProductCategoryApplication : IProductCategoryApplication
         return operationResult.Succeeded();
     }
 
-    public OperationResult Edit(EditProductCategory command)
+    public async Task<OperationResult> Edit(EditProductCategory command)
     {
         
         var operationResult = new OperationResult();
@@ -55,10 +59,11 @@ public class ProductCategoryApplication : IProductCategoryApplication
         }
 
         var slug = command.Slug?.Slugify() ?? ApplicationMessage.NoSlug;
+        var picture = await _fileUploader.Upload(command.Picture , slug);
 
         oldCategory.Edit(command.Name,
             command.Description,
-            command.Picture,
+            picture,
             command.PictureAlt,
             command.PictureTitle,
             command.Keywords,
@@ -74,7 +79,7 @@ public class ProductCategoryApplication : IProductCategoryApplication
         return _productCategoryRepository.GetDetails(id);
     }
 
-    public IEnumerable<ProductCategoryViewModel>? Search(ProductCategorySearchViewModel model)
+    public IEnumerable<ProductCategoryViewModel> Search(ProductCategorySearchViewModel model)
     {
         return _productCategoryRepository.Search(model);
     }
