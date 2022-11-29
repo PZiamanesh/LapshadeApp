@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ShopMgmt.Domain.ProductAgg;
 
 namespace ShopMgmt.Infrastructure.EFCore.Repository;
+#nullable disable
 
 public class ProductRepository : RepositoryBase<long, Product>, IProductRepository
 {
@@ -25,7 +26,6 @@ public class ProductRepository : RepositoryBase<long, Product>, IProductReposito
             Code = product.Code,
             ShortDescription = product.ShortDescription,
             Description = product.Description,
-            Picture = product.Picture,
             PictureAlt = product.PictureAlt,
             PictureTitle = product.PictureTitle,
             Slug = product.Slug,
@@ -42,6 +42,19 @@ public class ProductRepository : RepositoryBase<long, Product>, IProductReposito
             Id = x.Id,
             Name = x.Name
         }).ToList();
+    }
+
+    public ProductViewModel GetProductCategorySlug(long categoryId)
+    {
+        return _context.Products
+            .Include(x => x.Category)
+            .Select(x => new ProductViewModel
+            {
+                Id = x.Id,
+                Name = x.Name,
+                CategoryId = x.Category.Id,
+                Category = x.Category.Slug
+            }).AsNoTracking().FirstOrDefault(x => x.CategoryId == categoryId);
     }
 
     public IEnumerable<ProductViewModel> Search(ProductSearchViewModel searchModel)

@@ -1,4 +1,5 @@
 ﻿using _Framework.Application;
+using Microsoft.AspNetCore.Http;
 using ShopMgmt.Application.Contract.ProductCategory;
 using System.ComponentModel.DataAnnotations;
 
@@ -15,10 +16,10 @@ public record CreateProduct
 
     public string? Description { get; set; }
 
-    public string? Picture { get; set; }
+    // validations
+    public IFormFile? Picture { get; set; }
 
     public string? PictureAlt { get; set; }
-
     public string? PictureTitle { get; set; }
 
     [Required(ErrorMessage = ValidationMessage.IsRequired)]

@@ -4,7 +4,7 @@ namespace ShopMgmt.Application.Contract.ProductCategory;
 
 public interface IProductCategoryApplication
 {
-    OperationResult Create(CreateProductCategory command);
+    Task<OperationResult> Create(CreateProductCategory command);
 
     IEnumerable<ProductCategoryViewModel>? Search(ProductCategorySearchViewModel model);
 

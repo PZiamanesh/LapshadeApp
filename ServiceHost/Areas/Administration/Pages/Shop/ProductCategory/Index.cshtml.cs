@@ -26,9 +26,9 @@ public class IndexModel : PageModel
         return Partial("./Create", new CreateProductCategory());
     }
 
-    public JsonResult OnPostCreate(CreateProductCategory command)
+    public async Task<JsonResult> OnPostCreate(CreateProductCategory command)
     {
-        var result = _productCategoryApplication.Create(command);
+        var result = await _productCategoryApplication.Create(command);
         if (result.IsSucceeded)
         {
             TempData["ProductCategorySubmission"] = result.Message;

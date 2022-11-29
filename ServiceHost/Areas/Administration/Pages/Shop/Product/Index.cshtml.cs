@@ -34,9 +34,9 @@ public class IndexModel : PageModel
         return Partial("./Create", createProduct);
     }
 
-    public JsonResult OnPostCreate(CreateProduct command)
+    public async Task<JsonResult> OnPostCreate(CreateProduct command)
     {
-        var result = _productApplication.Create(command);
+        var result = await _productApplication.Create(command);
         if (result.IsSucceeded)
         {
             TempData["ProductSubmission"] = result.Message;
@@ -51,9 +51,9 @@ public class IndexModel : PageModel
         return Partial("./Edit", product);
     }
 
-    public IActionResult OnPostEdit(EditProduct command)
+    public async Task<IActionResult> OnPostEdit(EditProduct command)
     {
-        var result = _productApplication.Edit(command);
+        var result = await _productApplication.Edit(command);
         if (result.IsSucceeded)
         {
             TempData["ProductEdition"] = result.Message;

@@ -22,7 +22,7 @@ public class Product : EntityBase<long>
     public ProductCategory? Category { get; private set; }
     public ICollection<ProductPicture>? Pictures { get; private set; }
 
-    protected Product() 
+    protected Product()
     {
         Pictures = new List<ProductPicture>();
     }
@@ -67,7 +67,12 @@ public class Product : EntityBase<long>
         Code = code;
         ShortDescription = shortDescription;
         Description = description;
-        Picture = picture;
+
+        if (!string.IsNullOrWhiteSpace(picture))
+        {
+            Picture = picture;
+        }
+
         PictureAlt = pictureAlt;
         PictureTitle = pictureTitle;
         Slug = slug;

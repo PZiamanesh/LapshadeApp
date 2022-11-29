@@ -17,7 +17,7 @@ public class ProductCategoryApplication : IProductCategoryApplication
         _fileUploader = fileUploader;
     }
 
-    public OperationResult Create(CreateProductCategory command)
+    public async Task<OperationResult> Create(CreateProductCategory command)
     {
         var operationResult = new OperationResult();
 
@@ -27,10 +27,11 @@ public class ProductCategoryApplication : IProductCategoryApplication
         }
 
         var slug = command.Slug?.Slugify() ?? ApplicationMessage.NoSlug;
+        var picturePath = await _fileUploader.Upload(command.Picture, slug);
 
         var productCategory = new ProductCategory(command.Name,
             command.Description,
-            "",
+            picturePath,
             command.PictureAlt,
             command.PictureTitle,
             command.Keywords,
@@ -59,11 +60,11 @@ public class ProductCategoryApplication : IProductCategoryApplication
         }
 
         var slug = command.Slug?.Slugify() ?? ApplicationMessage.NoSlug;
-        var picture = await _fileUploader.Upload(command.Picture , slug);
+        var picturePath = await _fileUploader.Upload(command.Picture , slug);
 
         oldCategory.Edit(command.Name,
             command.Description,
-            picture,
+            picturePath,
             command.PictureAlt,
             command.PictureTitle,
             command.Keywords,

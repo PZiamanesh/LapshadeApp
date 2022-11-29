@@ -18,10 +18,12 @@ public class FileUploader : IFileUploader
             return "";
         }
 
+        var uniqueFileName = $"{DateTime.Now.ToFileName()}-{file.FileName}";
+
         var filePath = Path.Combine(_webHostEnvironment.WebRootPath,
             "ProductPictures",
             slugName,
-            file.FileName);
+            uniqueFileName);
 
         var directoryPath = Path.Combine(_webHostEnvironment.WebRootPath,
             "ProductPictures",
@@ -34,6 +36,6 @@ public class FileUploader : IFileUploader
 
         using var outputFile = File.Create(filePath);
         await file.CopyToAsync(outputFile);
-        return Path.Combine(slugName, file.FileName);
+        return Path.Combine(slugName, uniqueFileName);
     }
 }

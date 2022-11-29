@@ -4,9 +4,9 @@ namespace ShopMgmt.Application.Contract.Product;
 
 public interface IProductApplication
 {
-    OperationResult Create(CreateProduct command);
+    Task<OperationResult> Create(CreateProduct command);
 
-    OperationResult Edit(EditProduct command);
+    Task<OperationResult> Edit(EditProduct command);
 
     EditProduct GetDetails(long id);
 

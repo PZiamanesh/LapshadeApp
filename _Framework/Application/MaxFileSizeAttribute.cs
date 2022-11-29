@@ -22,6 +22,7 @@ public class MaxFileSizeAttribute : ValidationAttribute, IClientModelValidator
 
     public void AddValidation(ClientModelValidationContext context)
     {
+        context.Attributes.Add("data-val", "true");
         context.Attributes.Add("data-val-maxFileSize", ErrorMessage);
     }
 }

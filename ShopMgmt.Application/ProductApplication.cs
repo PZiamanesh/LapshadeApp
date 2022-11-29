@@ -3,17 +3,21 @@ using ShopMgmt.Application.Contract.Product;
 using ShopMgmt.Domain.ProductAgg;
 
 namespace ShopMgmt.Application;
+#nullable disable
 
 public class ProductApplication : IProductApplication
 {
     private readonly IProductRepository _productRepository;
+    private readonly IFileUploader _fileUploader;
 
-    public ProductApplication(IProductRepository productRepository)
+    public ProductApplication(IProductRepository productRepository,
+        IFileUploader fileUploader)
     {
         _productRepository = productRepository;
+        _fileUploader = fileUploader;
     }
 
-    public OperationResult Create(CreateProduct command)
+    public async Task<OperationResult> Create(CreateProduct command)
     {
         var result = new OperationResult();
         if (_productRepository.Exists(p => p.Name == command.Name))
@@ -22,13 +26,16 @@ public class ProductApplication : IProductApplication
         }
 
         var slug = command.Slug?.Slugify() ?? ApplicationMessage.NoSlug;
+        string categorySlug = _productRepository.GetProductCategorySlug(command.CategoryId).Category;
+        string path = Path.Combine(categorySlug, slug);
+        var picturePath = await _fileUploader.Upload(command.Picture, path);
 
         var product = new Product(
             command.Name,
             command.Code,
             command.ShortDescription,
             command.Description,
-            command.Picture,
+            picturePath,
             command.PictureAlt,
             command.PictureTitle,
             slug, command.Keywords,
@@ -41,7 +48,7 @@ public class ProductApplication : IProductApplication
         return result.Succeeded();
     }
 
-    public OperationResult Edit(EditProduct command)
+    public async Task<OperationResult> Edit(EditProduct command)
     {
         
         var result = new OperationResult();
@@ -58,12 +65,16 @@ public class ProductApplication : IProductApplication
         }
 
         var slug = command.Slug?.Slugify() ?? ApplicationMessage.NoSlug;
+        string categorySlug = _productRepository.GetProductCategorySlug(command.CategoryId).Category;
+        string path = Path.Combine(categorySlug, slug);
+        var picturePath = await _fileUploader.Upload(command.Picture, path);
+
         product.Edit(
             command.Name,
             command.Code,
             command.ShortDescription,
             command.Description,
-            command.Picture,
+            picturePath,
             command.PictureAlt,
             command.PictureTitle,
             command.Slug,
