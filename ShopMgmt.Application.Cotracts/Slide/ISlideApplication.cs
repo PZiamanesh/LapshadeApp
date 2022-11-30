@@ -5,8 +5,8 @@ namespace ShopMgmt.Application.Contract.Slide;
 
 public interface ISlideApplication
 {
-    OperationResult Create(CreateSlide command);
-    OperationResult Edit(EditSlide command);
+    Task<OperationResult> Create(CreateSlide command);
+    Task<OperationResult> Edit(EditSlide command);
     OperationResult Remove(long id);
     OperationResult Restore(long id);
     EditSlide GetDetails(long id);

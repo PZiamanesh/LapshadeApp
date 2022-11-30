@@ -15,7 +15,15 @@ public class Slide : EntityBase<long>
     public string Link { get; private set; }
     public bool IsRemoved { get; private set; }
 
-    public Slide(string picture, string pictureAlt, string pictureTitle, string heading, string title, string text, string btnText, string link)
+    public Slide(
+        string picture,
+        string pictureAlt,
+        string pictureTitle,
+        string heading,
+        string title,
+        string text,
+        string btnText,
+        string link)
     {
         Picture = picture;
         PictureAlt = pictureAlt;
@@ -28,9 +36,19 @@ public class Slide : EntityBase<long>
         Link = link;
     }
 
-    public void Edit(string picture, string pictureAlt, string pictureTitle, string heading, string title, string text, string btnText, string link)
+    public void Edit(
+        string picture,
+        string pictureAlt,
+        string pictureTitle,
+        string heading,
+        string title,
+        string text,
+        string btnText,
+        string link)
     {
-        Picture = picture;
+        if(!string.IsNullOrWhiteSpace(picture))
+            Picture = picture;
+
         PictureAlt = pictureAlt;
         PictureTitle = pictureTitle;
         Heading = heading;

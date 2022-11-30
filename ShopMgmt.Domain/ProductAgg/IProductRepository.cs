@@ -9,7 +9,9 @@ public interface IProductRepository : IRepository<long, Product>
 
     IEnumerable<ProductViewModel> GetProducts();
 
-    ProductViewModel GetProductCategorySlug(long categoryId); // category slug value included in Category prop
+    Product GetProductWithAncestors(long id);
+
+    ProductViewModel GetProductCategorySlug(long id);
 
     IEnumerable<ProductViewModel> Search(ProductSearchViewModel searchModel);
 }

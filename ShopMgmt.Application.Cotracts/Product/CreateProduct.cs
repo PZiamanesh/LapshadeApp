@@ -16,7 +16,8 @@ public record CreateProduct
 
     public string? Description { get; set; }
 
-    // validations
+    [MaxFileSize(300 * 1024, ErrorMessage = ValidationMessage.PictureSize)]
+    [FileType(new string[] {".jpeg", ".jpg", ".png"}, ErrorMessage = ValidationMessage.PictureType)]
     public IFormFile? Picture { get; set; }
 
     public string? PictureAlt { get; set; }

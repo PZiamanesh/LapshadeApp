@@ -8,17 +8,21 @@ namespace ShopMgmt.Application;
 public class SlideApplication : ISlideApplication
 {
     private readonly ISlideRepository _slideRepository;
+    private readonly IFileUploader _fileUploader;
 
-    public SlideApplication(ISlideRepository slideRepository)
+    public SlideApplication(ISlideRepository slideRepository, IFileUploader fileUploader)
     {
         _slideRepository = slideRepository;
+        _fileUploader = fileUploader;
     }
 
-    public OperationResult Create(CreateSlide command)
+    public async Task<OperationResult> Create(CreateSlide command)
     {
         var result = new OperationResult();
+        var picturePath = await _fileUploader.Upload(command.Picture, "slides");
 
-        var slide = new Slide(command.Picture,
+        var slide = new Slide(
+            picturePath,
             command.PictureAlt,
             command.PictureTitle,
             command.Heading,
@@ -32,17 +36,20 @@ public class SlideApplication : ISlideApplication
         return result.Succeeded();
     }
 
-    public OperationResult Edit(EditSlide command)
+    public async Task<OperationResult> Edit(EditSlide command)
     {
         var result = new OperationResult();
         var slide = _slideRepository.Get(command.Id);
 
         if (slide is null)
         {
-            return result.Failed(ApplicationMessage.DuplicatedRecord);
+            return result.Failed(ApplicationMessage.RecordNotFound);
         }
 
-        slide.Edit(command.Picture,
+        var picturePath = await _fileUploader.Upload(command.Picture, "slides");
+
+        slide.Edit(
+            picturePath,
             command.PictureAlt,
             command.PictureTitle,
             command.Heading,

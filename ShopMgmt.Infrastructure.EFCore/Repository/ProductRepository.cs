@@ -44,17 +44,16 @@ public class ProductRepository : RepositoryBase<long, Product>, IProductReposito
         }).ToList();
     }
 
-    public ProductViewModel GetProductCategorySlug(long categoryId)
+    public ProductViewModel GetProductCategorySlug(long id)
     {
         return _context.Products
             .Include(x => x.Category)
             .Select(x => new ProductViewModel
             {
                 Id = x.Id,
-                Name = x.Name,
                 CategoryId = x.Category.Id,
                 Category = x.Category.Slug
-            }).AsNoTracking().FirstOrDefault(x => x.CategoryId == categoryId);
+            }).AsNoTracking().FirstOrDefault(x => x.CategoryId == id);
     }
 
     public IEnumerable<ProductViewModel> Search(ProductSearchViewModel searchModel)
@@ -88,5 +87,12 @@ public class ProductRepository : RepositoryBase<long, Product>, IProductReposito
         }
 
         return query.OrderByDescending(x => x.Id).ToList();
+    }
+
+    public Product GetProductWithAncestors(long id)
+    {
+        return _context.Products
+            .Include(x => x.Category)
+            .FirstOrDefault(x => x.Id == id);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using _Framework.Application;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
 namespace ShopMgmt.Application.Contract.ProductPicture;
@@ -9,8 +10,9 @@ public record CreateProductPicture
     [Range(1,1000_000, ErrorMessage = ValidationMessage.IsRequired)]
     public long ProductId { get; set; }
 
-    [Required(ErrorMessage = ValidationMessage.IsRequired)]
-    public string Picture { get; set; }
+    [MaxFileSize(300 * 1024, ErrorMessage = ValidationMessage.PictureSize)]
+    [FileType(new string[] { ".jpeg", ".jpg", ".png" }, ErrorMessage = ValidationMessage.PictureType)]
+    public IFormFile Picture { get; set; }
 
     [Required(ErrorMessage = ValidationMessage.IsRequired)]
     public string PictureAlt { get; set; }

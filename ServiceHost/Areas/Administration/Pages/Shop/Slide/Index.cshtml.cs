@@ -25,9 +25,9 @@ public class IndexModel : PageModel
         return Partial("Create", new CreateSlide());
     }
 
-    public JsonResult OnPostCreate(CreateSlide command)
+    public async Task<JsonResult> OnPostCreate(CreateSlide command)
     {
-        var result = _slideApplication.Create(command);
+        var result = await _slideApplication.Create(command);
         if (result.IsSucceeded)
         {
             TempData["SlideSubmission"] = result.Message;
@@ -41,9 +41,9 @@ public class IndexModel : PageModel
         return Partial("Edit", slide);
     }
 
-    public JsonResult OnPostEdit(EditSlide command)
+    public async Task<JsonResult> OnPostEdit(EditSlide command)
     {
-        var result = _slideApplication.Edit(command);
+        var result = await _slideApplication.Edit(command);
         if (result.IsSucceeded)
         {
             TempData["SlideEdition"] = result.Message;

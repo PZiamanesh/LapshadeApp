@@ -5,8 +5,8 @@ namespace ShopMgmt.Application.Contract.ProductPicture;
 
 public interface IProductPictureApplication
 {
-    OperationResult Create(CreateProductPicture command);
-    OperationResult Edit(EditProductPicture command);
+    Task<OperationResult> Create(CreateProductPicture command);
+    Task<OperationResult> Edit(EditProductPicture command);
     OperationResult Remove(long id);
     OperationResult Restore(long id);
     EditProductPicture GetDetails(long id);

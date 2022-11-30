@@ -36,9 +36,9 @@ public class IndexModel : PageModel
         return Partial("Create", modelWithOnlyProducts);
     }
 
-    public JsonResult OnPostCreate(CreateProductPicture command)
+    public async Task<JsonResult> OnPostCreate(CreateProductPicture command)
     {
-        var result = _productPictureApplication.Create(command);
+        var result = await _productPictureApplication.Create(command);
         if (result.IsSucceeded)
         {
             TempData["ProductPictureSubmission"] = result.Message;
@@ -53,9 +53,9 @@ public class IndexModel : PageModel
         return Partial("Edit", productPicture);
     }
 
-    public JsonResult OnPostEdit(EditProductPicture command)
+    public async Task<JsonResult> OnPostEdit(EditProductPicture command)
     {
-        var result = _productPictureApplication.Edit(command);
+        var result = await _productPictureApplication.Edit(command);
         if (result.IsSucceeded)
         {
             TempData["ProductPictureEdition"] = result.Message;

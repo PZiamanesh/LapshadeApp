@@ -7,5 +7,6 @@ namespace ShopMgmt.Domain.ProductPictureAggr;
 public interface IProductPictureRepository : IRepository<long, ProductPicture>
 {
     EditProductPicture GetDetails(long id);
+    ProductPicture GetProductPictureWithAncestors(long id);
     IEnumerable<ProductPictureViewModel> Search(ProductPictureSearchViewModel searchModel);
 }

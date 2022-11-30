@@ -33,7 +33,6 @@ public class SlideRepository : RepositoryBase<long, Slide>, ISlideRepository
         return _context.Slides.Select(x => new EditSlide()
         {
             Id = x.Id,
-            Picture = x.Picture,
             PictureAlt = x.PictureAlt,
             PictureTitle = x.PictureTitle,
             Heading = x.Heading,

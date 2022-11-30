@@ -52,7 +52,7 @@ public class ProductApplication : IProductApplication
     {
         
         var result = new OperationResult();
-        var product = _productRepository.Get(command.Id);
+        var product = _productRepository.GetProductWithAncestors(command.Id);
 
         if (product is null)
         {
@@ -65,8 +65,7 @@ public class ProductApplication : IProductApplication
         }
 
         var slug = command.Slug?.Slugify() ?? ApplicationMessage.NoSlug;
-        string categorySlug = _productRepository.GetProductCategorySlug(command.CategoryId).Category;
-        string path = Path.Combine(categorySlug, slug);
+        string path = Path.Combine(product.Category.Slug, slug);
         var picturePath = await _fileUploader.Upload(command.Picture, path);
 
         product.Edit(

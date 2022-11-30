@@ -1,5 +1,6 @@
 ﻿using _Framework.Application;
 using ShopMgmt.Application.Contract.ProductPicture;
+using ShopMgmt.Domain.ProductAgg;
 using ShopMgmt.Domain.ProductPictureAggr;
 
 namespace ShopMgmt.Application;
@@ -8,25 +9,29 @@ namespace ShopMgmt.Application;
 public class ProductPictureApplication : IProductPictureApplication
 {
     private readonly IProductPictureRepository _productPictureRepository;
+    private readonly IProductRepository _productRepository;
+    private readonly IFileUploader _fileUploader;
 
-    public ProductPictureApplication(IProductPictureRepository productPictureRepository)
+    public ProductPictureApplication(IProductPictureRepository productPictureRepository,
+        IProductRepository productRepository,
+        IFileUploader fileUploader)
     {
         _productPictureRepository = productPictureRepository;
+        _productRepository = productRepository;
+        _fileUploader = fileUploader;
     }
 
-    public OperationResult Create(CreateProductPicture command)
+    public async Task<OperationResult> Create(CreateProductPicture command)
     {
         var result = new OperationResult();
 
-        if (_productPictureRepository
-            .Exists(x => x.Picture == command.Picture && x.ProductId == command.ProductId))
-        {
-            return result.Failed(ApplicationMessage.DuplicatedRecord);
-        }
+        var product = _productRepository.GetProductWithAncestors(command.ProductId);
+        var filePath = Path.Combine(product.Category.Slug, product.Slug);
+        var picturePath = await _fileUploader.Upload(command.Picture, filePath);
 
         var picture = new ProductPicture(
             command.ProductId,
-            command.Picture,
+            picturePath,
             command.PictureAlt,
             command.PictureTitle
             );
@@ -36,27 +41,22 @@ public class ProductPictureApplication : IProductPictureApplication
         return result.Succeeded();
     }
 
-    public OperationResult Edit(EditProductPicture command)
+    public async Task<OperationResult> Edit(EditProductPicture command)
     {
         var result = new OperationResult();
-        var picture = _productPictureRepository.Get(command.Id);
+        var picture = _productPictureRepository.GetProductPictureWithAncestors(command.Id);
 
         if (picture is null)
         {
             return result.Failed(ApplicationMessage.RecordNotFound);
         }
 
-        if (_productPictureRepository
-            .Exists(x => x.Picture == command.Picture
-                && x.ProductId == command.ProductId
-                && x.Id != command.Id))
-        {
-            return result.Failed(ApplicationMessage.DuplicatedRecord);
-        }
+        var filePath = Path.Combine(picture.Product.Category.Slug, picture.Product.Slug);
+        var picturePath = await _fileUploader.Upload(command.Picture, filePath);
 
         picture.Edit(
             command.ProductId,
-            command.Picture,
+            picturePath,
             command.PictureAlt,
             command.PictureTitle
             );
@@ -77,7 +77,7 @@ public class ProductPictureApplication : IProductPictureApplication
 
         if (picture is null)
         {
-            
+
             return result.Failed(ApplicationMessage.RecordNotFound);
         }
 

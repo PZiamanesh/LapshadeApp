@@ -4,5 +4,5 @@ namespace _Framework.Application;
 
 public interface IFileUploader
 {
-    Task<string> Upload(IFormFile file, string slugName);
+    Task<string> Upload(IFormFile file, string subDirectory);
 }

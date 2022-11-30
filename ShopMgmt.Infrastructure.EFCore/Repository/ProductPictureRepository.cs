@@ -23,10 +23,17 @@ public class ProductPictureRepository : RepositoryBase<long, ProductPicture>, IP
             {
                 Id = x.Id,
                 ProductId = x.ProductId,
-                Picture = x.Picture,
                 PictureAlt = x.PictureAlt,
                 PictureTitle = x.PictureTitle
             }).FirstOrDefault(x => x.Id == id);
+    }
+
+    public ProductPicture GetProductPictureWithAncestors(long id)
+    {
+        return _context.ProductPictures
+            .Include(x=>x.Product)
+                .ThenInclude(x=>x.Category)
+            .FirstOrDefault(x => x.Id == id);
     }
 
     public IEnumerable<ProductPictureViewModel> Search(ProductPictureSearchViewModel searchModel)

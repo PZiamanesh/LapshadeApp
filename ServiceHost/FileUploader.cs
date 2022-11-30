@@ -11,7 +11,7 @@ public class FileUploader : IFileUploader
         _webHostEnvironment = webHostEnvironment;
     }
 
-    public async Task<string> Upload(IFormFile file, string slugName)
+    public async Task<string> Upload(IFormFile file, string subDirectory)
     {
         if (file is null)
         {
@@ -22,12 +22,12 @@ public class FileUploader : IFileUploader
 
         var filePath = Path.Combine(_webHostEnvironment.WebRootPath,
             "ProductPictures",
-            slugName,
+            subDirectory,
             uniqueFileName);
 
         var directoryPath = Path.Combine(_webHostEnvironment.WebRootPath,
             "ProductPictures",
-            slugName);
+            subDirectory);
 
         if (!Directory.Exists(directoryPath))
         {
@@ -36,6 +36,6 @@ public class FileUploader : IFileUploader
 
         using var outputFile = File.Create(filePath);
         await file.CopyToAsync(outputFile);
-        return Path.Combine(slugName, uniqueFileName);
+        return Path.Combine(subDirectory, uniqueFileName);
     }
 }
