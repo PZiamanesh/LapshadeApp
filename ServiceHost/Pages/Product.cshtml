@@ -4,13 +4,14 @@
     ViewData["Title"] = "المحصول";
 }
 
+
 <div class="breadcrumb-area section-space--half">
     <div class="container wide">
         <div class="row">
             <div class="col-lg-12">
                 <div class="breadcrumb-wrapper breadcrumb-bg">
                     <div class="breadcrumb-content">
-                        <h1 class="breadcrumb-content__title">@Model.Product.Name</h1>
+                        <h1 class="breadcrumb-content__title">@Model.Product!.Name</h1>
                         <ul class="breadcrumb-content__page-map">
                             <li>
                                 <a asp-page="/Index">صفحه اصلی</a>
@@ -34,15 +35,17 @@
                 <!--=======  page wrapper  =======-->
                 <div class="page-wrapper">
                     <div class="page-content-wrapper">
-                        <!--=======  single product main content area  =======-->
-                        <div class="single-product-main-content-area section-space" style="direction: ltr;">
-                            <div class="row" style="display: flex; flex-direction: row-reverse">
-                                <div class="col-lg-6">
-                                    <!--=======  product details slider area  =======-->
 
-                                    <div class="product-details-slider-area">
-                                        <div class="big-image-wrapper">
-                                            <div class="product-details-big-image-slider-wrapper product-details-big-image-slider-wrapper--bottom-space ht-slick-slider"
+                        @if (Model.Product.InStock)
+                        {
+                            <div class="single-product-main-content-area section-space" style="direction: ltr;">
+                                <div class="row" style="display: flex; flex-direction: row-reverse">
+                                    <div class="col-lg-6">
+                                        <!--=======  product details slider area  =======-->
+
+                                        <div class="product-details-slider-area">
+                                            <div class="big-image-wrapper">
+                                                <div class="product-details-big-image-slider-wrapper product-details-big-image-slider-wrapper--bottom-space ht-slick-slider"
                                                  data-slick-setting='{
             "slidesToShow": 1,
             "slidesToScroll": 1,
@@ -61,31 +64,31 @@
             {"breakpoint":575, "settings": {"slidesToShow": 1, "arrows": false, "slidesToScroll": 1} },
             {"breakpoint":479, "settings": {"slidesToShow": 1, "arrows": false, "slidesToScroll": 1} }
         ]'>
-                                                <div class="single-image">
-                                                    <img src="assets/img/products/big1-1.jpg" class="img-fluid"
+                                                    <div class="single-image">
+                                                        <img src="assets/img/products/big1-1.jpg" class="img-fluid"
                                                          alt="">
-                                                </div>
-                                                <div class="single-image">
-                                                    <img src="assets/img/products/big1-2.jpg" class="img-fluid"
+                                                    </div>
+                                                    <div class="single-image">
+                                                        <img src="assets/img/products/big1-2.jpg" class="img-fluid"
                                                          alt="">
-                                                </div>
-                                                <div class="single-image">
-                                                    <img src="assets/img/products/big1-3.jpg" class="img-fluid"
+                                                    </div>
+                                                    <div class="single-image">
+                                                        <img src="assets/img/products/big1-3.jpg" class="img-fluid"
                                                          alt="">
-                                                </div>
-                                                <div class="single-image">
-                                                    <img src="assets/img/products/big1-4.jpg" class="img-fluid"
+                                                    </div>
+                                                    <div class="single-image">
+                                                        <img src="assets/img/products/big1-4.jpg" class="img-fluid"
                                                          alt="">
-                                                </div>
-                                                <div class="single-image">
-                                                    <img src="assets/img/products/big1-5.jpg" class="img-fluid"
+                                                    </div>
+                                                    <div class="single-image">
+                                                        <img src="assets/img/products/big1-5.jpg" class="img-fluid"
                                                          alt="">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
 
-                                        <div class="product-details-small-image-slider-wrapper product-details-small-image-slider-wrapper--horizontal-space ht-slick-slider"
+                                            <div class="product-details-small-image-slider-wrapper product-details-small-image-slider-wrapper--horizontal-space ht-slick-slider"
                                              data-slick-setting='{
         "slidesToShow": 4,
         "slidesToScroll": 1,
@@ -106,104 +109,223 @@
         {"breakpoint":575, "settings": {"slidesToShow": 3, "arrows": false, "slidesToScroll": 1} },
         {"breakpoint":479, "settings": {"slidesToShow": 2, "arrows": false, "slidesToScroll": 1} }
     ]'>
-                                            <div class="single-image">
-                                                <img src="assets/img/products/big1-1.jpg" class="img-fluid" alt="">
-                                            </div>
-                                            <div class="single-image">
-                                                <img src="assets/img/products/big1-2.jpg" class="img-fluid" alt="">
-                                            </div>
-                                            <div class="single-image">
-                                                <img src="assets/img/products/big1-3.jpg" class="img-fluid" alt="">
-                                            </div>
-                                            <div class="single-image">
-                                                <img src="assets/img/products/big1-4.jpg" class="img-fluid" alt="">
-                                            </div>
-                                            <div class="single-image">
-                                                <img src="assets/img/products/big1-5.jpg" class="img-fluid" alt="">
+                                                <div class="single-image">
+                                                    <img src="assets/img/products/big1-1.jpg" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="single-image">
+                                                    <img src="assets/img/products/big1-2.jpg" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="single-image">
+                                                    <img src="assets/img/products/big1-3.jpg" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="single-image">
+                                                    <img src="assets/img/products/big1-4.jpg" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="single-image">
+                                                    <img src="assets/img/products/big1-5.jpg" class="img-fluid" alt="">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <!--=======  single product content description  =======-->
-                                    <div class="single-product-content-description">
-                                        <p class="single-info">
-                                            <a asp-page="/ProductCategory" asp-route-id="@Model.Product.CategorySlug">@Model.Product.Category</a>
-                                        </p>
-                                        <h4 class="product-title">@Model.Product.Name</h4>
-                                        <div class="product-rating">
-                                            <span class="rating">
-                                                <i class="ion-android-star active"></i>
-                                                <i class="ion-android-star active"></i>
-                                                <i class="ion-android-star active"></i>
-                                                <i class="ion-android-star active"></i>
-                                                <i class="ion-android-star-outline"></i>
-                                            </span>
+                                    <div class="col-lg-6">
+                                        <!--=======  single product content description  =======-->
+                                        <div class="single-product-content-description">
+                                            <p class="single-info">
+                                                <a asp-page="/ProductCategory" asp-route-id="@Model.Product.CategorySlug">@Model.Product.Category</a>
+                                            </p>
+                                            <h4 class="product-title">@Model.Product.Name</h4>
+                                            <div class="product-rating">
+                                                <span class="rating">
+                                                    <i class="ion-android-star active"></i>
+                                                    <i class="ion-android-star active"></i>
+                                                    <i class="ion-android-star active"></i>
+                                                    <i class="ion-android-star active"></i>
+                                                    <i class="ion-android-star-outline"></i>
+                                                </span>
 
-                                            <span class="review-count">
-                                                <a href="#">(2 reviews)</a>
-                                            </span>
-                                        </div>
+                                                <span class="review-count">
+                                                    <a href="#">(2 reviews)</a>
+                                                </span>
+                                            </div>
 
-                                        <p class="single-grid-product__price">
+                                            <p class="single-grid-product__price">
+                                                @if (Model.Product.HasDiscount)
+                                                {
+                                                    <span class="discounted-price">@Model.Product.PriceWithDiscount</span>
+                                                    <span class="main-price discounted">@Model.Product.Price</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="main-price">@Model.Product.Price</span>
+                                                }
+
+                                            </p>
+
+                                            <p class="single-info">کد محصول: <span class="value">@Model.Product.Code</span> </p>
+
+                                            <p class="single-info">
+                                                موجودی: <span class="value text-success">موجود</span>
+                                            </p>
+
+                                            <p class="product-description">
+                                                @Model.Product.ShortDescription
+                                            </p>
+
                                             @if (Model.Product.HasDiscount)
                                             {
-                                                <span class="discounted-price">@Model.Product.PriceWithDiscount</span>
-                                                <span class="main-price discounted">@Model.Product.Price</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="main-price">@Model.Product.Price</span>
+                                                <div class="product-countdown" data-countdown="@Model.Product.DiscountExpirationDate"></div>
                                             }
 
-                                        </p>
+                                            <div class="product-actions">
+                                                <div class="quantity-selection">
+                                                    <label>تعداد</label>
+                                                    <input type="number" value="1" min="1">
+                                                </div>
 
-                                        <p class="single-info">کد محصول: <span class="value">@Model.Product.Code</span> </p>
-                                        @if (Model.Product.InStock)
-                                        {
-                                            <p class="single-info">
-                                            موجودی: <span class="value text-success">موجود</span>
-                                        </p>
-                                        }
-                                        else
-                                        {
-                                            <p class="single-info">
-                                                موجودی: <span class="value text-danger">ناموجود</span>
-                                            </p>
-                                        }
-                                        
-                                        <p class="product-description">
-                                            @Model.Product.ShortDescription
-                                        </p>
+                                                <div class="product-buttons">
+                                                    <a class="cart-btn" href="#">
+                                                        <i class="ion-bag"></i> اضافه به سبد خرید
+                                                    </a>
+                                                </div>
 
-                                        @if (Model.Product.HasDiscount)
-                                        {
-                                            <div class="product-countdown" data-countdown="@Model.Product.DiscountExpirationDate"></div>
-                                        }
-                                        
-                                        <div class="product-actions">
-                                            <div class="quantity-selection">
-                                                <label>تعداد</label>
-                                                <input type="number" value="1" min="1">
-                                            </div>
-
-                                            <div class="product-buttons">
-                                                <a class="cart-btn" href="#">
-                                                    <i class="ion-bag"></i> اضافه به سبد خرید
-                                                </a>
                                             </div>
 
                                         </div>
-
-                                        <p class="single-info mb-0">
-                                            تگ ها: @Model.Product.Keywords
-                                        </p>
-
-
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        }
+                        else
+                        {
+                            <div class="single-product-main-content-area section-space" style="direction: ltr;">
+                                <div class="row" style="display: flex; flex-direction: row-reverse">
+                                    <div class="col-lg-6">
+                                        <!--=======  product details slider area  =======-->
+
+                                        <div class="product-details-slider-area">
+                                            <div class="big-image-wrapper">
+                                                <div class="product-details-big-image-slider-wrapper product-details-big-image-slider-wrapper--bottom-space ht-slick-slider"
+                                                 data-slick-setting='{
+            "slidesToShow": 1,
+            "slidesToScroll": 1,
+            "arrows": false,
+            "autoplay": false,
+            "autoplaySpeed": 5000,
+            "fade": true,
+            "speed": 500,
+            "prevArrow": {"buttonClass": "slick-prev", "iconClass": "fa fa-angle-left" },
+            "nextArrow": {"buttonClass": "slick-next", "iconClass": "fa fa-angle-right" }
+        }' data-slick-responsive='[
+            {"breakpoint":1501, "settings": {"slidesToShow": 1, "arrows": false} },
+            {"breakpoint":1199, "settings": {"slidesToShow": 1, "arrows": false} },
+            {"breakpoint":991, "settings": {"slidesToShow": 1, "arrows": false, "slidesToScroll": 1} },
+            {"breakpoint":767, "settings": {"slidesToShow": 1, "arrows": false, "slidesToScroll": 1} },
+            {"breakpoint":575, "settings": {"slidesToShow": 1, "arrows": false, "slidesToScroll": 1} },
+            {"breakpoint":479, "settings": {"slidesToShow": 1, "arrows": false, "slidesToScroll": 1} }
+        ]'>
+                                                    <div class="single-image">
+                                                        <img src="assets/img/products/big1-1.jpg" class="img-fluid"
+                                                         alt="">
+                                                    </div>
+                                                    <div class="single-image">
+                                                        <img src="assets/img/products/big1-2.jpg" class="img-fluid"
+                                                         alt="">
+                                                    </div>
+                                                    <div class="single-image">
+                                                        <img src="assets/img/products/big1-3.jpg" class="img-fluid"
+                                                         alt="">
+                                                    </div>
+                                                    <div class="single-image">
+                                                        <img src="assets/img/products/big1-4.jpg" class="img-fluid"
+                                                         alt="">
+                                                    </div>
+                                                    <div class="single-image">
+                                                        <img src="assets/img/products/big1-5.jpg" class="img-fluid"
+                                                         alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="product-details-small-image-slider-wrapper product-details-small-image-slider-wrapper--horizontal-space ht-slick-slider"
+                                             data-slick-setting='{
+        "slidesToShow": 4,
+        "slidesToScroll": 1,
+        "arrows": true,
+        "autoplay": false,
+        "autoplaySpeed": 5000,
+        "speed": 500,
+        "asNavFor": ".product-details-big-image-slider-wrapper",
+        "focusOnSelect": true,
+        "centerMode": false,
+        "prevArrow": {"buttonClass": "slick-prev", "iconClass": "fa fa-angle-left" },
+        "nextArrow": {"buttonClass": "slick-next", "iconClass": "fa fa-angle-right" }
+    }' data-slick-responsive='[
+        {"breakpoint":1501, "settings": {"slidesToShow": 3, "arrows": false} },
+        {"breakpoint":1199, "settings": {"slidesToShow": 3, "arrows": false} },
+        {"breakpoint":991, "settings": {"slidesToShow": 5, "arrows": false, "slidesToScroll": 1} },
+        {"breakpoint":767, "settings": {"slidesToShow": 3, "arrows": false, "slidesToScroll": 1} },
+        {"breakpoint":575, "settings": {"slidesToShow": 3, "arrows": false, "slidesToScroll": 1} },
+        {"breakpoint":479, "settings": {"slidesToShow": 2, "arrows": false, "slidesToScroll": 1} }
+    ]'>
+                                                <div class="single-image">
+                                                    <img src="assets/img/products/big1-1.jpg" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="single-image">
+                                                    <img src="assets/img/products/big1-2.jpg" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="single-image">
+                                                    <img src="assets/img/products/big1-3.jpg" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="single-image">
+                                                    <img src="assets/img/products/big1-4.jpg" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="single-image">
+                                                    <img src="assets/img/products/big1-5.jpg" class="img-fluid" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <!--=======  single product content description  =======-->
+                                        <div class="single-product-content-description">
+                                            <p class="single-info">
+                                                <a asp-page="/ProductCategory" asp-route-id="@Model.Product.CategorySlug">@Model.Product.Category</a>
+                                            </p>
+                                            <h4 class="product-title">@Model.Product.Name</h4>
+                                            <div class="product-rating">
+                                                <span class="rating">
+                                                    <i class="ion-android-star active"></i>
+                                                    <i class="ion-android-star active"></i>
+                                                    <i class="ion-android-star active"></i>
+                                                    <i class="ion-android-star active"></i>
+                                                    <i class="ion-android-star-outline"></i>
+                                                </span>
+
+                                                <span class="review-count">
+                                                    <a href="#">(2 reviews)</a>
+                                                </span>
+                                            </div>
+
+                                            <p class="single-grid-product__price">
+                                                <span class="main-price">@Model.Product.Price</span>
+                                            </p>
+
+                                            <p class="single-info">کد محصول: <span class="value">@Model.Product.Code</span> </p>
+
+                                            <p class="single-info">
+                                                موجودی: <span class="value text-danger">ناموجود</span>
+                                            </p>
+
+                                            <p class="product-description">
+                                                @Model.Product.ShortDescription
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
 
                         <div class="product-description-review-area">
                             <div class="row">
@@ -395,3 +517,4 @@
         </div>
     </div>
 </div>
+

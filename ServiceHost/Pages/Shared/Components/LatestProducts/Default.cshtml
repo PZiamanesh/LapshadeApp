@@ -46,13 +46,13 @@
                                 <div class="single-grid-product">
                                     <div class="single-grid-product__image">
                                         <div class="single-grid-product__label">
-                                            @if (product.HasDiscount)
+                                            @if (product.HasDiscount && product.InStock)
                                             {
                                                 <span class="sale">@product.DiscountRate</span>
                                             }
                                             <span class="new">New</span>
                                         </div>
-                                        <a asp-page="/Product" asp-route-id="@product.Slug">
+                                        <a asp-page="/product" asp-route-id="@product.Slug">
                                             <img src="~/ProductPictures/@product.Picture" class="img-fluid" alt="@product.PictureAlt" title="@product.PictureTitle">
                                         </a>
 
@@ -70,21 +70,19 @@
                                         </div>
 
                                         <h3 class="single-grid-product__title">
-                                            <a href="single-product.html">
-                                                @product.ShortDescription
-                                            </a>
+                                            @product.ShortDescription
                                         </h3>
                                         <p class="single-grid-product__price">
-                                            @if (product.HasDiscount)
+                                            @if (product.HasDiscount && product.InStock)
                                             {
                                                 <span class="discounted-price">@product.PriceWithDiscount</span>
-                                            <span class="main-price discounted">@product.Price</span>
+                                                <span class="main-price discounted">@product.Price</span>
                                             }
                                             else
                                             {
                                                 <span class="main-price">@product.Price</span>
                                             }
-                                            
+
                                         </p>
                                     </div>
                                 </div>

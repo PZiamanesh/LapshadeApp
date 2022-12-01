@@ -69,7 +69,7 @@
                                                 <!--=======  single grid product  =======-->
                                                 <div class="single-grid-product">
                                                     <div class="single-grid-product__image">
-                                                        @if (product.HasDiscount)
+                                                        @if (product.HasDiscount && product.InStock)
                                                         {
                                                             <div class="single-grid-product__label">
                                                                 <span class="sale">@product.DiscountRate</span>
@@ -83,7 +83,7 @@
                                                     <div class="single-grid-product__content">
                                                         <div class="single-grid-product__category-rating">
                                                             <span class="category">
-                                                                <a asp-page="/ProductCategory" asp-route-id="@product.CategorySlug">@product.Category</a>
+                                                                <a asp-page="/ProductCategory" asp-route-id="@category.Slug">@product.Category</a>
                                                             </span>
                                                             <span class="rating">
                                                                 <i class="ion-android-star active"></i>
@@ -95,12 +95,10 @@
                                                         </div>
 
                                                         <h3 class="single-grid-product__title">
-                                                            <a href="single-product.html">
-                                                                @product.ShortDescription
-                                                            </a>
+                                                            @product.ShortDescription
                                                         </h3>
                                                         <p class="single-grid-product__price">
-                                                            @if (product.HasDiscount)
+                                                            @if (product.HasDiscount && product.InStock)
                                                             {
                                                                 <span class="discounted-price">@product.PriceWithDiscount</span>
                                                                 <span class="main-price discounted">@product.Price</span>
@@ -109,7 +107,6 @@
                                                             {
                                                                 <span class="main-price">@product.Price</span>
                                                             }
-
 
                                                         </p>
                                                     </div>
