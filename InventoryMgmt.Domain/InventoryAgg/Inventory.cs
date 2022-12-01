@@ -8,8 +8,7 @@ public class Inventory : EntityBase<long>
     public double UnitPrice { get; private set; }
     public bool InStock { get; private set; }
 
-    // composition relation
-    public List<InventoryOperation> Operations { get; set; }
+    public List<InventoryOperation> Operations { get; set; } // composiiton
 
     public Inventory(long productId, double unitPrice)
     {

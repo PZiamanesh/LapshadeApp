@@ -10,11 +10,10 @@ public class ProductPicture : EntityBase<long>
     public string PictureTitle { get; private set; }
     public bool IsRemoved { get; private set; }
 
-    // relations
     public long ProductId { get; private set; }
     public Product Product { get; private set; }
 
-    protected ProductPicture() { }
+    protected ProductPicture() {}
 
     public ProductPicture(long productId, string picture, string pictureAlt, string pictureTitle)
     {

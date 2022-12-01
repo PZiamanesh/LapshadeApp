@@ -17,9 +17,9 @@ public class Product : EntityBase<long>
     public string? Keywords { get; private set; }
     public string? MetaDescription { get; private set; }
 
-    // relations
     public long CategoryId { get; private set; }
     public ProductCategory? Category { get; private set; }
+
     public ICollection<ProductPicture>? Pictures { get; private set; }
 
     protected Product()

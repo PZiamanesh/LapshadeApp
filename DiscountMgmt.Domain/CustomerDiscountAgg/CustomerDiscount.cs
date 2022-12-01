@@ -10,7 +10,11 @@ public class CustomerDiscount : EntityBase<long>
     public DateTime EndDate { get; private set; }
     public string Reason { get; private set; }
 
-    public CustomerDiscount(long productId, int discountRate, DateTime startDate, DateTime endDate, string reason)
+    public CustomerDiscount(long productId,
+        int discountRate,
+        DateTime startDate,
+        DateTime endDate,
+        string reason)
     {
         ProductId = productId;
         DiscountRate = discountRate;
@@ -19,7 +23,11 @@ public class CustomerDiscount : EntityBase<long>
         Reason = reason;
     }
 
-    public void Edit(long productId, int discountRate, DateTime startDate, DateTime endDate, string reason)
+    public void Edit(long productId,
+        int discountRate,
+        DateTime startDate,
+        DateTime endDate,
+        string reason)
     {
         ProductId = productId;
         DiscountRate = discountRate;
