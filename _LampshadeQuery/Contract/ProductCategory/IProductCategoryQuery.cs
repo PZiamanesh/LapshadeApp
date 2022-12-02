@@ -2,7 +2,7 @@
 
 public interface IProductCategoryQuery
 {
-    IEnumerable<ProductCategoryQueryViewModel> GetProductCategories();
-    IEnumerable<ProductCategoryQueryViewModel> GetProductCategoriesWithProducts();
-    ProductCategoryQueryViewModel GetProductCategoryWithProducts(string id);
+    IEnumerable<ProductCategoryQueryModel> GetProductCategories();
+    IEnumerable<ProductCategoryQueryModel> GetProductCategoriesWithProducts();
+    ProductCategoryQueryModel GetProductCategoryWithProducts(string id);
 }

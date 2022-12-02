@@ -36,7 +36,7 @@ public class ProductPictureRepository : RepositoryBase<long, ProductPicture>, IP
             .FirstOrDefault(x => x.Id == id);
     }
 
-    public IEnumerable<ProductPictureViewModel> Search(ProductPictureSearchViewModel searchModel)
+    public IEnumerable<ProductPictureViewModel> Search(ProductPictureSearchModel searchModel)
     {
         var query = _context.ProductPictures
             .Include(x => x.Product)

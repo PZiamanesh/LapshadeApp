@@ -10,5 +10,5 @@ public interface IProductPictureApplication
     OperationResult Remove(long id);
     OperationResult Restore(long id);
     EditProductPicture GetDetails(long id);
-    IEnumerable<ProductPictureViewModel> Search(ProductPictureSearchViewModel searchModel);
+    IEnumerable<ProductPictureViewModel> Search(ProductPictureSearchModel searchModel);
 }

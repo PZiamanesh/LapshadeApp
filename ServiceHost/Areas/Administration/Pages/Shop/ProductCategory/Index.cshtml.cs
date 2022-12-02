@@ -9,14 +9,14 @@ public class IndexModel : PageModel
 {
     private readonly IProductCategoryApplication _productCategoryApplication;
     public IEnumerable<ProductCategoryViewModel>? ProductCategories { get; set; }
-    public ProductCategorySearchViewModel? SearchModel { get; set; }
+    public ProductCategorySearchModel? SearchModel { get; set; }
 
     public IndexModel(IProductCategoryApplication productCategoryApplication)
     {
         _productCategoryApplication = productCategoryApplication;
     }
 
-    public void OnGet(ProductCategorySearchViewModel searchModel)
+    public void OnGet(ProductCategorySearchModel searchModel)
     {
         ProductCategories = _productCategoryApplication.Search(searchModel);
     }

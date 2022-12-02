@@ -12,9 +12,9 @@ public class SlideQuery : ISlideQuery
         _dbContext = dbContext;
     }
 
-    public IEnumerable<SlideQueryViewModel> GetSlides()
+    public IEnumerable<SlideQueryModel> GetSlides()
     {
-        return _dbContext.Slides.Select(x => new SlideQueryViewModel
+        return _dbContext.Slides.Select(x => new SlideQueryModel
         {
             Picture = x.Picture,
             PictureAlt = x.PictureAlt,

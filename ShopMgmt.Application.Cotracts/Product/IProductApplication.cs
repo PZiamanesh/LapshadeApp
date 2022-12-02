@@ -10,7 +10,7 @@ public interface IProductApplication
 
     EditProduct GetDetails(long id);
 
-    IEnumerable<ProductViewModel> Search(ProductSearchViewModel searchModel);
+    IEnumerable<ProductViewModel> Search(ProductSearchModel searchModel);
 
     IEnumerable<ProductViewModel> GetProducts();
 }

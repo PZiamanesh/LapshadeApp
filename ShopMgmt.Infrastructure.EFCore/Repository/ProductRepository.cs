@@ -56,7 +56,7 @@ public class ProductRepository : RepositoryBase<long, Product>, IProductReposito
             }).AsNoTracking().FirstOrDefault(x => x.CategoryId == id);
     }
 
-    public IEnumerable<ProductViewModel> Search(ProductSearchViewModel searchModel)
+    public IEnumerable<ProductViewModel> Search(ProductSearchModel searchModel)
     {
         var query = _context.Products?
             .Include(x => x.Category)

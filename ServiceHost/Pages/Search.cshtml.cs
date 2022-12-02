@@ -8,7 +8,7 @@ namespace ServiceHost.Pages;
 public class SearchModel : PageModel
 {
     private readonly IProductQuery _productQuery;
-    public IEnumerable<ProductQueryViewModel> Products { get; set; }
+    public IEnumerable<ProductQueryModel> Products { get; set; }
     public string SearchValue { get; set; }
 
     public SearchModel(IProductQuery productQuery)

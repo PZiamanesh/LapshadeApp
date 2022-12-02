@@ -1,6 +1,6 @@
 ﻿namespace DiscountMgmt.Application.Contract.CustomerDiscount;
 
-public record CustomerDiscountSearchViewModel
+public record CustomerDiscountSearchModel
 {
     public long ProductId { get; set; }
     public string StartDate { get; set; }

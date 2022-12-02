@@ -1,5 +1,6 @@
-﻿@{
-
+﻿@using _LampshadeQuery.Contract.ProductCategory
+@model IEnumerable<ProductCategoryQueryModel>
+@{
 }
 
 <div class="header-area header-sticky">
@@ -23,19 +24,19 @@
                                 </li>
 
                                 <li class="menu-item-has-children">
-                                    <a href="blog-left-sidebar.html">محصولات</a>
+                                    <a href="#">محصولات</a>
                                     <ul class="sub-menu">
-                                        <li>
-                                            <a asp-page="">نگهدارنده</a>
-                                        </li>
-                                        <li>
-                                            <a asp-page="">دکوری</a>
-                                        </li>
+                                        @foreach (var category in Model)
+                                        {
+                                            <li>
+                                                <a asp-page="/ProductCategory" asp-route-id="@category.Slug">@category.Name</a>
+                                            </li>
+                                        }
                                     </ul>
                                 </li>
 
                                 <li class="menu-item-has-children">
-                                    <a href="blog-left-sidebar.html">بلاگ</a>
+                                    <a href="#">بلاگ</a>
                                     <ul class="sub-menu">
                                         <li>
                                             <a asp-page="">گروه 1</a>

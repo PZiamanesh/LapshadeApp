@@ -6,7 +6,7 @@ namespace ServiceHost.Pages;
 public class ProductModel : PageModel
 {
     private readonly IProductQuery _productQuery;
-    public ProductQueryViewModel? Product { get; set; }
+    public ProductQueryModel? Product { get; set; }
 
     public ProductModel(IProductQuery productQuery)
     {

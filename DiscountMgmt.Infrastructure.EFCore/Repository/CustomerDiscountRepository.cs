@@ -33,7 +33,7 @@ public class CustomerDiscountRepository : RepositoryBase<long, CustomerDiscount>
             .FirstOrDefault(x => x.Id == id);
     }
 
-    public IEnumerable<CustomerDiscountViewModel> Search(CustomerDiscountSearchViewModel search)
+    public IEnumerable<CustomerDiscountViewModel> Search(CustomerDiscountSearchModel search)
     {
         var products = _shopContexy.Products.Select(x => new { x.Id, x.Name }).ToList();
 

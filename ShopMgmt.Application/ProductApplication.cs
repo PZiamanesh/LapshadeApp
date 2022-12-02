@@ -89,7 +89,7 @@ public class ProductApplication : IProductApplication
         return _productRepository.GetDetails(id);
     }
 
-    public IEnumerable<ProductViewModel> Search(ProductSearchViewModel searchModel)
+    public IEnumerable<ProductViewModel> Search(ProductSearchModel searchModel)
     {
         return _productRepository.Search(searchModel);
     }

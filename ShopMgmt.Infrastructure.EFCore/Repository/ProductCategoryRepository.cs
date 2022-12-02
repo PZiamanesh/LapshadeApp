@@ -32,7 +32,7 @@ public class ProductCategoryRepository : RepositoryBase<long, ProductCategory>, 
         };
     }
 
-    public IEnumerable<ProductCategoryViewModel>? Search(ProductCategorySearchViewModel model)
+    public IEnumerable<ProductCategoryViewModel>? Search(ProductCategorySearchModel model)
     {
         var query = (_context.ProductCategories ?? throw new InvalidOperationException(ApplicationMessage.RecordNotFound))
                 .Select(x => new ProductCategoryViewModel()

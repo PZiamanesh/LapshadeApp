@@ -86,7 +86,7 @@ public class InventoryApplication : IInventoryApplication
         return result.Succeeded();
     }
 
-    public IEnumerable<InventoryViewModel> Search(InventorySearchViewModel search)
+    public IEnumerable<InventoryViewModel> Search(InventorySearchModel search)
     {
         return _inventoryRepository.Search(search);
     }

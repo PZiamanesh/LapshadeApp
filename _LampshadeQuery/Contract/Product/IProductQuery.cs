@@ -2,7 +2,7 @@
 
 public interface IProductQuery
 {
-    IEnumerable<ProductQueryViewModel> GetLatestProducts();
-    ProductQueryViewModel GetProduct(string slug);
-    IEnumerable<ProductQueryViewModel> Search(string searchKey);
+    IEnumerable<ProductQueryModel> GetLatestProducts();
+    ProductQueryModel GetProduct(string slug);
+    IEnumerable<ProductQueryModel> Search(string searchKey);
 }

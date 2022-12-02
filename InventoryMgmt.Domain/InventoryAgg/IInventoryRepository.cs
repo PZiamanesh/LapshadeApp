@@ -7,7 +7,7 @@ public interface IInventoryRepository : IRepository<long, Inventory>
 {
     EditInventory GetDetails(long id);
 
-    IEnumerable<InventoryViewModel> Search(InventorySearchViewModel search);
+    IEnumerable<InventoryViewModel> Search(InventorySearchModel search);
 
     Inventory GetByProduct(long productId);
 

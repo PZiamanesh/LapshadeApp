@@ -74,7 +74,6 @@ public class InventoryOperation
     public int CurrentCount { get; private set; }
     public string Description { get; private set; }
 
-    // composition relation
     public long InventoryId { get; private set; }
     public Inventory Inventory { get; private set; }
 

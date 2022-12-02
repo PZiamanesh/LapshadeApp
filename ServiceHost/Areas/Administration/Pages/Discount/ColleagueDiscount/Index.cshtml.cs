@@ -12,7 +12,7 @@ public class IndexModel : PageModel
     private readonly IProductApplication _productApplication;
 
     public IEnumerable<ColleagueDiscountViewModel>? ColleagueDiscounts { get; set; }
-    public ColleagueDiscountSearchViewModel? SearchModel { get; set; }
+    public ColleagueDiscountSearchModel? SearchModel { get; set; }
     public SelectList? Products { get; set; }
 
     public IndexModel(IColleagueDiscountApplication colleagueDiscountApplication,
@@ -22,7 +22,7 @@ public class IndexModel : PageModel
         _productApplication = productApplication;
     }
 
-    public void OnGet(ColleagueDiscountSearchViewModel searchModel)
+    public void OnGet(ColleagueDiscountSearchModel searchModel)
     {
         Products = new SelectList(_productApplication.GetProducts(), "Id", "Name");
         ColleagueDiscounts = _colleagueDiscountApplication.Search(searchModel);

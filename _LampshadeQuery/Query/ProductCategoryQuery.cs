@@ -24,9 +24,9 @@ public class ProductCategoryQuery : IProductCategoryQuery
         _discountContext = discountContext;
     }
 
-    public IEnumerable<ProductCategoryQueryViewModel> GetProductCategories()
+    public IEnumerable<ProductCategoryQueryModel> GetProductCategories()
     {
-        return _context.ProductCategories.Select(x => new ProductCategoryQueryViewModel
+        return _context.ProductCategories.Select(x => new ProductCategoryQueryModel
         {
             Id = x.Id,
             Name = x.Name,
@@ -37,11 +37,15 @@ public class ProductCategoryQuery : IProductCategoryQuery
         }).AsNoTracking().ToList();
     }
 
-    public IEnumerable<ProductCategoryQueryViewModel> GetProductCategoriesWithProducts()
+    public IEnumerable<ProductCategoryQueryModel> GetProductCategoriesWithProducts()
     {
         // get inventory and customer discount list
         var inventory = _inventoryContext.Inventory
-            .Select(x => new { x.ProductId, x.UnitPrice, currentCount = x.CalculateCurrentCount() });
+            .Select(x => new {
+                x.ProductId, 
+                x.UnitPrice,
+                x.InStock,
+                currentCount = x.CalculateCurrentCount() });
 
         var customerDiscounts = _discountContext.CustomerDiscounts
             .Where(x => x.EndDate >= DateTime.Now)
@@ -52,7 +56,7 @@ public class ProductCategoryQuery : IProductCategoryQuery
         var categories = _context.ProductCategories
             .Include(x => x.Products)
                 .ThenInclude(x => x.Category)
-            .Select(x => new ProductCategoryQueryViewModel()
+            .Select(x => new ProductCategoryQueryModel()
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -77,15 +81,18 @@ public class ProductCategoryQuery : IProductCategoryQuery
                     {
                         price = productInventory.UnitPrice;
                         product.Price = productInventory.UnitPrice.ToMoney() + " تومان";
+                        product.InStock = productInventory.InStock;
                     }
                     else
                     {
                         product.Price = "ناموجود";
+                        product.InStock = productInventory.InStock;
                     }
                 }
                 else
                 {
                     product.Price = "بزودی";
+                    product.InStock = false;
                 }
 
                 // get discount
@@ -108,9 +115,9 @@ public class ProductCategoryQuery : IProductCategoryQuery
         return categories;
     }
 
-    private static List<ProductQueryViewModel> MapProducts(List<Product> products)
+    private static List<ProductQueryModel> MapProducts(List<Product> products)
     {
-        return products.Select(x => new ProductQueryViewModel()
+        return products.Select(x => new ProductQueryModel()
         {
             Id = x.Id,
             Category = x.Category.Name,
@@ -123,11 +130,15 @@ public class ProductCategoryQuery : IProductCategoryQuery
         }).ToList();
     }
 
-    public ProductCategoryQueryViewModel GetProductCategoryWithProducts(string id)
+    public ProductCategoryQueryModel GetProductCategoryWithProducts(string id)
     {
         // get inventory and customer discount list
         var inventory = _inventoryContext.Inventory
-            .Select(x => new { x.ProductId, x.UnitPrice, currentCount = x.CalculateCurrentCount() });
+            .Select(x => new { 
+                x.ProductId, 
+                x.UnitPrice,
+                x.InStock,
+                currentCount = x.CalculateCurrentCount() });
 
         var customerDiscounts = _discountContext.CustomerDiscounts
             .Where(x => x.EndDate >= DateTime.Now)
@@ -138,7 +149,7 @@ public class ProductCategoryQuery : IProductCategoryQuery
         var category = _context.ProductCategories
             .Include(x => x.Products)
                 .ThenInclude(x => x.Category)
-            .Select(x => new ProductCategoryQueryViewModel()
+            .Select(x => new ProductCategoryQueryModel()
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -164,15 +175,18 @@ public class ProductCategoryQuery : IProductCategoryQuery
                 {
                     price = productInventory.UnitPrice;
                     product.Price = productInventory.UnitPrice.ToMoney() + " تومان";
+                    product.InStock = productInventory.InStock;
                 }
                 else
                 {
                     product.Price = "ناموجود";
+                    product.InStock = productInventory.InStock;
                 }
             }
             else
             {
                 product.Price = "بزودی";
+                product.InStock = false;
             }
 
             // get discount

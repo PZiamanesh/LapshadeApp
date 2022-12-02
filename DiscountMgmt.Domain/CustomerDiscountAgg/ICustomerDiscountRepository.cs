@@ -7,5 +7,5 @@ namespace DiscountMgmt.Domain.CustomerDiscountAgg;
 public interface ICustomerDiscountRepository:IRepository<long, CustomerDiscount>
 {
     EditCustomerDiscount GetDetails(long id);
-    IEnumerable<CustomerDiscountViewModel> Search(CustomerDiscountSearchViewModel search);
+    IEnumerable<CustomerDiscountViewModel> Search(CustomerDiscountSearchModel search);
 }

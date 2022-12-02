@@ -2,5 +2,5 @@
 
 public interface ISlideQuery
 {
-    IEnumerable<SlideQueryViewModel> GetSlides();
+    IEnumerable<SlideQueryModel> GetSlides();
 }

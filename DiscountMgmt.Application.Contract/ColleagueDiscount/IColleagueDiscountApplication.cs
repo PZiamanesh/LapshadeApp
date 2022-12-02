@@ -9,5 +9,5 @@ public interface IColleagueDiscountApplication
     EditColleagueDiscount GetDetails(long id);
     OperationResult Remove(long id);
     OperationResult Restore(long id);
-    IEnumerable<ColleagueDiscountViewModel> Search(ColleagueDiscountSearchViewModel search);
+    IEnumerable<ColleagueDiscountViewModel> Search(ColleagueDiscountSearchModel search);
 }

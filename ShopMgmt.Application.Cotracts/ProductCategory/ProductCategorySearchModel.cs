@@ -1,6 +1,6 @@
 ﻿namespace ShopMgmt.Application.Contract.ProductCategory;
 
-public class ProductCategorySearchViewModel
+public class ProductCategorySearchModel
 {
     public string? Name { get; set; }
 }

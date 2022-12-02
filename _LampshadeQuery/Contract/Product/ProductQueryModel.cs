@@ -1,8 +1,6 @@
-﻿using ShopMgmt.Domain.ProductPictureAggr;
+﻿namespace _LampshadeQuery.Contract.Product;
 
-namespace _LampshadeQuery.Contract.Product;
-
-public class ProductQueryViewModel
+public class ProductQueryModel
 {
     public long Id { get; set; }
     public string Name { get; set; }
@@ -27,4 +25,6 @@ public class ProductQueryViewModel
     public string DiscountRate { get; set; }
     public bool HasDiscount { get; set; }
     public string DiscountExpirationDate { get; set; }
+
+    public List<ProductPictureQueryModel> Pictures { get; set; }
 }

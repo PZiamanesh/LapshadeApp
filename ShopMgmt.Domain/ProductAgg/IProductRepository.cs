@@ -13,5 +13,5 @@ public interface IProductRepository : IRepository<long, Product>
 
     ProductViewModel GetProductCategorySlug(long id);
 
-    IEnumerable<ProductViewModel> Search(ProductSearchViewModel searchModel);
+    IEnumerable<ProductViewModel> Search(ProductSearchModel searchModel);
 }

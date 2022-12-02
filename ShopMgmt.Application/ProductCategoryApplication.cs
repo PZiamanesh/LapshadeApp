@@ -80,7 +80,7 @@ public class ProductCategoryApplication : IProductCategoryApplication
         return _productCategoryRepository.GetDetails(id);
     }
 
-    public IEnumerable<ProductCategoryViewModel> Search(ProductCategorySearchViewModel model)
+    public IEnumerable<ProductCategoryViewModel> Search(ProductCategorySearchModel model)
     {
         return _productCategoryRepository.Search(model);
     }

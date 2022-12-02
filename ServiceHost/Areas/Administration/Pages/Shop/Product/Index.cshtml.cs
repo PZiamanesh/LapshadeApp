@@ -12,7 +12,7 @@ public class IndexModel : PageModel
     private readonly IProductCategoryApplication _productCategoryApplication;
 
     public IEnumerable<ProductViewModel>? Products { get; set; }
-    public ProductSearchViewModel? SearchModel { get; set; }
+    public ProductSearchModel? SearchModel { get; set; }
     public SelectList? ProductCategories { get; set; }
 
     public IndexModel(IProductApplication productApplication, 
@@ -22,7 +22,7 @@ public class IndexModel : PageModel
         _productCategoryApplication = productCategoryApplication;
     }
 
-    public void OnGet(ProductSearchViewModel searchModel)
+    public void OnGet(ProductSearchModel searchModel)
     {
         ProductCategories = new SelectList(_productCategoryApplication.GetProductCategories(), "Id", "Name");
         Products = _productApplication.Search(searchModel);

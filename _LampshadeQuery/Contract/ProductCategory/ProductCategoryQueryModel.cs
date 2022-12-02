@@ -2,7 +2,7 @@
 
 namespace _LampshadeQuery.Contract.ProductCategory;
 
-public class ProductCategoryQueryViewModel
+public class ProductCategoryQueryModel
 {
     public long Id { get; set; }
     public string Name { get; set; }
@@ -13,5 +13,5 @@ public class ProductCategoryQueryViewModel
     public string Description { get; set; }
     public string Keywords { get; set; }
     public string MetaDescription { get; set; }
-    public List<ProductQueryViewModel> Products { get; set; }
+    public List<ProductQueryModel> Products { get; set; }
 }

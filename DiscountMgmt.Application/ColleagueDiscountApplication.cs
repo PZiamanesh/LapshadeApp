@@ -100,7 +100,7 @@ public class ColleagueDiscountApplication : IColleagueDiscountApplication
         return result.Succeeded();
     }
 
-    public IEnumerable<ColleagueDiscountViewModel> Search(ColleagueDiscountSearchViewModel search)
+    public IEnumerable<ColleagueDiscountViewModel> Search(ColleagueDiscountSearchModel search)
     {
         return _colleagueDiscountRepository.Search(search);
     }

@@ -101,7 +101,7 @@ public class ProductPictureApplication : IProductPictureApplication
         return result.Succeeded();
     }
 
-    public IEnumerable<ProductPictureViewModel> Search(ProductPictureSearchViewModel searchModel)
+    public IEnumerable<ProductPictureViewModel> Search(ProductPictureSearchModel searchModel)
     {
         return _productPictureRepository.Search(searchModel);
     }

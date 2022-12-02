@@ -80,7 +80,7 @@ public class CustomerDiscountApplication : ICustomerDiscountApplication
         return _customerDiscountRepository.GetDetails(id);
     }
 
-    public IEnumerable<CustomerDiscountViewModel> Search(CustomerDiscountSearchViewModel search)
+    public IEnumerable<CustomerDiscountViewModel> Search(CustomerDiscountSearchModel search)
     {
         return _customerDiscountRepository.Search(search);
     }

@@ -10,7 +10,7 @@ public interface IInventoryApplication
 
     EditInventory GetDetails(long id);
 
-    IEnumerable<InventoryViewModel> Search(InventorySearchViewModel search);
+    IEnumerable<InventoryViewModel> Search(InventorySearchModel search);
 
     OperationResult Increase(IncreaseInventory command);
 

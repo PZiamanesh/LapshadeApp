@@ -29,7 +29,7 @@ public class ColleagueDiscountRepository : RepositoryBase<long, ColleagueDiscoun
             .FirstOrDefault(x => x.Id == id);
     }
 
-    public IEnumerable<ColleagueDiscountViewModel> Search(ColleagueDiscountSearchViewModel search)
+    public IEnumerable<ColleagueDiscountViewModel> Search(ColleagueDiscountSearchModel search)
     {
         var products = _shopContexy.Products.Select(x => new { x.Id, x.Name }).ToList();
 

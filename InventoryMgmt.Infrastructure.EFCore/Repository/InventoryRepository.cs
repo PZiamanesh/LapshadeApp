@@ -51,7 +51,7 @@ public class InventoryRepository : RepositoryBase<long, Inventory>, IInventoryRe
         }).OrderByDescending(x => x.Id).ToList();
     }
 
-    public IEnumerable<InventoryViewModel> Search(InventorySearchViewModel search)
+    public IEnumerable<InventoryViewModel> Search(InventorySearchModel search)
     {
         var products = _shopContext.Products
             .Include(x=>x.Category)

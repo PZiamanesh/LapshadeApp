@@ -1,10 +1,9 @@
 ﻿using _Framework.Application;
 using _LampshadeQuery.Contract.Product;
-using _LampshadeQuery.Contract.ProductCategory;
 using DiscountMgmt.Infrastructure.EFCore;
 using InventoryMgmt.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
-using ShopMgmt.Domain.ProductAgg;
+using ShopMgmt.Domain.ProductPictureAggr;
 using ShopMgmt.Infrastructure.EFCore;
 
 namespace _LampshadeQuery.Query;
@@ -24,11 +23,17 @@ public class ProductQuery : IProductQuery
         _discountContext = discountContext;
     }
 
-    public IEnumerable<ProductQueryViewModel> GetLatestProducts()
+    public IEnumerable<ProductQueryModel> GetLatestProducts()
     {
         // get inventory and customer discount list
         var inventory = _inventoryContext.Inventory
-            .Select(x => new { x.ProductId, x.UnitPrice, currentCount = x.CalculateCurrentCount() });
+            .Select(x => new
+            {
+                x.ProductId,
+                x.UnitPrice,
+                x.InStock,
+                currentCount = x.CalculateCurrentCount()
+            });
 
         var customerDiscounts = _discountContext.CustomerDiscounts
             .Where(x => x.EndDate >= DateTime.Now)
@@ -36,7 +41,7 @@ public class ProductQuery : IProductQuery
 
         var products = _context.Products
             .Include(x => x.Category)
-            .Select(x => new ProductQueryViewModel
+            .Select(x => new ProductQueryModel
             {
                 Id = x.Id,
                 Category = x.Category.Name,
@@ -62,15 +67,18 @@ public class ProductQuery : IProductQuery
                 {
                     price = productInventory.UnitPrice;
                     product.Price = productInventory.UnitPrice.ToMoney() + " تومان";
+                    product.InStock = productInventory.InStock;
                 }
                 else
                 {
                     product.Price = "ناموجود";
+                    product.InStock = productInventory.InStock;
                 }
             }
             else
             {
                 product.Price = "بزودی";
+                product.InStock = false;
             }
 
             // get discount
@@ -92,15 +100,17 @@ public class ProductQuery : IProductQuery
         return products;
     }
 
-    public ProductQueryViewModel GetProduct(string slug)
+    public ProductQueryModel GetProduct(string slug)
     {
         // get inventory and customer discount list
         var inventory = _inventoryContext.Inventory
-            .Select(x => new { 
+            .Select(x => new
+            {
                 x.ProductId,
                 x.UnitPrice,
                 x.InStock,
-                currentCount = x.CalculateCurrentCount() });
+                currentCount = x.CalculateCurrentCount()
+            });
 
         var customerDiscounts = _discountContext.CustomerDiscounts
             .Where(x => x.EndDate >= DateTime.Now)
@@ -108,7 +118,8 @@ public class ProductQuery : IProductQuery
 
         var product = _context.Products
             .Include(x => x.Category)
-            .Select(x => new ProductQueryViewModel
+            .Include(x => x.Pictures)
+            .Select(x => new ProductQueryModel
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -121,6 +132,7 @@ public class ProductQuery : IProductQuery
                 Picture = x.Picture,
                 PictureAlt = x.PictureAlt,
                 PictureTitle = x.PictureTitle,
+                Pictures = MapProductPictures(x.Pictures),
 
                 ShortDescription = x.ShortDescription,
                 Description = x.Description,
@@ -150,7 +162,7 @@ public class ProductQuery : IProductQuery
         else
         {
             product.Price = "بزودی";
-            product.InStock = productInventory.InStock;
+            product.InStock = false;
         }
 
         // get discount
@@ -172,11 +184,29 @@ public class ProductQuery : IProductQuery
         return product;
     }
 
-    public IEnumerable<ProductQueryViewModel> Search(string searchKey)
+    private static List<ProductPictureQueryModel> MapProductPictures(ICollection<ProductPicture> pictures)
+    {
+        return pictures.Select(x => new ProductPictureQueryModel
+        {
+            ProductId = x.ProductId,
+            Picture = x.Picture,
+            PictureAlt = x.PictureAlt,
+            PictureTitle = x.PictureTitle,
+            IsRemoved = x.IsRemoved,
+        }).Where(x => !x.IsRemoved).ToList();
+    }
+
+    public IEnumerable<ProductQueryModel> Search(string searchKey)
     {
         // get inventory and customer discount list
         var inventory = _inventoryContext.Inventory
-            .Select(x => new { x.ProductId, x.UnitPrice, currentCount = x.CalculateCurrentCount() });
+            .Select(x => new
+            {
+                x.ProductId,
+                x.UnitPrice,
+                x.InStock,
+                currentCount = x.CalculateCurrentCount()
+            });
 
         var customerDiscounts = _discountContext.CustomerDiscounts
             .Where(x => x.EndDate >= DateTime.Now)
@@ -186,7 +216,7 @@ public class ProductQuery : IProductQuery
         // fill query item
         var products = _context.Products
             .Include(x => x.Category)
-            .Select(x => new ProductQueryViewModel
+            .Select(x => new ProductQueryModel
             {
                 Id = x.Id,
                 Category = x.Category.Name,
@@ -214,15 +244,18 @@ public class ProductQuery : IProductQuery
                 {
                     price = productInventory.UnitPrice;
                     product.Price = productInventory.UnitPrice.ToMoney() + " تومان";
+                    product.InStock = productInventory.InStock;
                 }
                 else
                 {
                     product.Price = "ناموجود";
+                    product.InStock = productInventory.InStock;
                 }
             }
             else
             {
                 product.Price = "بزودی";
+                product.InStock = false;
             }
 
             // process discount
@@ -244,3 +277,4 @@ public class ProductQuery : IProductQuery
         return products;
     }
 }
+
