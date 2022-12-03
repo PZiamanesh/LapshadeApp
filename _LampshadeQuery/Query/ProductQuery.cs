@@ -3,6 +3,7 @@ using _LampshadeQuery.Contract.Product;
 using DiscountMgmt.Infrastructure.EFCore;
 using InventoryMgmt.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
+using ShopMgmt.Domain.CommentAgg;
 using ShopMgmt.Domain.ProductPictureAggr;
 using ShopMgmt.Infrastructure.EFCore;
 
@@ -138,6 +139,8 @@ public class ProductQuery : IProductQuery
                 Description = x.Description,
                 MetaDescription = x.MetaDescription,
                 Keywords = x.Keywords,
+
+                Comments = MapComments(x.Comments)
             }).AsNoTracking().FirstOrDefault(x => x.Slug == slug);
 
         // get price
@@ -182,6 +185,18 @@ public class ProductQuery : IProductQuery
         }
 
         return product;
+    }
+
+    private static List<CommentQueryModel> MapComments(ICollection<Comment> comments)
+    {
+        return comments
+            .Where(x=> !x.IsCanceled && x.IsConfirmed)
+            .Select(x => new CommentQueryModel 
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Message = x.Message,
+            }).OrderByDescending(x=>x.Id).ToList();
     }
 
     private static List<ProductPictureQueryModel> MapProductPictures(ICollection<ProductPicture> pictures)

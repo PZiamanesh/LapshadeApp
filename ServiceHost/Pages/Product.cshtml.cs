@@ -1,20 +1,35 @@
-using _LampshadeQuery.Contract.Product;
+﻿using _LampshadeQuery.Contract.Product;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using ShopMgmt.Application.Contract.Comment;
 
 namespace ServiceHost.Pages;
+#nullable disable
 
 public class ProductModel : PageModel
 {
     private readonly IProductQuery _productQuery;
-    public ProductQueryModel? Product { get; set; }
+    private readonly ICommentApplication _commentApplication;
+    public ProductQueryModel Product { get; set; }
 
-    public ProductModel(IProductQuery productQuery)
+    public ProductModel(IProductQuery productQuery, ICommentApplication commentApplication)
     {
         _productQuery = productQuery;
+        _commentApplication = commentApplication;
     }
 
     public void OnGet(string id)
     {
         Product = _productQuery.GetProduct(id);
+    }
+
+    public IActionResult OnPost(AddComment command, string productSlug)
+    {
+        var result = _commentApplication.AddComment(command);
+        if (result.IsSucceeded)
+        {
+            TempData["CommentStatus"] = "باتشکر. نظر شما بعد از تایید مدیر نمایش داده خواهد شد.";
+        }
+        return RedirectToPage("/Product", new {id = productSlug});
     }
 }

@@ -27,4 +27,5 @@ public class ProductQueryModel
     public string DiscountExpirationDate { get; set; }
 
     public List<ProductPictureQueryModel> Pictures { get; set; }
+    public List<CommentQueryModel> Comments { get; set; }
 }

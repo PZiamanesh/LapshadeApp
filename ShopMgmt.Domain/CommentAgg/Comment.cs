@@ -28,10 +28,12 @@ public class Comment : EntityBase<long>
     public void Confirm()
     {
         IsConfirmed = true;
+        IsCanceled=false;
     }
 
     public void Cancel()
     {
         IsCanceled = true;
+        IsConfirmed=false;
     }
 }
