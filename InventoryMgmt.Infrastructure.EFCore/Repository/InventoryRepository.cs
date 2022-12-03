@@ -35,7 +35,10 @@ public class InventoryRepository : RepositoryBase<long, Inventory>, IInventoryRe
 
     public IEnumerable<InventroyOperationViewModel> GetOperationLog(long id)
     {
-        var inventroy = _context.Inventory.Include(x => x.Operations).FirstOrDefault(x => x.Id == id);
+        var inventroy = _context.Inventory
+            .Include(x => x.Operations)
+            .FirstOrDefault(x => x.Id == id);
+
         return inventroy.Operations.Select(x => new InventroyOperationViewModel()
         {
             Id = x.Id,
