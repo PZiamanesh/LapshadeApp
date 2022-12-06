@@ -1,6 +1,6 @@
 ﻿namespace BlogMgmt.Application.Contract.ArticleCategory;
 
-public record EditArticle : CreateArticle
+public record EditArticleCategory : CreateArticleCategory
 {
     public long Id { get; set; }
 }

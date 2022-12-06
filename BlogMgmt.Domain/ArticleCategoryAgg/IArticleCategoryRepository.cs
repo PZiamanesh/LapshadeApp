@@ -5,6 +5,6 @@ namespace BlogMgmt.Domain.ArticleCategoryAgg;
 
 public interface IArticleCategoryRepository : IRepository<long, ArticleCategory>
 {
-    ArticleCategoryViewModel GetDetails(long id);
+    EditArticleCategory GetDetails(long id);
     List<ArticleCategoryViewModel> Search(ArticleCategorySearchModel searchModel);
 }

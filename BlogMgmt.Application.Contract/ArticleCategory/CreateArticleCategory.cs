@@ -2,7 +2,7 @@
 
 namespace BlogMgmt.Application.Contract.ArticleCategory;
 
-public record CreateArticle
+public record CreateArticleCategory
 {
     public string Name { get; set; }
     public IFormFile Picture { get; set; }

@@ -4,8 +4,8 @@ namespace BlogMgmt.Application.Contract.ArticleCategory;
 
 public interface IArticleCategoryApplication
 {
-    Task<OperationResult> Create(CreateArticle command);
-    Task<OperationResult> Edit(EditArticle command);
-    ArticleCategoryViewModel GetDetails(long id);
+    Task<OperationResult> Create(CreateArticleCategory command);
+    Task<OperationResult> Edit(EditArticleCategory command);
+    EditArticleCategory GetDetails(long id);
     List<ArticleCategoryViewModel> Search(ArticleCategorySearchModel searchModel);
 }

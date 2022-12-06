@@ -17,7 +17,7 @@ public class ArticleCategoryApplication : IArticleCategoryApplication
         _fileUploader = fileUploader;
     }
 
-    public async Task<OperationResult> Create(CreateArticle command)
+    public async Task<OperationResult> Create(CreateArticleCategory command)
     {
         var result = new OperationResult();
 
@@ -47,7 +47,7 @@ public class ArticleCategoryApplication : IArticleCategoryApplication
         return result.Succeeded();
     }
 
-    public async Task<OperationResult> Edit(EditArticle command)
+    public async Task<OperationResult> Edit(EditArticleCategory command)
     {
         var result = new OperationResult();
         var articleCategory = _articleCategoryRepository.Get(command.Id);
@@ -81,7 +81,7 @@ public class ArticleCategoryApplication : IArticleCategoryApplication
         return result.Succeeded();
     }
 
-    public ArticleCategoryViewModel GetDetails(long id)
+    public EditArticleCategory GetDetails(long id)
     {
         return _articleCategoryRepository.GetDetails(id);
     }
