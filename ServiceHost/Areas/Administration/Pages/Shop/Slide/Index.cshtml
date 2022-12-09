@@ -6,6 +6,19 @@
 
 <div class="row">
     <div class="col-sm-12">
+        
+        <h4 class="page-title pull-right">@ViewData["Title"]</h4>
+        <p class="pull-left">
+            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">
+                <i class="fa fa-plus"></i>
+                ایجاد اسلاید جدید
+            </a>
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
         @if (TempData["SlideSubmission"] != null)
         {
             <div class="alert alert-success alert-dismissible" role="alert">
@@ -24,18 +37,7 @@
         {
             <div></div>
         }
-        <h4 class="page-title pull-right">@ViewData["Title"]</h4>
-        <p class="pull-left">
-            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">
-                <i class="fa fa-plus"></i>
-                ایجاد اسلاید جدید
-            </a>
-        </p>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">لیست اسلایدها (@Model.Slides.Count())</h3>

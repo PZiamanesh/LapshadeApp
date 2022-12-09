@@ -43,6 +43,7 @@ public class ArticleCategoryApplication : IArticleCategoryApplication
             command.Description
             );
 
+        _articleCategoryRepository.Create(articleCategory);
         _articleCategoryRepository.Save();
         return result.Succeeded();
     }
@@ -78,7 +79,7 @@ public class ArticleCategoryApplication : IArticleCategoryApplication
            );
 
         _articleCategoryRepository.Save();
-        return result.Succeeded();
+        return result.Succeeded(ApplicationMessage.RecordEdited);
     }
 
     public EditArticleCategory GetDetails(long id)

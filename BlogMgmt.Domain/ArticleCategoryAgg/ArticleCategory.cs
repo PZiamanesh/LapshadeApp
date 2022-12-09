@@ -1,4 +1,5 @@
 ﻿using _Framework.Domain;
+using BlogMgmt.Domain.ArticleAgg;
 
 namespace BlogMgmt.Domain.ArticleCategoryAgg;
 
@@ -14,6 +15,13 @@ public class ArticleCategory : EntityBase<long>
     public string Keywords { get; private set; }
     public string MetaDescription { get; private set; }
     public string CanonicalAddress { get; private set; }
+
+    public List<Article> Articles { get; private set; }
+
+    protected ArticleCategory()
+    {
+        Articles = new List<Article>();
+    }
 
     public ArticleCategory(
         string name,

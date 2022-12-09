@@ -1,4 +1,5 @@
-﻿using _Framework.Infrastructure;
+﻿using _Framework.Application;
+using _Framework.Infrastructure;
 using BlogMgmt.Application.Contract.ArticleCategory;
 using BlogMgmt.Domain.ArticleCategoryAgg;
 
@@ -33,6 +34,11 @@ public class ArticleCategoryRepository : RepositoryBase<long, ArticleCategory>, 
 
     }
 
+    public string GetSlug(long categoryId)
+    {
+        return _context.ArticleCategories.FirstOrDefault(x=>x.Id == categoryId).Slug;
+    }
+
     public List<ArticleCategoryViewModel> Search(ArticleCategorySearchModel searchModel)
     {
         var query = _context.ArticleCategories.Select(x => new ArticleCategoryViewModel
@@ -41,7 +47,8 @@ public class ArticleCategoryRepository : RepositoryBase<long, ArticleCategory>, 
             Name = x.Name,
             Picture = x.Picture,
             Description = x.Description,
-            ShowOrder = x.ShowOrder
+            ShowOrder = x.ShowOrder,
+            CreationDate = x.CreationDate.ToFarsi()
         });
 
         if (!string.IsNullOrWhiteSpace(searchModel.Name))

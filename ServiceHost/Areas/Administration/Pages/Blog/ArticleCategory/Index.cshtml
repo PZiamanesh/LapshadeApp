@@ -1,17 +1,34 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "مدیریت محصولات";
+    ViewData["Title"] = "مدیریت گروه مقالات";
 }
 
 <div class="row">
     <div class="col-sm-12">
-        
+        @if (TempData["ArticleCategorySubmission"] != null)
+        {
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                @TempData["ArticleCategorySubmission"]
+            </div>
+        }
+        @if (TempData["ArticleCategoryEdition"] != null)
+        {
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                @TempData["ArticleCategoryEdition"]
+            </div>
+        }
+        else
+        {
+            <div></div>
+        }
         <h4 class="page-title pull-right">@ViewData["Title"]</h4>
         <p class="pull-left">
             <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">
                 <i class="fa fa-plus"></i>
-                ایجاد محصول جدید
+                ایجاد گروه مقاله جدید
             </a>
         </p>
     </div>
@@ -21,25 +38,16 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">جستجو در محصولات</h3>
+                <h3 class="panel-title">جستجو در گروه مقالات</h3>
             </div>
             <div class="panel-body">
                 <form class="form-inline" role="form" method="get">
                     <div class="form-group">
-                        <input class="form-control" asp-for="SearchModel!.Name" placeholder="نام محصول">
+                        <label class="sr-only" asp-for="SearchModel!.Name"></label>
+                        <input class="form-control" asp-area="Administration" asp-for="SearchModel!.Name" placeholder="نام گروه">
                     </div>
-                    <div class="form-group">
-                        <input class="form-control" asp-for="SearchModel!.Code" placeholder="کد محصول">
-                    </div>
-                    <div class="form-group">
-                        <select class="form-control" asp-for="SearchModel!.CategoryId" asp-items="@Model.ProductCategories">
-                            <option value="0">-- انتخاب گروه --</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-success waves-effect waves-light m-l-10 m-r-10">جستجو</button>
-                        <a class="btn btn-primary waves-effect waves-light m-l-10" asp-page="./Index">مشاهده همه</a>
-                    </div>
+                    <button type="submit" class="btn btn-success waves-effect waves-light m-l-10">جستجو</button>
+                    <a class="btn btn-primary waves-effect waves-light m-l-10" asp-page="./Index">مشاهده همه</a>
                 </form>
             </div>
         </div>
@@ -48,28 +56,9 @@
 
 <div class="row">
     <div class="col-md-12">
-        @if (TempData["ProductSubmission"] != null)
-        {
-            <div class="alert alert-success alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                @TempData["ProductSubmission"]
-            </div>
-        }
-        @if (TempData["ProductEdition"] != null)
-        {
-            <div class="alert alert-success alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                @TempData["ProductEdition"]
-            </div>
-        }
-        else
-        {
-            <div></div>
-        }
-
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">لیست محصولات (@Model.Products?.Count())</h3>
+                <h3 class="panel-title">لیست گروه مقالات (@Model.ArticleCategories?.Count())</h3>
             </div>
             <div class="panel-body">
 
@@ -81,14 +70,15 @@
                                     <th>#</th>
                                     <th>عکس</th>
                                     <th>نام</th>
-                                    <th>کد</th>
-                                    <th>گروه</th>
-                                    <th>تاریخ ایجاد</th>
+                                    <th>توضیحات</th>
+                                    <th>تاریخ تولید</th>
+                                    <th>ترتیب نمایش</th>
+                                    <th>تعداد مقالات</th>
                                     <th>عملیات</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model.Products!)
+                                @foreach (var item in Model.ArticleCategories!)
                                 {
                                     <tr>
                                         <td>@item.Id</td>
@@ -96,11 +86,14 @@
                                             <img src="~/ProductPictures/@item.Picture" style="width: 70px; height: 70px" />
                                         </td>
                                         <td>@item.Name</td>
-                                        <td>@item.Code</td>
-                                        <td>@item.Category</td>
+                                        <td>@item.Description</td>
                                         <td>@item.CreationDate</td>
+                                        <td>@item.ShowOrder</td>
+                                        <td>@item.ArticleCount</td>
+                                        
                                         <td>
-                                            <a class="btn btn-warning waves-effect waves-light m-b-5" href="#showmodal=@Url.Page("./Index", "Edit", new { id = item.Id })">
+                                            <a class="btn btn-warning pull-right m-rl-5"
+                                                href="#showmodal=@Url.Page("./Index", "Edit", new { id = item.Id })">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
                                         </td>

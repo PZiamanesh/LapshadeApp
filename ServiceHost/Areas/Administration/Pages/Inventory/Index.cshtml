@@ -7,25 +7,6 @@
 <div class="row">
     <div class="col-sm-12">
 
-        @if (TempData["InventorySubmission"] != null)
-        {
-            <div class="alert alert-success alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                @TempData["InventorySubmission"]
-            </div>
-        }
-        @if (TempData["InventoryEdition"] != null)
-        {
-            <div class="alert alert-success alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                @TempData["InventoryEdition"]
-            </div>
-        }
-        else
-        {
-            <div></div>
-        }
-
         <h4 class="page-title pull-right">@ViewData["Title"]</h4>
         <p class="pull-left">
             <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">
@@ -69,6 +50,25 @@
 
 <div class="row">
     <div class="col-md-12">
+        @if (TempData["InventorySubmission"] != null)
+        {
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                @TempData["InventorySubmission"]
+            </div>
+        }
+        @if (TempData["InventoryEdition"] != null)
+        {
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                @TempData["InventoryEdition"]
+            </div>
+        }
+        else
+        {
+            <div></div>
+        }
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">لیست انبار (@Model.Inventory?.Count())</h3>
