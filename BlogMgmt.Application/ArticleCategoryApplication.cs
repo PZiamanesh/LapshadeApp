@@ -82,6 +82,11 @@ public class ArticleCategoryApplication : IArticleCategoryApplication
         return result.Succeeded(ApplicationMessage.RecordEdited);
     }
 
+    public List<ArticleCategoryViewModel> GetCategories()
+    {
+        return _articleCategoryRepository.GetCategories();
+    }
+
     public EditArticleCategory GetDetails(long id)
     {
         return _articleCategoryRepository.GetDetails(id);

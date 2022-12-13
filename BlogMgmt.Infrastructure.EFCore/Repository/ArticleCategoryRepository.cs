@@ -2,6 +2,7 @@
 using _Framework.Infrastructure;
 using BlogMgmt.Application.Contract.ArticleCategory;
 using BlogMgmt.Domain.ArticleCategoryAgg;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlogMgmt.Infrastructure.EFCore.Repository;
 
@@ -12,6 +13,15 @@ public class ArticleCategoryRepository : RepositoryBase<long, ArticleCategory>, 
     public ArticleCategoryRepository(BlogContext context) : base(context)
     {
         _context = context;
+    }
+
+    public List<ArticleCategoryViewModel> GetCategories()
+    {
+        return _context.ArticleCategories.Select(x => new ArticleCategoryViewModel
+        {
+            Id = x.Id,
+            Name = x.Name
+        }).AsNoTracking().ToList();
     }
 
     public EditArticleCategory GetDetails(long id)

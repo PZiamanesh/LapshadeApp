@@ -5,6 +5,7 @@ using BlogMgmt.Domain.ArticleAgg;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogMgmt.Infrastructure.EFCore.Repository;
+#nullable disable
 
 public class ArticleRepository : RepositoryBase<long, Article>, IArticleRepository
 {
@@ -20,6 +21,7 @@ public class ArticleRepository : RepositoryBase<long, Article>, IArticleReposito
         return _context.Articles
             .Select(x => new EditArticle
             {
+                Id = x.Id,
                 Title = x.Title,
                 ShortDescription = x.ShortDescription,
                 Description = x.Description,
@@ -29,7 +31,7 @@ public class ArticleRepository : RepositoryBase<long, Article>, IArticleReposito
                 Slug = x.Slug,
                 Keywords = x.Keywords,
                 MetaDescription = x.MetaDescription,
-                CanonicalAddress = x.CanonicalAddress,
+                CanonicalAddress = x.CanonicalAddress ?? "",
                 CategoryId = x.CategoryId
             }).FirstOrDefault(x => x.Id == id);
     }

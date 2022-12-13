@@ -7,5 +7,6 @@ public interface IArticleCategoryApplication
     Task<OperationResult> Create(CreateArticleCategory command);
     Task<OperationResult> Edit(EditArticleCategory command);
     EditArticleCategory GetDetails(long id);
+    List<ArticleCategoryViewModel> GetCategories();
     List<ArticleCategoryViewModel> Search(ArticleCategorySearchModel searchModel);
 }

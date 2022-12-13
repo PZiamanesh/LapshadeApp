@@ -1,5 +1,7 @@
 ﻿using BlogMgmt.Application;
+using BlogMgmt.Application.Contract.Article;
 using BlogMgmt.Application.Contract.ArticleCategory;
+using BlogMgmt.Domain.ArticleAgg;
 using BlogMgmt.Domain.ArticleCategoryAgg;
 using BlogMgmt.Infrastructure.EFCore;
 using BlogMgmt.Infrastructure.EFCore.Repository;
@@ -14,6 +16,9 @@ public class BlogMgmtBootstrapper
     {
         service.AddScoped<IArticleCategoryRepository, ArticleCategoryRepository>();
         service.AddScoped<IArticleCategoryApplication, ArticleCategoryApplication>();
+
+        service.AddScoped<IArticleRepository, ArticleRepository>();
+        service.AddScoped<IArticleApplication, ArticleApplication>();
 
         service.AddDbContext<BlogContext>(option => option.UseSqlServer(connectionString));
     }
