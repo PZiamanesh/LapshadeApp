@@ -66,6 +66,6 @@ public class ArticleRepository : RepositoryBase<long, Article>, IArticleReposito
             query = query.Where(x => x.CategoryId == searchModel.CategoryId);
         }
 
-        return query.AsNoTracking().ToList();
+        return query.AsNoTracking().OrderByDescending(x=>x.Id).ToList();
     }
 }

@@ -30,7 +30,7 @@ public class EditModel : PageModel
 
     public async Task<IActionResult> OnPost(EditArticle command)
     {
-        var result = await _articleApplication.Create(command);
+        var result = await _articleApplication.Edit(command);
         return RedirectToPage("./Index");
     }
 }

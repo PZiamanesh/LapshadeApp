@@ -60,7 +60,7 @@ public class ArticleApplication : IArticleApplication
         var result = new OperationResult();
         var article = _articleRepository.GetWithDescendants(command.Id);
 
-        if (article != null)
+        if (article is null)
             return result.Failed(ApplicationMessage.RecordNotFound);
 
         if (_articleRepository.Exists(x => x.Title == command.Title && x.Id != command.Id))

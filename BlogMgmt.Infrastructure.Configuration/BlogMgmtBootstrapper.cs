@@ -1,4 +1,6 @@
-﻿using BlogMgmt.Application;
+﻿using _LampshadeQuery.Contract.Article;
+using _LampshadeQuery.Query;
+using BlogMgmt.Application;
 using BlogMgmt.Application.Contract.Article;
 using BlogMgmt.Application.Contract.ArticleCategory;
 using BlogMgmt.Domain.ArticleAgg;
@@ -19,6 +21,8 @@ public class BlogMgmtBootstrapper
 
         service.AddScoped<IArticleRepository, ArticleRepository>();
         service.AddScoped<IArticleApplication, ArticleApplication>();
+
+        service.AddScoped<IArticleQuery, ArticleQuery>();
 
         service.AddDbContext<BlogContext>(option => option.UseSqlServer(connectionString));
     }
