@@ -15,4 +15,5 @@ public class ArticleCategoryQueryModel
     public string MetaDescription { get; set; }
     public string CanonicalAddress { get; set; }
     public int ArticleCount { get; set; }
+    public List<ArticleQueryModel> Articles { get; set; }
 }

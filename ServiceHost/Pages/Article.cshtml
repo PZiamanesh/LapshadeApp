@@ -326,126 +326,15 @@
                                         </div>
                                     </div>
 
-                                    @*<div class="single-sidebar-widget">
-
-                                    <h4 class="single-sidebar-widget__title">Recent Comments</h4>
-
-                                    <!--=======  block container  =======-->
-
-                                    <div class="block-container">
-
-                                    <!--=======  single block  =======-->
-
-                                    <div class="single-block comment-block d-flex">
-                                    <div class="image">
-                                    <a href="blog-post-image-format.html">
-                                    <img src="assets/img/blog/comment-icon.png"
-                                    class="img-fluid" alt="">
-                                    </a>
-                                    </div>
-                                    <div class="content">
-                                    <p>
-                                    <span>Admin Says</span> <a href="blog-post-image-format.html">
-                                    The biggest lie in
-                                    plant
-                                    </a>
-                                    </p>
-                                    </div>
-                                    </div>
-
-                                    <!--=======  End of single block  =======-->
-                                    <!--=======  single block  =======-->
-
-                                    <div class="single-block comment-block d-flex">
-                                    <div class="image">
-                                    <a href="blog-post-image-gallery.html">
-                                    <img src="assets/img/blog/comment-icon.png"
-                                    class="img-fluid" alt="">
-                                    </a>
-                                    </div>
-                                    <div class="content">
-                                    <p>
-                                    <span>Admin Says</span><a href="blog-post-image-gallery.html">
-                                    How to improve plant
-                                    quality
-                                    </a>
-                                    </p>
-                                    </div>
-                                    </div>
-
-                                    <!--=======  End of single block  =======-->
-                                    <!--=======  single block  =======-->
-
-                                    <div class="single-block comment-block d-flex">
-                                    <div class="image">
-                                    <a href="blog-post-audio-format.html">
-                                    <img src="assets/img/blog/comment-icon.png"
-                                    class="img-fluid" alt="">
-                                    </a>
-                                    </div>
-                                    <div class="content">
-                                    <p>
-                                    <span>Admin Says</span><a href="blog-post-audio-format.html">
-                                    101 ideas for
-                                    plant
-                                    </a>
-                                    </p>
-                                    </div>
-                                    </div>
-
-                                    <!--=======  End of single block  =======-->
-                                    <!--=======  single block  =======-->
-
-                                    <div class="single-block comment-block d-flex">
-                                    <div class="image">
-                                    <a href="blog-post-video-format.html">
-                                    <img src="assets/img/blog/comment-icon.png"
-                                    class="img-fluid" alt="">
-                                    </a>
-                                    </div>
-                                    <div class="content">
-                                    <p>
-                                    <span>Admin Says</span><a href="blog-post-video-format.html">
-                                    No more mistakes with
-                                    plant
-                                    </a>
-                                    </p>
-                                    </div>
-                                    </div>
-
-                                    <!--=======  End of single block  =======-->
-
-                                    </div>
-
-                                    <!--=======  End of block container  =======-->
-                                    </div>*@
                                     <div class="single-sidebar-widget">
-                                        <h4 class="single-sidebar-widget__title">Popular Tags</h4>
+                                        <h4 class="single-sidebar-widget__title">تگ ها</h4>
                                         <ul class="single-sidebar-widget__tag-list">
-                                            <li>
-                                                <a href="#">Car Seats</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Chair</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Engine Parts</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Sofas</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Sofas</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Decor</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Furniture</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Chair</a>
-                                            </li>
+                                            @foreach (var tag in tags)
+                                            {
+                                                <li>
+                                                    <a href="#">@tag</a>
+                                                </li>
+                                            }
 
                                         </ul>
                                     </div>

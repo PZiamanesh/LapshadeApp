@@ -51,14 +51,17 @@ public class ArticleCategoryRepository : RepositoryBase<long, ArticleCategory>, 
 
     public List<ArticleCategoryViewModel> Search(ArticleCategorySearchModel searchModel)
     {
-        var query = _context.ArticleCategories.Select(x => new ArticleCategoryViewModel
+        var query = _context.ArticleCategories
+            .Include(x=>x.Articles)
+            .Select(x => new ArticleCategoryViewModel
         {
             Id = x.Id,
             Name = x.Name,
             Picture = x.Picture,
             Description = x.Description,
             ShowOrder = x.ShowOrder,
-            CreationDate = x.CreationDate.ToFarsi()
+            CreationDate = x.CreationDate.ToFarsi(),
+            ArticleCount = x.Articles.Count(),
         });
 
         if (!string.IsNullOrWhiteSpace(searchModel.Name))

@@ -19,12 +19,14 @@ public class SearchModel : PageModel
     public IActionResult OnGet(string searchKey)
     {
         SearchValue = searchKey;
+
         if (string.IsNullOrWhiteSpace(searchKey))
         {
             return RedirectToPage("/EmptySearchItem");
         }
 
         Products = _productQuery.Search(searchKey);
+
         if (Products.Count() > 0)
         {
             return Page();

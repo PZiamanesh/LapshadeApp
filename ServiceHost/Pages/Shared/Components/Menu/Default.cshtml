@@ -1,5 +1,5 @@
-﻿@using _LampshadeQuery.Contract.ProductCategory
-@model IEnumerable<ProductCategoryQueryModel>
+﻿@using _LampshadeQuery.Contract.Menu
+@model MenuQueryModel
 @{
 }
 
@@ -11,7 +11,7 @@
                 <div class="header-wrapper d-none d-lg-flex">
                     <!-- logo -->
                     <div class="logo">
-                        <a href="index.html">
+                        <a asp-page="/Index">
                             <img src="~/Theme/assets/img/logo.png" class="img-fluid" alt="">
                         </a>
                     </div>
@@ -26,7 +26,7 @@
                                 <li class="menu-item-has-children">
                                     <a href="#">محصولات</a>
                                     <ul class="sub-menu">
-                                        @foreach (var category in Model)
+                                        @foreach (var category in Model.ProductCategories)
                                         {
                                             <li>
                                                 <a asp-page="/ProductCategory" asp-route-id="@category.Slug">@category.Name</a>
@@ -38,12 +38,12 @@
                                 <li class="menu-item-has-children">
                                     <a href="#">بلاگ</a>
                                     <ul class="sub-menu">
-                                        <li>
-                                            <a asp-page="">گروه 1</a>
-                                        </li>
-                                        <li>
-                                            <a asp-page="">گروه 2</a>
-                                        </li>
+                                        @foreach (var category in Model.ArticleCategories)
+                                        {
+                                            <li>
+                                                <a asp-page="/ArticleCategory" asp-route-id="@category.Slug">@category.Name</a>
+                                            </li>
+                                        }
                                     </ul>
                                 </li>
 

@@ -49,7 +49,7 @@ public class ArticleRepository : RepositoryBase<long, Article>, IArticleReposito
             {
                 Id = x.Id,
                 Title = x.Title,
-                ShortDescription = x.ShortDescription,
+                ShortDescription = x.ShortDescription.Substring(0, Math.Min(x.ShortDescription.Length, 50)) + "...",
                 Picture = x.Picture,
                 PublishDate = x.PublishDate.ToFarsi(),
                 Category = x.Category.Name,
