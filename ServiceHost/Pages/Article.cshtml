@@ -1,7 +1,9 @@
 ﻿@page "{id}"
 @model ServiceHost.Pages.ArticleModel
 @{
-    ViewData["Title"] = "مقاله";
+    ViewData["Title"] = Model.Article.Title;
+    ViewData["Keywords"] = Model.Article.Keywords;
+    ViewData["MetaDescription"] = Model.Article.MetaDescription;
     var tags = Model.Article.Keywords.Split(",");
 }
 

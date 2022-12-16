@@ -4,6 +4,8 @@ using DiscountMgmt.Infrastructure.Configuration;
 using InventoryMgmt.Infrastructure.Configuration;
 using ServiceHost;
 using ShopMgmt.Infrastructure.Configuration;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,7 @@ DiscountMgmtBootstrapper.ConfigureService(builder.Services, connectionString);
 InventoryMgmtBootstrapper.ConfigureService(builder.Services, connectionString);
 BlogMgmtBootstrapper.ConfigureService(builder.Services, connectionString);
 
+builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
 builder.Services.AddTransient<IFileUploader, FileUploader>();
 builder.Services.AddRazorPages();
 
