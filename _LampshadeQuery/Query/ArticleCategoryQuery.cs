@@ -58,6 +58,7 @@ public class ArticleCategoryQuery : IArticleCategoryQuery
             Picture = x.Picture,
             PictureAlt = x.PictureAlt,
             PictureTitle= x.PictureTitle,
+            ShortDescription = x.ShortDescription,
             PublishDate = x.PublishDate.ToFarsi()
         }).ToList();
     }

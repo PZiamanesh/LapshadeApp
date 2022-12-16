@@ -34,12 +34,12 @@ public class ArticleQuery : IArticleQuery
                 CategoryId = x.CategoryId,
                 CategoryName = x.Category.Name,
                 CategorySlug = x.Category.Slug
-            }).AsNoTracking().FirstOrDefault(x=>x.Slug == slug);
+            }).AsNoTracking().FirstOrDefault(x => x.Slug == slug);
     }
 
     public List<ArticleQueryModel> GetLatestArticles()
     {
-        return _blogContext.Articles
+        var latestArticles = _blogContext.Articles
             .Include(x => x.Category)
             .Where(x => x.PublishDate <= DateTime.Now)
             .Select(x => new ArticleQueryModel
@@ -52,6 +52,13 @@ public class ArticleQuery : IArticleQuery
                 PictureTitle = x.PictureTitle,
                 Slug = x.Slug,
             }).AsNoTracking().ToList();
+
+        if (latestArticles.Count > 6)
+        {
+            latestArticles = latestArticles.Take(5).ToList();
+        }
+
+        return latestArticles;
     }
 }
 

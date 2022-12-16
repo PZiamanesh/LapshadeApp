@@ -8,15 +8,23 @@ namespace ServiceHost.Pages;
 public class ArticleCategoryModel : PageModel
 {
     private readonly IArticleCategoryQuery _articleCategoryQuery;
-    public ArticleCategoryQueryModel ArticleCategory { get; set; }
+    private readonly IArticleQuery _articleQuery;
 
-    public ArticleCategoryModel(IArticleCategoryQuery articleCategoryQuery)
+    public ArticleCategoryQueryModel ArticleCategory { get; set; }
+    public List<ArticleCategoryQueryModel> ArticleCategories { get; set; }
+    public List<ArticleQueryModel> LatestArticles { get; set; }
+
+    public ArticleCategoryModel(IArticleCategoryQuery articleCategoryQuery,
+        IArticleQuery articleQuery)
     {
         _articleCategoryQuery = articleCategoryQuery;
+        _articleQuery = articleQuery;
     }
 
     public void OnGet(string id)
     {
         ArticleCategory = _articleCategoryQuery.GetArticleCategory(id);
+        ArticleCategories = _articleCategoryQuery.GetArticleCategories();
+        LatestArticles = _articleQuery.GetLatestArticles();
     }
 }
