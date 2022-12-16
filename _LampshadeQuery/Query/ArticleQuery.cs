@@ -14,11 +14,10 @@ public class ArticleQuery : IArticleQuery
         _blogContext = blogContext;
     }
 
-    public List<ArticleQueryModel> GetLatestArticles()
+    public ArticleQueryModel GetArticleDetails(string slug)
     {
         return _blogContext.Articles
             .Include(x => x.Category)
-            .Where(x => x.PublishDate <= DateTime.Now)
             .Select(x => new ArticleQueryModel
             {
                 Title = x.Title,
@@ -35,6 +34,23 @@ public class ArticleQuery : IArticleQuery
                 CategoryId = x.CategoryId,
                 CategoryName = x.Category.Name,
                 CategorySlug = x.Category.Slug
+            }).AsNoTracking().FirstOrDefault(x=>x.Slug == slug);
+    }
+
+    public List<ArticleQueryModel> GetLatestArticles()
+    {
+        return _blogContext.Articles
+            .Include(x => x.Category)
+            .Where(x => x.PublishDate <= DateTime.Now)
+            .Select(x => new ArticleQueryModel
+            {
+                Title = x.Title,
+                ShortDescription = x.ShortDescription,
+                PublishDate = x.PublishDate.ToFarsi(),
+                Picture = x.Picture,
+                PictureAlt = x.PictureAlt,
+                PictureTitle = x.PictureTitle,
+                Slug = x.Slug,
             }).AsNoTracking().ToList();
     }
 }

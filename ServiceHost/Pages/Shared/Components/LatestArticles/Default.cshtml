@@ -49,7 +49,7 @@
                                             <!--=======  single slider post  =======-->
                                             <div class="single-slider-post">
                                                 <div class="single-slider-post__image">
-                                                    <a href="blog-post-left-sidebar.html">
+                                                    <a asp-page="/Article" asp-route-id="@article.Slug">
                                                         <img src="~/ProductPictures/@article.Picture" style="height:197px;"
                                                          class="img-fluid" alt="@article.PictureAlt" title="@article.PictureTitle">
                                                     </a>
@@ -61,7 +61,7 @@
                                                 </div>
                                                 <div class="single-slider-post__content">
                                                     <h3 class="title">
-                                                        <a href="blog-post-left-sidebar.html">
+                                                        <a asp-page="/Article" asp-route-id="@article.Slug">
                                                             @article.Title
                                                         </a>
                                                     </h3>
@@ -69,7 +69,7 @@
                                                     <p class="short-desc">
                                                         @article.ShortDescription
                                                     </p>
-                                                    <a href="blog-post-left-sidebar.html" class="blog-post-link">
+                                                    <a asp-page="/Article" asp-route-id="@article.Slug" class="blog-post-link">
                                                         ادامه مطلب
                                                     </a>
                                                 </div>
