@@ -1,7 +1,6 @@
 ﻿using _Framework.Domain;
-using ShopMgmt.Domain.ProductAgg;
 
-namespace ShopMgmt.Domain.CommentAgg;
+namespace CommentMgmt.Domain.CommentAgg;
 #nullable disable
 
 public class Comment : EntityBase<long>
@@ -11,29 +10,36 @@ public class Comment : EntityBase<long>
     public string Message { get; private set; }
     public bool IsConfirmed { get; private set; }
     public bool IsCanceled { get; private set; }
+    public long OwnerRecordId { get; private set; }
+    public int EntityType { get; private set; }
 
-    public long ProductId { get; private set; }
-    public Product Product { get; private set; }
+    public long ParentId { get; private set; }
+    public Comment Parent { get; private set; }
 
-    public Comment(string name, string email, string message, long productId)
+    public List<Comment> Children { get; private set; }
+
+    public Comment(string name, string email, string message,
+        long ownerRecordId, int entityType, long parentId)
     {
         Name = name;
         Email = email;
         Message = message;
-        ProductId = productId;
         IsConfirmed = false;
         IsCanceled = false;
+        OwnerRecordId = ownerRecordId;
+        EntityType = entityType;
+        ParentId = parentId;
     }
 
     public void Confirm()
     {
         IsConfirmed = true;
-        IsCanceled=false;
+        IsCanceled = false;
     }
 
     public void Cancel()
     {
         IsCanceled = true;
-        IsConfirmed=false;
+        IsConfirmed = false;
     }
 }

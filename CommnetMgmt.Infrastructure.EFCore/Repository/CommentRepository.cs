@@ -1,17 +1,17 @@
 ﻿using _Framework.Application;
 using _Framework.Infrastructure;
+using CommentMgmt.Application.Contract.Comment;
+using CommentMgmt.Domain.CommentAgg;
 using Microsoft.EntityFrameworkCore;
-using ShopMgmt.Application.Contract.Comment;
-using ShopMgmt.Domain.CommentAgg;
 
-namespace ShopMgmt.Infrastructure.EFCore.Repository;
+namespace CommentMgmt.Infrastructure.EFCore.Repository;
 #nullable disable
 
 public class CommentRepository : RepositoryBase<long, Comment>, ICommentRepository
 {
-    private readonly ShopContext _Context;
+    private readonly CommentContext _Context;
 
-    public CommentRepository(ShopContext context) : base(context)
+    public CommentRepository(CommentContext context) : base(context)
     {
         _Context = context;
     }
@@ -19,18 +19,17 @@ public class CommentRepository : RepositoryBase<long, Comment>, ICommentReposito
     public List<CommentViewModel> Search(CommentSearchModel searchModel)
     {
         var query = _Context.Comments
-            .Include(x => x.Product)
             .Select(x => new CommentViewModel
             {
                 Id = x.Id,
-                ProductId = x.ProductId,
-                Product = x.Product.Name,
                 Name = x.Name,
                 Email = x.Email,
                 Message = x.Message,
                 CreationDate = x.CreationDate.ToFarsi(),
                 IsConfirmed = x.IsConfirmed,
-                IsCanceled = x.IsCanceled
+                IsCanceled = x.IsCanceled,
+                OwnerRecordId = x.OwnerRecordId,
+                EntityType = x.EntityType
             }).AsNoTracking().OrderByDescending(x => x.Id).ToList();
 
 

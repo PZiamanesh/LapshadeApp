@@ -1,5 +1,4 @@
 ﻿using _Framework.Domain;
-using ShopMgmt.Domain.CommentAgg;
 using ShopMgmt.Domain.ProductCategoryAgg;
 using ShopMgmt.Domain.ProductPictureAggr;
 
@@ -23,12 +22,10 @@ public class Product : EntityBase<long>
     public ProductCategory Category { get; private set; }
 
     public ICollection<ProductPicture> Pictures { get; private set; }
-    public ICollection<Comment> Comments { get; private set; }
 
     protected Product()
     {
         Pictures = new List<ProductPicture>();
-        Comments = new List<Comment>();
     }
 
     public Product(

@@ -1,7 +1,7 @@
 ﻿using _Framework.Domain;
-using ShopMgmt.Application.Contract.Comment;
+using CommentMgmt.Application.Contract.Comment;
 
-namespace ShopMgmt.Domain.CommentAgg;
+namespace CommentMgmt.Domain.CommentAgg;
 #nullable disable
 
 public interface ICommentRepository : IRepository<long, Comment>

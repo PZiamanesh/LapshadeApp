@@ -1,4 +1,4 @@
-﻿namespace ShopMgmt.Application.Contract.Comment;
+﻿namespace CommentMgmt.Application.Contract.Comment;
 #nullable disable
 
 public record CommentSearchModel

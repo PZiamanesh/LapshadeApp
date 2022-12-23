@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CommentMgmt.Application.Contract.Comment;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using ShopMgmt.Application.Contract.Comment;
 
-namespace ServiceHost.Areas.Administration.Pages.Shop.Comment;
+namespace ServiceHost.Areas.Administration.Pages.Comment;
 #nullable disable
 
 public class IndexModel : PageModel

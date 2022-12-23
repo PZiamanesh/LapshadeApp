@@ -1,7 +1,7 @@
 ﻿using _LampshadeQuery.Contract.Product;
+using CommentMgmt.Application.Contract.Comment;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using ShopMgmt.Application.Contract.Comment;
 
 namespace ServiceHost.Pages;
 #nullable disable

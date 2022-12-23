@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ShopMgmt.Infrastructure.EFCore.Migrations
+namespace CommentMgmt.Infrastructure.EFCore.Migrations
 {
     public partial class CommentAggAdded : Migration
     {

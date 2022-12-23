@@ -7,7 +7,6 @@ SinglePage.LoadModal = function () {
         return;
     }
     url = url.split("showmodal=")[1];
-
     $.ajax({
         url: url,
         type: "get",
@@ -18,7 +17,6 @@ SinglePage.LoadModal = function () {
             $.validator.unobtrusive.parse(modal);
             showModal();
         })
-
         .fail(function (error) {
             alert("خطایی رخ داده، لطفا با مدیر سیستم تماس بگیرید.");
         })

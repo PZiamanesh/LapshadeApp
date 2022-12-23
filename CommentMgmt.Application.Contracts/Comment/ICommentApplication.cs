@@ -1,6 +1,6 @@
 ﻿using _Framework.Application;
 
-namespace ShopMgmt.Application.Contract.Comment;
+namespace CommentMgmt.Application.Contract.Comment;
 
 public interface ICommentApplication
 {
