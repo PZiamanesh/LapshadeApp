@@ -16,8 +16,6 @@ public class Comment : EntityBase<long>
     public long ParentId { get; private set; }
     public Comment Parent { get; private set; }
 
-    public List<Comment> Children { get; private set; }
-
     public Comment(string name, string email, string message,
         long ownerRecordId, int entityType, long parentId)
     {

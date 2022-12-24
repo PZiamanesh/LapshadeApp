@@ -1,5 +1,6 @@
 ﻿using _LampshadeQuery.Contract.Product;
 using CommentMgmt.Application.Contract.Comment;
+using CommentMgmt.Infrastructure.EFCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -25,6 +26,7 @@ public class ProductModel : PageModel
 
     public IActionResult OnPost(AddComment command, string productSlug)
     {
+        command.EntityType = CommentType.Product;
         var result = _commentApplication.AddComment(command);
         if (result.IsSucceeded)
         {

@@ -1,9 +1,11 @@
 ﻿using _Framework.Application;
 using _LampshadeQuery.Contract.Product;
+using CommentMgmt.Domain.CommentAgg;
+using CommentMgmt.Infrastructure.EFCore;
 using DiscountMgmt.Infrastructure.EFCore;
 using InventoryMgmt.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
-using ShopMgmt.Domain.CommentAgg;
+using ShopMgmt.Domain.ProductAgg;
 using ShopMgmt.Domain.ProductPictureAggr;
 using ShopMgmt.Infrastructure.EFCore;
 
@@ -14,14 +16,17 @@ public class ProductQuery : IProductQuery
     private readonly ShopContext _context;
     private readonly InventoryContext _inventoryContext;
     private readonly DiscountContext _discountContext;
+    private readonly CommentContext _commentContext;
 
     public ProductQuery(ShopContext context,
         InventoryContext inventoryContext,
-        DiscountContext discountContext)
+        DiscountContext discountContext,
+        CommentContext commentContext)
     {
         _context = context;
         _inventoryContext = inventoryContext;
         _discountContext = discountContext;
+        _commentContext = commentContext;
     }
 
     public IEnumerable<ProductQueryModel> GetLatestProducts()
@@ -104,6 +109,7 @@ public class ProductQuery : IProductQuery
     public ProductQueryModel GetProduct(string slug)
     {
         // get inventory and customer discount list
+
         var inventory = _inventoryContext.Inventory
             .Select(x => new
             {
@@ -140,10 +146,11 @@ public class ProductQuery : IProductQuery
                 MetaDescription = x.MetaDescription,
                 Keywords = x.Keywords,
 
-                Comments = MapComments(x.Comments)
             }).AsNoTracking().FirstOrDefault(x => x.Slug == slug);
 
+        
         // get price
+
         double price = 0.0;
         var productInventory = inventory
             .FirstOrDefault(x => x.ProductId == product.Id);
@@ -169,6 +176,7 @@ public class ProductQuery : IProductQuery
         }
 
         // get discount
+
         var productWithDiscount = customerDiscounts
             .FirstOrDefault(x => x.ProductId == product.Id);
 
@@ -184,19 +192,22 @@ public class ProductQuery : IProductQuery
             product.HasDiscount = true;
         }
 
-        return product;
-    }
+        // inject comments
 
-    private static List<CommentQueryModel> MapComments(ICollection<Comment> comments)
-    {
-        return comments
-            .Where(x=> !x.IsCanceled && x.IsConfirmed)
-            .Select(x => new CommentQueryModel 
+        product.Comments = _commentContext.Comments
+            .Where(x => !x.IsCanceled && x.IsConfirmed)
+            .Where(x => x.EntityType == CommentType.Product)
+            .Where(x => x.OwnerRecordId == product.Id)
+            .Select(x => new CommentQueryModel
             {
                 Id = x.Id,
                 Name = x.Name,
                 Message = x.Message,
-            }).OrderByDescending(x=>x.Id).ToList();
+
+            }).OrderByDescending(x => x.Id)
+            .AsNoTracking().ToList();
+
+        return product;
     }
 
     private static List<ProductPictureQueryModel> MapProductPictures(ICollection<ProductPicture> pictures)
