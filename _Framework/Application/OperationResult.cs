@@ -12,8 +12,7 @@ public class OperationResult
         return this;
     }
 
-    public OperationResult Failed(
-        string message = "متاسفانه مشکلی در پروسه انجام عملیات رخ داد. لطفا مجدداً تلاش فرمایید.")
+    public OperationResult Failed(string message = "متاسفانه مشکلی در پروسه انجام عملیات رخ داد. لطفا مجدداً تلاش فرمایید.")
     {
         IsSucceeded = false;
         Message = message;

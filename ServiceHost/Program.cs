@@ -1,4 +1,5 @@
 using _Framework.Application;
+using AccountMgmt.Infrastructure.Configuration;
 using BlogMgmt.Infrastructure.Configuration;
 using CommentMgmt.Infrastructure.Configuration;
 using DiscountMgmt.Infrastructure.Configuration;
@@ -11,14 +12,17 @@ using System.Text.Unicode;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("LampshadeDb");
+
 ShopMgmtBootstrapper.ConfigureService(builder.Services, connectionString);
 DiscountMgmtBootstrapper.ConfigureService(builder.Services, connectionString);
 InventoryMgmtBootstrapper.ConfigureService(builder.Services, connectionString);
 BlogMgmtBootstrapper.ConfigureService(builder.Services, connectionString);
 CommentMgmtBootstrapper.ConfigureService(builder.Services, connectionString);
+AccountMgmtBootstrapper.ConfigureService(builder.Services, connectionString);
 
 builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
-builder.Services.AddTransient<IFileUploader, FileUploader>();
+builder.Services.AddSingleton<IFileUploader, FileUploader>();
+builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
