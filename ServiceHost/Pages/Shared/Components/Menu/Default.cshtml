@@ -1,5 +1,9 @@
-﻿@using _LampshadeQuery.Contract.Menu
+﻿@using _Framework.Application
+@using _LampshadeQuery.Contract.Menu
+
 @model MenuQueryModel
+@inject IAuthHelper _authHelper
+
 @{
 }
 
@@ -50,9 +54,24 @@
                                 <li>
                                     <a asp-page="/Contact">تماس با ما</a>
                                 </li>
+
+                                @if(_authHelper.IsLoggedIn())
+                                {
+                                    <li>
+                                        <a asp-page="/Account" asp-page-handler="Logout">خروج</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a asp-page="/Account">ورود/ثبت نام</a>
+                                    </li>
+                                }
+
                             </ul>
                         </nav>
                     </div>
+
                     <!-- header icon -->
                     <div class="header-icon-wrapper">
                         <ul class="icon-list">

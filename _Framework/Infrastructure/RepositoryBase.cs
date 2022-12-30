@@ -1,5 +1,6 @@
 ﻿using _Framework.Domain;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace _Framework.Infrastructure;
 
@@ -29,7 +30,7 @@ public class RepositoryBase<TKey, TEntity> : IRepository<TKey, TEntity> where TE
         return _entities.ToList();
     }
 
-    public bool Exists(Func<TEntity, bool> expression)
+    public bool Exists(Expression<Func<TEntity, bool>> expression)
     {
         return _entities.Any(expression);
     }

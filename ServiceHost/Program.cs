@@ -4,6 +4,7 @@ using BlogMgmt.Infrastructure.Configuration;
 using CommentMgmt.Infrastructure.Configuration;
 using DiscountMgmt.Infrastructure.Configuration;
 using InventoryMgmt.Infrastructure.Configuration;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using ServiceHost;
 using ShopMgmt.Infrastructure.Configuration;
 using System.Text.Encodings.Web;
@@ -23,7 +24,24 @@ AccountMgmtBootstrapper.ConfigureService(builder.Services, connectionString);
 builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
 builder.Services.AddSingleton<IFileUploader, FileUploader>();
 builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
+builder.Services.AddSingleton<IAuthHelper, AuthHelper>();
+
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddRazorPages();
+
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.CheckConsentNeeded = context => true;
+    options.MinimumSameSitePolicy = SameSiteMode.Lax;
+});
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, o =>
+    {
+        o.LoginPath = new PathString("/Account");
+        o.LogoutPath = new PathString("/Account");
+        o.AccessDeniedPath = new PathString("/AccessDenied");
+    });
 
 var app = builder.Build();
 
@@ -37,7 +55,11 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
+app.UseCookiePolicy();
+
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

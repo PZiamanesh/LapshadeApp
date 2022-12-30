@@ -1,6 +1,8 @@
-﻿using _Framework.Infrastructure;
+﻿using _Framework.Application;
+using _Framework.Infrastructure;
 using AccountMgmt.Application.Contract.Account;
 using AccountMgmt.Domain.AccountAgg;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccountMgmt.Infrastructure.EFCore.Repository;
 
@@ -11,6 +13,11 @@ public class AccountRepository : RepositoryBase<long, Account>, IAccountReposito
     public AccountRepository(AccountContext context) : base(context)
     {
         _context = context;
+    }
+
+    public Account GetByUser(string username)
+    {
+        return _context.Accounts.FirstOrDefault(x => x.Username == username);
     }
 
     public EditAccount GetDetails(long id)
@@ -30,15 +37,18 @@ public class AccountRepository : RepositoryBase<long, Account>, IAccountReposito
     public List<AccountViewModel> Search(AccountSearchModel searchModel)
     {
         var query = _context.Accounts
+            .Include(x=>x.Role)
             .Select(x => new AccountViewModel
             {
                 Id = x.Id,
                 Fullname = x.Fullname,
                 Username = x.Username,
                 Password = x.Password,
-                Role = "مدیر سیستم",
+                Role = x.Role.Name,
                 RoleId = x.RoleId,
                 ProfilePhoto = x.ProfilePhoto,
+                Mobile = x.Mobile,
+                CreationDate = x.CreationDate.ToFarsi()
             });
 
         if (!string.IsNullOrWhiteSpace(searchModel.Fullname))
