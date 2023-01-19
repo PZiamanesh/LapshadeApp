@@ -2,7 +2,9 @@
 
 public interface IAuthHelper
 {
-    void SignIn(AuthViewModel authModel);
+    void SignIn(AuthenticationModel authModel);
     void SignOut();
-    bool IsLoggedIn();
+    bool IsAuthonticated();
+    string AuthorizedRole();
+    UserInfoModel UserInfo();
 }

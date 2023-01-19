@@ -31,7 +31,7 @@ public class ProductQuery : IProductQuery
 
     public IEnumerable<ProductQueryModel> GetLatestProducts()
     {
-        // get inventory and customer discount list
+        // get inventory list
         var inventory = _inventoryContext.Inventory
             .Select(x => new
             {
@@ -41,9 +41,11 @@ public class ProductQuery : IProductQuery
                 currentCount = x.CalculateCurrentCount()
             });
 
+        // get customer discount list
         var customerDiscounts = _discountContext.CustomerDiscounts
             .Where(x => x.EndDate >= DateTime.Now)
             .Select(x => new { x.ProductId, x.DiscountRate });
+
 
         var products = _context.Products
             .Include(x => x.Category)
@@ -62,7 +64,7 @@ public class ProductQuery : IProductQuery
 
         foreach (var product in products)
         {
-            // get price
+            // get price of product
             double price = 0.0;
             var productInventory = inventory
                 .FirstOrDefault(x => x.ProductId == product.Id);
@@ -87,7 +89,7 @@ public class ProductQuery : IProductQuery
                 product.InStock = false;
             }
 
-            // get discount
+            // get discount of product
             var productWithDiscount = customerDiscounts
                 .FirstOrDefault(x => x.ProductId == product.Id);
 
@@ -108,8 +110,7 @@ public class ProductQuery : IProductQuery
 
     public ProductQueryModel GetProduct(string slug)
     {
-        // get inventory and customer discount list
-
+        // get inventory list
         var inventory = _inventoryContext.Inventory
             .Select(x => new
             {
@@ -119,10 +120,12 @@ public class ProductQuery : IProductQuery
                 currentCount = x.CalculateCurrentCount()
             });
 
+        // get customer discount list
         var customerDiscounts = _discountContext.CustomerDiscounts
             .Where(x => x.EndDate >= DateTime.Now)
             .Select(x => new { x.ProductId, x.DiscountRate, x.EndDate });
 
+        // assemble product
         var product = _context.Products
             .Include(x => x.Category)
             .Include(x => x.Pictures)
@@ -148,12 +151,10 @@ public class ProductQuery : IProductQuery
 
             }).AsNoTracking().FirstOrDefault(x => x.Slug == slug);
 
-        
-        // get price
 
+        // get price of product
         double price = 0.0;
-        var productInventory = inventory
-            .FirstOrDefault(x => x.ProductId == product.Id);
+        var productInventory = inventory.FirstOrDefault(x => x.ProductId == product.Id);
 
         if (productInventory is not null)
         {
@@ -175,8 +176,7 @@ public class ProductQuery : IProductQuery
             product.InStock = false;
         }
 
-        // get discount
-
+        // get discount of product
         var productWithDiscount = customerDiscounts
             .FirstOrDefault(x => x.ProductId == product.Id);
 
@@ -192,8 +192,7 @@ public class ProductQuery : IProductQuery
             product.HasDiscount = true;
         }
 
-        // inject comments
-
+        // inject comment system
         product.Comments = _commentContext.Comments
             .Where(x => !x.IsCanceled && x.IsConfirmed)
             .Where(x => x.EntityType == CommentType.Product)
@@ -259,7 +258,7 @@ public class ProductQuery : IProductQuery
 
         foreach (var product in products)
         {
-            // process price
+            // process price of product
             double price = 0.0;
             var productInventory = inventory
                 .FirstOrDefault(x => x.ProductId == product.Id);
@@ -284,7 +283,7 @@ public class ProductQuery : IProductQuery
                 product.InStock = false;
             }
 
-            // process discount
+            // process discount of product
             var productWithDiscount = customerDiscounts
                 .FirstOrDefault(x => x.ProductId == product.Id);
 

@@ -25,7 +25,7 @@ public class AccountRepository : RepositoryBase<long, Account>, IAccountReposito
         return _context.Accounts
             .Select(x => new EditAccount
             {
-                Id = id,
+                Id = x.Id,
                 Username = x.Username,
                 Fullname = x.Fullname,
                 Mobile = x.Mobile,
@@ -37,7 +37,7 @@ public class AccountRepository : RepositoryBase<long, Account>, IAccountReposito
     public List<AccountViewModel> Search(AccountSearchModel searchModel)
     {
         var query = _context.Accounts
-            .Include(x=>x.Role)
+            .Include(x => x.Role)
             .Select(x => new AccountViewModel
             {
                 Id = x.Id,

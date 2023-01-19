@@ -15,13 +15,29 @@ public class AuthHelper : IAuthHelper
         _contextAccessor = contextAccessor;
     }
 
-    public bool IsLoggedIn()
+    public bool IsAuthonticated()
     {
         var claims = _contextAccessor.HttpContext.User.Claims;
         return claims.Any();
     }
 
-    public void SignIn(AuthViewModel account)
+    public string AuthorizedRole()
+    {
+        if (IsAuthonticated())
+        {
+            return _contextAccessor
+                .HttpContext
+                .User
+                .Claims
+                .FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public void SignIn(AuthenticationModel account)
     {
         var claims = new List<Claim>
         {
@@ -38,14 +54,34 @@ public class AuthHelper : IAuthHelper
             ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1)
         };
 
-        _contextAccessor.HttpContext.SignInAsync(
-            CookieAuthenticationDefaults.AuthenticationScheme,
+        // handle signIn
+        _contextAccessor.HttpContext
+            .SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
             new ClaimsPrincipal(claimsIdentity),
             authProperties);
     }
 
     public void SignOut()
     {
-        _contextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        // handle signout
+        _contextAccessor.HttpContext
+            .SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+    }
+
+    public UserInfoModel UserInfo()
+    {
+        var user = new UserInfoModel();
+
+        if (!IsAuthonticated())
+        {
+            return user;
+        }
+
+        var claims = _contextAccessor.HttpContext.User.Claims.ToList();
+        user.UserName = claims.FirstOrDefault(x => x.Type == "Username").Value;
+        user.RoleId = claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+        user.Id = long.Parse(claims.FirstOrDefault(x => x.Type == "AccountId").Value);
+
+        return user;
     }
 }

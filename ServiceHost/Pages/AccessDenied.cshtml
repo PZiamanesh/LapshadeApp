@@ -1,8 +1,8 @@
 ﻿@page
-@model ServiceHost.Pages.EmptySearchItemModel
+@model ServiceHost.Pages.AccessDeniedModel
 
 @{
-    ViewData["Title"] = "موردی پیدا نشد";
+    ViewData["Title"] = "عدم دسترسی";
 }
 
 <div class="page-content-area">
@@ -13,9 +13,8 @@
                 <div class="page-wrapper">
                     <div class="page-content-wrapper">
                         <div class="row d-flex justify-content-center">
-                            <div class="col-md-5">
-                                <h3 class="text text-center text-warning">محصولی با این نام یا عبارت پیدا نشد</h3>
-                                <img class="img-fluid" src="~/Theme/assets/img/products/emptySearch.jpg" />
+                            <div class="col-md-8">
+                                <h2 class="text text-center text-danger">شما مجوز دسترسی به این قسمت را ندارید!</h2>
                             </div>
                         </div>
                     </div>

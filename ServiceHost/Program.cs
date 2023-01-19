@@ -1,4 +1,5 @@
 using _Framework.Application;
+using _Framework.Infrastructure;
 using AccountMgmt.Infrastructure.Configuration;
 using BlogMgmt.Infrastructure.Configuration;
 using CommentMgmt.Infrastructure.Configuration;
@@ -25,9 +26,7 @@ builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, Unico
 builder.Services.AddSingleton<IFileUploader, FileUploader>();
 builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
 builder.Services.AddSingleton<IAuthHelper, AuthHelper>();
-
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddRazorPages();
 
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
@@ -36,11 +35,42 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 });
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, o =>
+    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, cookieOption =>
     {
-        o.LoginPath = new PathString("/Account");
-        o.LogoutPath = new PathString("/Account");
-        o.AccessDeniedPath = new PathString("/AccessDenied");
+        cookieOption.LoginPath = new PathString("/Account");
+        cookieOption.LogoutPath = new PathString("/Account");
+        cookieOption.AccessDeniedPath = new PathString("/AccessDenied");
+    });
+
+builder.Services.AddAuthorization(authzOptions => {
+    authzOptions.AddPolicy("AdminPanel", policyBuilder =>
+    {
+        policyBuilder.RequireRole(Roles.Admin, Roles.ContentLoader);
+    });
+
+    authzOptions.AddPolicy("Shop", policyBuilder =>
+    {
+        policyBuilder.RequireRole(Roles.Admin);
+    });
+
+    authzOptions.AddPolicy("Discount", policyBuilder =>
+    {
+        policyBuilder.RequireRole(Roles.Admin);
+    });
+
+    authzOptions.AddPolicy("Account", policyBuilder =>
+    {
+        policyBuilder.RequireRole(Roles.Admin);
+    });
+});
+
+builder.Services.AddRazorPages()
+    .AddRazorPagesOptions(options =>
+    {
+        options.Conventions.AuthorizeAreaFolder("Administration", "/", "AdminPanel");
+        options.Conventions.AuthorizeAreaFolder("Administration", "/Shop", "Shop");
+        options.Conventions.AuthorizeAreaFolder("Administration", "/Discount", "Discount");
+        options.Conventions.AuthorizeAreaFolder("Administration", "/UserAccount", "Account");
     });
 
 var app = builder.Build();

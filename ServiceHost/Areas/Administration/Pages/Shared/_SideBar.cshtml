@@ -1,33 +1,24 @@
-﻿
+﻿@using AccountMgmt.Infrastructure.EFCore
+@using _Framework.Application
+@using _Framework.Infrastructure
+@inject IAuthHelper _authHelper
+@inject AccountContext _accountContext
+@{
+    var user = _authHelper.UserInfo();
+    var profilePicture = _accountContext.Accounts
+        .Select(x => new { x.Id, x.ProfilePhoto })
+        .FirstOrDefault(x => x.Id == user.Id);
+}
+
 <div class="left side-menu">
     <div class="sidebar-inner slimscrollleft">
         <div class="user-details">
             <div class="pull-left">
-                <img src="~/AdminTheme/assets/images/users/avatar-1.jpg" alt="" class="thumb-md img-circle">
+                <img src="~/ProductPictures/@profilePicture.ProfilePhoto" alt="" class="thumb-md img-circle">
             </div>
             <div class="user-info">
-                <div class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">John Doe <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="javascript:void(0)">
-                                <i class="md md-face-unlock"></i> Profile
-                                <div class="ripple-wrapper"></div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)"><i class="md md-settings"></i> Settings</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)"><i class="md md-lock"></i> Lock screen</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)"><i class="md md-settings-power"></i> Logout</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <p class="text-muted m-0">Administrator</p>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">@user.UserName</a>
+                <p class="text-muted m-0">@user.RoleMean()</p>
             </div>
         </div>
         <!--- Divider -->
@@ -38,59 +29,63 @@
                         <i class="md md-home"></i><span> داشبورد </span>
                     </a>
                 </li>
-
-                <li>
-                    <a asp-page="/Inventory/Index" class="waves-effect">
-                        <i class="md md-business"></i><span> انبارداری </span>
-                    </a>
-                </li>
-
-                <li class="has_sub">
-                    <a class="waves-effect">
-                        <i class="md-shopping-cart"></i><span> فروشگاه </span>
-                        <span class="pull-right">
-                            <i class="md md-add"></i>
-                        </span>
-                    </a>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a asp-page="/Shop/ProductCategory/Index">گروه محصولات</a>
-                        </li>
-                        <li>
-                            <a asp-page="/Shop/Product/Index">محصولات</a>
-                        </li>
-                        <li>
-                            <a asp-page="/Shop/ProductPicture/Index">عکس محصولات</a>
-                        </li>
-                        <li>
-                            <a asp-page="/Shop/Slide/Index">اسلایدها</a>
-                        </li>
-                    </ul>
-                </li>
-
+                @if (_authHelper.AuthorizedRole() == Roles.Admin)
+                {
+                    <li>
+                        <a asp-page="/Inventory/Index" class="waves-effect">
+                            <i class="md md-business"></i><span> انبارداری </span>
+                        </a>
+                    </li>
+                }
                 <li>
                     <a asp-page="/Comment/Index" class="waves-effect">
                         <i class="ion-chatbubbles"></i><span> کامنت ها </span>
                     </a>
                 </li>
-
-                <li class="has_sub">
-                    <a class="waves-effect">
-                        <i class="md-loyalty"></i><span> تخفیفات </span>
-                        <span class="pull-right">
-                            <i class="md md-add"></i>
-                        </span>
-                    </a>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a asp-page="/Discount/CustomerDiscount/Index">تخفیف مشتریان</a>
-                        </li>
-                        <li>
-                            <a asp-page="/Discount/ColleagueDiscount/Index">تخفیف همکاران</a>
-                        </li>
-                    </ul>
-                </li>
-
+                @if (_authHelper.AuthorizedRole() == Roles.Admin)
+                {
+                    <li class="has_sub">
+                        <a class="waves-effect">
+                            <i class="md-shopping-cart"></i><span> فروشگاه </span>
+                            <span class="pull-right">
+                                <i class="md md-add"></i>
+                            </span>
+                        </a>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a asp-page="/Shop/ProductCategory/Index">گروه محصولات</a>
+                            </li>
+                            <li>
+                                <a asp-page="/Shop/Product/Index">محصولات</a>
+                            </li>
+                            <li>
+                                <a asp-page="/Shop/ProductPicture/Index">عکس محصولات</a>
+                            </li>
+                            <li>
+                                <a asp-page="/Shop/Slide/Index">اسلایدها</a>
+                            </li>
+                        </ul>
+                    </li>
+                }
+                @if (_authHelper.AuthorizedRole() == Roles.Admin)
+                {
+                    <li class="has_sub">
+                        <a class="waves-effect">
+                            <i class="md-loyalty"></i><span> تخفیفات </span>
+                            <span class="pull-right">
+                                <i class="md md-add"></i>
+                            </span>
+                        </a>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a asp-page="/Discount/CustomerDiscount/Index">تخفیف مشتریان</a>
+                            </li>
+                            <li>
+                                <a asp-page="/Discount/ColleagueDiscount/Index">تخفیف همکاران</a>
+                            </li>
+                        </ul>
+                    </li>
+                }
                 <li class="has_sub">
                     <a class="waves-effect">
                         <i class="ion-happy"></i><span> بلاگ </span>
@@ -107,22 +102,29 @@
                         </li>
                     </ul>
                 </li>
-
-                <li class="has_sub">
-                    <a class="waves-effect">
-                        <i class="ion-android-social"></i><span> حساب کاربری </span>
-                        <span class="pull-right">
-                            <i class="md md-add"></i>
-                        </span>
+                @if (_authHelper.AuthorizedRole() == Roles.Admin)
+                {
+                    <li class="has_sub">
+                        <a class="waves-effect">
+                            <i class="ion-android-social"></i><span> حساب کاربری </span>
+                            <span class="pull-right">
+                                <i class="md md-add"></i>
+                            </span>
+                        </a>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a asp-page="/UserAccount/Account/Index">کاربران</a>
+                            </li>
+                            <li>
+                                <a asp-page="/UserAccount/Role/Index">نقش ها</a>
+                            </li>
+                        </ul>
+                    </li>
+                }
+                <li>
+                    <a asp-page="Account" asp-page-handler="Logout">
+                        <i class="md md-settings-power"></i><span> خروج </span>
                     </a>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a asp-page="/UserAccount/Account/Index">کاربران</a>
-                        </li>
-                        <li>
-                            <a asp-page="/UserAccount/Role/Index">نقش ها</a>
-                        </li>
-                    </ul>
                 </li>
             </ul>
             <div class="clearfix"></div>

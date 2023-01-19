@@ -13,11 +13,6 @@ public class FileTypeAttribute : ValidationAttribute, IClientModelValidator
         _fileTypes = fileTypes;
     }
 
-    public void AddValidation(ClientModelValidationContext context)
-    {
-        context.Attributes.Add("data-val-fileType", ErrorMessage);
-    }
-
     public override bool IsValid(object? value)
     {
         var file = value as IFormFile;
@@ -25,5 +20,10 @@ public class FileTypeAttribute : ValidationAttribute, IClientModelValidator
 
         string fileType = Path.GetExtension(file.FileName);
         return _fileTypes.Contains(fileType);
+    }
+
+    public void AddValidation(ClientModelValidationContext context)
+    {
+        context.Attributes.Add("data-val-fileType", ErrorMessage);
     }
 }

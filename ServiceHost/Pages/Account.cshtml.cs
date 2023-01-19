@@ -37,4 +37,18 @@ public class AccountModel : PageModel
         _accountApplication.Logout();
         return RedirectToPage("/Index");
     }
+
+    public async Task<IActionResult> OnPostRegister(CreateAccount command)
+    {
+
+        var result = await _accountApplication.Register(command);
+
+        if (!result.IsSucceeded)
+        {
+            ViewData["RegisterErr"] = result.Message;
+            return Page();
+        }
+
+        return RedirectToPage("/Index");
+    }
 }

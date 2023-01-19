@@ -29,6 +29,7 @@
                 <div class="page-wrapper">
                     <div class="page-content-wrapper">
                         <div class="row">
+
                             <div class="col-sm-12 col-md-12 col-xs-12 col-lg-6">
 
                                 @if (ViewData["LoginErr"] != null)
@@ -75,7 +76,17 @@
                             </div>
 
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
-                                <form action="#">
+
+                                @if (ViewData["RegisterErr"] != null)
+                                {
+                                    <div class="alert alert-danger">@ViewData["RegisterErr"]</div>
+                                }
+                                else
+                                {
+                                    <div></div>
+                                }
+
+                                <form method="post" asp-page-handler="Register">
 
                                     <div class="login-form">
                                         <h4 class="login-title">ثبت نام</h4>
@@ -106,7 +117,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </form>
                             </div>
                         </div>

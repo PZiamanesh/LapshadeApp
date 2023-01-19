@@ -38,7 +38,7 @@ public class IndexModel : PageModel
 
     public async Task<JsonResult> OnPostCreate(CreateAccount command)
     {
-        var result = await _accountApplication.Create(command);
+        var result = await _accountApplication.Register(command);
 
         if (result.IsSucceeded)
         {
@@ -51,6 +51,8 @@ public class IndexModel : PageModel
     public IActionResult OnGetEdit(long id)
     {
         var account = _accountApplication.GetDetails(id);
+        var roles = _roleApplication.GetRoles();
+        account.Roles = roles;
         return Partial("./Edit", account);
     }
 

@@ -1,5 +1,8 @@
 ﻿@using AccountMgmt.Application.Contract.Account
 @model EditAccount
+@{
+
+}
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -43,7 +46,7 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label asp-for="RoleId" class="control-label">نقش</label>
-                    <select class="form-control" asp-for="RoleId" asp-items="@(new SelectList(Model.Roles, "Id", "Name"))">
+                    <select class="form-control" asp-for="RoleId" asp-items='@(new SelectList(Model.Roles, "Id", "Name"))'>
                         <option value="0">-- نقش ها --</option>
                     </select>
                     <span asp-validation-for="RoleId" class="error"></span>

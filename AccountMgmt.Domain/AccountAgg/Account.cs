@@ -26,7 +26,8 @@ public class Account : EntityBase<long>
         Username = username;
         Password = password;
         Mobile = mobile;
-        RoleId = roleId;
+
+        RoleId = roleId == 0 ? 2 : roleId;
 
         if (!string.IsNullOrWhiteSpace(profilePhoto))
         {

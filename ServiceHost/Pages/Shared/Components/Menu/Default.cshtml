@@ -1,4 +1,5 @@
 ﻿@using _Framework.Application
+@using _Framework.Infrastructure
 @using _LampshadeQuery.Contract.Menu
 
 @model MenuQueryModel
@@ -55,7 +56,7 @@
                                     <a asp-page="/Contact">تماس با ما</a>
                                 </li>
 
-                                @if(_authHelper.IsLoggedIn())
+                                @if (_authHelper.IsAuthonticated())
                                 {
                                     <li>
                                         <a asp-page="/Account" asp-page-handler="Logout">خروج</a>
@@ -68,6 +69,13 @@
                                     </li>
                                 }
 
+                                @if (_authHelper.AuthorizedRole() == Roles.Admin ||
+                                _authHelper.AuthorizedRole() == Roles.ContentLoader)
+                                {
+                                    <li>
+                                        <a asp-area="Administration" asp-page="/Index">پنل ادمین</a>
+                                    </li>
+                                }
                             </ul>
                         </nav>
                     </div>

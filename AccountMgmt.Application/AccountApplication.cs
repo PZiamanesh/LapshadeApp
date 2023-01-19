@@ -44,16 +44,21 @@ public class AccountApplication : IAccountApplication
         return taskResult.Succeeded();
     }
 
-    public async Task<OperationResult> Create(CreateAccount command)
+    public async Task<OperationResult> Register(CreateAccount command)
     {
         var taskResult = new OperationResult();
 
-        if ( _accountRepository.Exists(x=> 
+        if (_accountRepository.Exists(x =>
                 x.Username.Equals(command.Username, StringComparison.InvariantCultureIgnoreCase) ||
                 x.Mobile.Equals(command.Mobile, StringComparison.InvariantCultureIgnoreCase))
            )
         {
             return taskResult.Failed("کاربری با این مشخصات ثبت نام کرده است");
+        }
+
+        if (command.Password != command.RePassword)
+        {
+            return taskResult.Failed(ApplicationMessage.PasswordNotMatched);
         }
 
         var hashedPassword = _passwordHasher.Hash(command.Password);
@@ -98,21 +103,23 @@ public class AccountApplication : IAccountApplication
     public OperationResult Login(Login command)
     {
         var result = new OperationResult();
-        var account = _accountRepository.GetByUser(command.Username);
 
+        // is acount exists?
+        var account = _accountRepository.GetByUser(command.Username);
         if (account is null)
         {
            return result.Failed(ApplicationMessage.WrongLoginInfo);
         }
 
+        // is password ok?
         var passwordResult = _passwordHasher.Check(account.Password, command.Password);
-
         if (!passwordResult.Verified)
         {
            return result.Failed(ApplicationMessage.WrongLoginInfo);
         }
 
-        var authModel = new AuthViewModel(account.Id, account.RoleId, account.Username, account.Fullname);
+        var authModel = new AuthenticationModel(account.Id, account.RoleId,
+            account.Username, account.Fullname);
 
         _authHelper.SignIn(authModel);
 
