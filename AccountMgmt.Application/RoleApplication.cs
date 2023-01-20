@@ -22,7 +22,7 @@ public class RoleApplication : IRoleApplication
             return taskResult.Failed(ApplicationMessage.DuplicatedRecord);
         }
 
-        var role = new Role(command.Name);
+        var role = new Role(command.Name, new List<Permission>());
         _roleRepository.Create(role);
         _roleRepository.Save();
         return taskResult.Succeeded("نقش با موفقیت ایجاد شد");
@@ -41,7 +41,7 @@ public class RoleApplication : IRoleApplication
             return taskResult.Failed(ApplicationMessage.DuplicatedRecord);
         }
 
-        role.Edit(command.Name);
+        role.Edit(command.Name, new List<Permission>());
         _roleRepository.Save();
         return taskResult.Succeeded(ApplicationMessage.RecordEdited);
     }

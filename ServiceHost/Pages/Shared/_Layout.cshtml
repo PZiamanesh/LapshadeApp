@@ -13,7 +13,7 @@
     {
         <title>پروژه طراحی سایت</title>
     }
-    
+
     <meta name="keywords" content="@ViewData["Keywords"]" />
     <meta name="description" content="@ViewData["MetaDescription"]" />
 
@@ -29,8 +29,6 @@
     @RenderBody()
 
     @await Component.InvokeAsync("Footer")
-
-
 
     <div class="search-overlay" id="search-overlay">
         <a href="javascript:void(0)" class="close-search-overlay" id="close-search-overlay">
@@ -52,54 +50,13 @@
         <span>برو بالا</span><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i>
     </div>
 
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/Theme/assets/js/plugins.js"></script>
     <script src="~/Theme/assets/js/vendors.js"></script>
     <script src="~/Theme/assets/js/active.js"></script>
-
-    <script>
-        $(".alert-dismissible").fadeOut(8000);
-
-        $(document).ready(function () {
-            let articlesHtml = document.querySelectorAll('.persDateUpdate');
-            for(let index = 0; index < articlesHtml.length; index++){
-                const $date = $(this).find(`#ArticleTime${index}`).val()
-                const dateParts = $date.split('/');
-                const month = dateParts[1];
-                const day = dateParts[2];
-
-                let persianMonth = '';
-
-                if (month === '01')
-                    persianMonth = 'فروردین'
-                if (month === '02')
-                    persianMonth = 'اردیبهشت'
-                if (month === '03')
-                    persianMonth = 'خرداد'
-                if (month === '04')
-                    persianMonth = 'تیر'
-                if (month === '05')
-                    persianMonth = 'مرداد'
-                if (month === '06')
-                    persianMonth = 'شهریور'
-                if (month === '07')
-                    persianMonth = 'مهر'
-                if (month === '08')
-                    persianMonth = 'آبان'
-                if (month === '09')
-                    persianMonth = 'آذر'
-                if (month === '10')
-                    persianMonth = 'دی'
-                if (month === '11')
-                    persianMonth = 'بهمن'
-                if (month === '12')
-                    persianMonth = 'اسفند'
-
-                $(`.month${index}`).text(persianMonth)
-                $(`.day${index}`).text(day)
-            }
-        })
-
-    </script>
-
+    <script src="~/Theme/assets/js/persDateUpdate.js"></script>
+    <script src="~/Theme/assets/js/alertTimeOut.js"></script>
+    <script src="~/Theme/assets/js/addToCard.js"></script>
 </body>
 
 </html>

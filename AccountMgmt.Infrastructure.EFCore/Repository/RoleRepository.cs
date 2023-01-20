@@ -20,7 +20,7 @@ public class RoleRepository : RepositoryBase<long, Role>, IRoleRepository
         return _context.Roles
             .Select(x => new EditRole
             {
-                Id = id,
+                Id = x.Id,
                 Name = x.Name,
                 
             }).FirstOrDefault(x => x.Id == id);
