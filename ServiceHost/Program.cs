@@ -12,7 +12,7 @@ using System.Text.Encodings.Web;
 using System.Text.Unicode;
 
 var builder = WebApplication.CreateBuilder(args);
-var origin = "haha";
+
 var connectionString = builder.Configuration.GetConnectionString("LampshadeDb");
 
 ShopMgmtBootstrapper.ConfigureService(builder.Services, connectionString);
