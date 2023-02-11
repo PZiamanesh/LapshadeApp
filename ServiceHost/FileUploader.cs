@@ -4,6 +4,7 @@ namespace ServiceHost;
 
 public class FileUploader : IFileUploader
 {
+    string you = "done";
     private readonly IWebHostEnvironment _webHostEnvironment;
 
     public FileUploader(IWebHostEnvironment webHostEnvironment)
