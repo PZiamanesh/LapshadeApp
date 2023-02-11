@@ -1,4 +1,5 @@
-﻿using BlogMgmt.Application.Contract.ArticleCategory;
+﻿using _Framework.Application;
+using BlogMgmt.Application.Contract.ArticleCategory;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -27,6 +28,12 @@ public class IndexModel : PageModel
 
     public async Task<JsonResult> OnPostCreate(CreateArticleCategory command)
     {
+        if (!ModelState.IsValid)
+        {
+            var failed = new OperationResult();
+            failed.Message = "پر کردن تمام فیلدها الزامی است";
+            return new JsonResult(failed);
+        }
         var result = await _articleCategoryApplication.Create(command);
         if (result.IsSucceeded)
         {

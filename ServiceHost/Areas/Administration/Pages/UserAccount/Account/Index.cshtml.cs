@@ -1,3 +1,4 @@
+﻿using _Framework.Application;
 using AccountMgmt.Application.Contract.Account;
 using AccountMgmt.Application.Contract.Role;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +39,12 @@ public class IndexModel : PageModel
 
     public async Task<JsonResult> OnPostCreate(CreateAccount command)
     {
+        if (!ModelState.IsValid)
+        {
+            var failed = new OperationResult();
+            failed.Message = "پر کردن تمام فیلدها الزامی است";
+            return new JsonResult(failed);
+        }
         var result = await _accountApplication.Register(command);
 
         if (result.IsSucceeded)

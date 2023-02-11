@@ -1,3 +1,4 @@
+﻿using _Framework.Application;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -37,6 +38,12 @@ public class IndexModel : PageModel
 
     public async Task<JsonResult> OnPostCreate(CreateProduct command)
     {
+        if (!ModelState.IsValid)
+        {
+            var failed = new OperationResult();
+            failed.Message = "پر کردن تمام فیلدها الزامی است";
+            return new JsonResult(failed);
+        }
         var result = await _productApplication.Create(command);
         if (result.IsSucceeded)
         {

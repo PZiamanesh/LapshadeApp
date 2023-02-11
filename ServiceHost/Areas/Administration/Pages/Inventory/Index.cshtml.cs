@@ -1,3 +1,4 @@
+﻿using _Framework.Application;
 using InventoryMgmt.Application.Contract.Inventory;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -30,12 +31,24 @@ public class IndexModel : PageModel
 
     public IActionResult OnGetCreate()
     {
+        if (!ModelState.IsValid)
+        {
+            var failed = new OperationResult();
+            failed.Message = "پر کردن تمام فیلدها الزامی است";
+            return new JsonResult(failed);
+        }
         var inventory = new CreateInventory() { Products = _productApplication.GetProducts() };
         return Partial("./Create", inventory);
     }
 
     public JsonResult OnPostCreate(CreateInventory command)
     {
+        if (!ModelState.IsValid)
+        {
+            var failed = new OperationResult();
+            failed.Message = "پر کردن تمام فیلدها الزامی است";
+            return new JsonResult(failed);
+        }
         var result = _inventoryApplication.Create(command);
         if (result.IsSucceeded)
         {

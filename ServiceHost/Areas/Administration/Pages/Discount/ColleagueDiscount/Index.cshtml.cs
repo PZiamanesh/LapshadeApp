@@ -1,3 +1,4 @@
+﻿using _Framework.Application;
 using DiscountMgmt.Application.Contract.ColleagueDiscount;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -36,6 +37,12 @@ public class IndexModel : PageModel
 
     public JsonResult OnPostDefine(DefineColleagueDiscount command)
     {
+        if (!ModelState.IsValid)
+        {
+            var failed = new OperationResult();
+            failed.Message = "پر کردن تمام فیلدها الزامی است";
+            return new JsonResult(failed);
+        }
         var result = _colleagueDiscountApplication.Define(command);
         if (result.IsSucceeded)
         {

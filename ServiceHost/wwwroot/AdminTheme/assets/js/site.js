@@ -202,4 +202,5 @@ $.validator.addMethod("fileType", function (value, element, params) {
 });
 
 $.validator.unobtrusive.adapters.addBool("maxFileSize");
+
 $.validator.unobtrusive.adapters.addBool("fileType");

@@ -37,16 +37,11 @@
     <!-- Custom Files -->
     <link href="~/AdminTheme/assets/css/helper.css" rel="stylesheet" type="text/css" />
     <link href="~/AdminTheme/assets/css/styleRtl.css" rel="stylesheet" type="text/css" />
-
-    <script src="~/AdminTheme/assets/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="fixed-left">
-
     <!-- Begin page -->
     <div id="wrapper">
-
         <!-- Top Bar Start -->
         <div class="topbar">
             <!-- LOGO -->
@@ -166,17 +161,10 @@
                 </div>
             </div>
         </div>
-        <!-- Top Bar End -->
-        <!-- ========== Left Sidebar Start ========== -->
 
         <partial name="_SideBar"></partial>
 
-        <!-- Left Sidebar End -->
-        <!-- ============================================================== -->
-        <!-- Start right Content here -->
-        <!-- ============================================================== -->
         <div class="content-page">
-
             <!-- Start content -->
             <div class="content">
                 <div class="container">
@@ -187,13 +175,9 @@
             </div> <!-- content -->
 
             <footer class="footer text-right">
-                2022 - Pourya Ziamanesh
+                توسعه و برنامه نویسی توسط پوریا ضیامنش
             </footer>
-
         </div>
-        <!-- ============================================================== -->
-        <!-- End Right content here -->
-        <!-- ============================================================== -->
         <!-- Right Sidebar -->
         <div class="side-bar right-bar nicescroll">
             <h4 class="text-center">Chat</h4>
@@ -302,16 +286,12 @@
                 </ul>
             </div>
         </div>
-        <!-- /Right-bar -->
-
     </div>
-    <!-- END wrapper -->
 
+    <!-- MainModal -->
     <div id="MainModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
             <div class="modal-content" id="ModalContent">
-
-                @*form views are loaded here. logic is handled by site.js*@
 
             </div>
         </div>
@@ -319,6 +299,7 @@
 
     <!-- jQuery  -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <partial name="_ValidationScriptsPartial"></partial>
     <script src="~/AdminTheme/assets/js/bootstrap.min.js"></script>
     <script src="~/AdminTheme/assets/js/waves.js"></script>
     <script src="~/AdminTheme/assets/js/wow.min.js"></script>
@@ -330,8 +311,7 @@
     <script src="~/AdminTheme/assets/fastclick/fastclick.js"></script>
     <script src="~/AdminTheme/assets/jquery-slimscroll/jquery.slimscroll.js"></script>
     <script src="~/AdminTheme/assets/jquery-blockui/jquery.blockUI.js"></script>
-
-    @await RenderSectionAsync("Scripts", false)
+    <script src="~/AdminTheme/assets/js/modernizr.min.js"></script>
 
     <!-- sweet alerts -->
     <script src="~/AdminTheme/assets/sweet-alert/sweet-alert.min.js"></script>
@@ -363,13 +343,11 @@
     <!-- Todo -->
     <script src="~/AdminTheme/assets/js/jquery.todo.js"></script>
 
-
-    <partial name="_ValidationScriptsPartial"></partial>
+    @await RenderSectionAsync("Scripts", false)
     <script src="~/AdminTheme/assets/js/site.js"></script>
     <script src="~/AdminTheme/assets/js/persian-date.min.js"></script>
     <script src="~/AdminTheme/assets/js/persian-datepicker.min.js"></script>
-
-
+    <script src="https://cdn.tiny.cloud/1/bije27wit7eenyffi2ncsdy7ycv5iocvx8wexs5kishzfs5b/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         $(".alert-dismissible").fadeOut(10000);
 
@@ -377,12 +355,7 @@
             format: 'YYYY/MM/DD',
             autoClose: true,
         });
-    </script>
 
-
-    <script src="https://cdn.tiny.cloud/1/bije27wit7eenyffi2ncsdy7ycv5iocvx8wexs5kishzfs5b/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-
-    <script>
         tinymce.init({
             selector: '#BodyContent',
             plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
@@ -395,6 +368,5 @@
             ]
         });
     </script>
-
 </body>
 </html>

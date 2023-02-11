@@ -73,6 +73,9 @@ builder.Services.AddRazorPages()
         options.Conventions.AuthorizeAreaFolder("Administration", "/UserAccount", "Account");
     });
 
+//builder.Services.AddControllers();
+
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
@@ -94,5 +97,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.MapControllers();
 
 app.Run();
